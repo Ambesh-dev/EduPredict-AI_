@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#6d5efc">
+  <meta name="description" content="EduPredict AI - premium academic intelligence platform">
+  <title>EduPredict AI</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="ambient ambient-c"></div>
+<div id="toast"></div>
+
+<div id="authView" class="auth-shell">
+  <header class="auth-topbar">
+    <div class="brand-lockup"><div class="brand-mark">E</div><div><b>EduPredict</b><span>AI</span><small>Academic Intelligence</small></div></div>
+    <button id="previewBtn" class="ghost-btn">Preview premium dashboard <span>↗</span></button>
+  </header>
+  <main class="auth-stage">
+    <section class="hero-copy">
+      <div class="eyebrow">AI-POWERED ACADEMIC INTELLIGENCE</div>
+      <h1>See the signal.<br><em>Support the student.</em></h1>
+      <p>A polished dual-portal experience for students and educators - backed by Firebase Authentication, Firestore, secure roles and intelligent academic insights.</p>
+      <div class="hero-trust"><span>● Secure Auth</span><span>● Cloud Database</span><span>● Early Support</span><span>● PWA Ready</span></div>
+      <div class="hero-mini-grid">
+        <div class="mini-card"><strong>24/7</strong><span>Academic visibility</span></div>
+        <div class="mini-card"><strong>360°</strong><span>Student profile</span></div>
+        <div class="mini-card"><strong>01</strong><span>Unified workspace</span></div>
+      </div>
+    </section>
+
+    <section class="auth-card glass-panel">
+      <div class="auth-card-top"><div><div class="eyebrow">WELCOME BACK</div><h2>Choose your portal</h2></div><div class="secure-dot"><i></i> Protected</div></div>
+      <div class="auth-tabs"><button class="active" data-auth="student">Student</button><button data-auth="teacher">Teacher</button></div>
+      <div id="studentAuth">
+        <div class="auth-mode"><button class="active" data-mode="student-login">Sign in</button><button data-mode="student-signup">Create account</button></div>
+        <form id="studentLoginForm">
+          <label>Email or phone number<input id="slIdentity" required placeholder="you@gmail.com or +91 9876543210"></label>
+          <label>Password<input id="slPassword" required type="password" minlength="6" placeholder="••••••••"></label>
+          <button class="primary-btn wide" type="submit">Enter Student Portal <span>→</span></button>
+        </form>
+        <form id="studentSignupForm" class="hidden">
+          <label>Full name<input id="ssName" required placeholder="Your full name"></label>
+          <label>Email address<input id="ssEmail" required type="email" placeholder="you@gmail.com"></label>
+          <label>Phone number<input id="ssPhone" required type="tel" placeholder="+91 9876543210"></label>
+          <label>Password<input id="ssPassword" required type="password" minlength="6" placeholder="Minimum 6 characters"></label>
+          <div class="dual-fields"><label>Course<input id="ssCourse" placeholder="BCA"></label><label>Class / Year<input id="ssClass" placeholder="1st Year"></label></div>
+          <button class="primary-btn wide" type="submit">Create Student Account <span>→</span></button>
+        </form>
+      </div>
+      <div id="teacherAuth" class="hidden">
+        <div class="auth-mode"><button class="active" data-mode="teacher-login">Sign in</button><button data-mode="teacher-signup">Register</button></div>
+        <form id="teacherLoginForm">
+          <label>Email or phone number<input id="tlIdentity" required placeholder="teacher@gmail.com or +91 9876543210"></label>
+          <label>Password<input id="tlPassword" required type="password" minlength="6"></label>
+          <button class="primary-btn wide" type="submit">Enter Teacher Workspace <span>→</span></button>
+        </form>
+        <form id="teacherSignupForm" class="hidden">
+          <label>Full name<input id="tsName" required placeholder="Teacher name"></label>
+          <label>Gmail / Email<input id="tsEmail" required type="email" placeholder="teacher@gmail.com"></label>
+          <label>Phone number<input id="tsPhone" required type="tel" placeholder="+91 9876543210"></label>
+          <label>Password<input id="tsPassword" required type="password" minlength="6"></label>
+          <label>Role<select id="tsRole"><option value="teacher">Teacher</option><option value="hod">HOD</option><option value="dean">Dean</option></select></label>
+          <button class="primary-btn wide" type="submit">Request access <span>→</span></button>
+          <p class="helper">New staff accounts remain pending until an authorised administrator activates the role.</p>
+        </form>
+      </div>
+      <div class="auth-foot"><span>Firebase + Firestore</span><span>Privacy-first data controls</span></div>
+      <p id="configWarning" class="warning hidden">Add your Firebase web app config in <b>config.js</b>.</p>
+    </section>
+  </main>
+</div>
+
+<div id="appView" class="app-shell hidden">
+  <aside class="sidebar glass-sidebar">
+    <div class="sidebar-top">
+      <div class="brand-lockup"><div class="brand-mark">E</div><div><b>EduPredict</b><span>AI</span><small id="brandSub">Academic Intelligence</small></div></div>
+      <button id="sidebarCollapse" class="icon-btn slim" title="Collapse sidebar">⇆</button>
+    </div>
+    <div id="roleBadge" class="role-badge"></div>
+    <nav id="nav"></nav>
+    <div class="sidebar-pro"><div class="pro-orb">✦</div><div><strong>Insight mode</strong><span>Live academic workspace</span></div></div>
+    <button id="installBtnSide" class="install-btn hidden"><span>⌂</span> Install app</button>
+    <button id="logoutBtn" class="logout-btn">↪ <span>Sign out</span></button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar glass-topbar">
+      <div class="top-title"><div class="eyebrow" id="portalEyebrow">STUDENT ACADEMIC INTELLIGENCE</div><h2 id="pageTitle">Dashboard</h2></div>
+      <div class="top-actions"><button id="globalInstall" class="ghost-btn compact hidden">Install app</button><button id="refreshBtn" class="icon-btn" title="Refresh">↻</button><div id="userChip" class="user-chip"></div></div>
+    </header>
+    <section id="content"></section>
+  </main>
+
+  <div class="mobile-nav" id="mobileNav"></div>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script>
+// Register the service worker only on deployed HTTPS/localhost-safe environments.
+// Skipping it during local development prevents stale-cache loops while editing.
+if (location.protocol === 'https:' && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>

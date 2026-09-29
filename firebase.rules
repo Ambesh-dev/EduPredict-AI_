@@ -1,0 +1,77 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function self(uid) { return signedIn() && request.auth.uid == uid; }
+    function isStaff() {
+      return signedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in
+        ['teacher', 'hod', 'dean', 'admin'];
+    }
+
+    // Used only to resolve a phone number to the authentication email.
+    // The key is a SHA-256 hash of the normalized phone number, so the real
+    // phone number is not stored in the document path.
+    match /phone_index/{phoneHash} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if signedIn()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.authEmail == request.auth.token.email;
+      allow update, delete: if isStaff() || (signedIn() && resource.data.uid == request.auth.uid);
+    }
+
+    match /users/{uid} {
+      allow get: if self(uid) || isStaff();
+      allow list: if isStaff();
+      allow create: if self(uid);
+      allow update: if self(uid) || isStaff();
+      allow delete: if isStaff();
+    }
+
+    match /students/{uid} {
+      allow get: if self(uid) || isStaff();
+      allow list: if isStaff();
+      allow create: if self(uid);
+      allow update: if self(uid) || isStaff();
+      allow delete: if isStaff();
+    }
+
+    match /academic_records/{id} {
+      allow get, list: if isStaff() || (signedIn() && resource.data.student_id == request.auth.uid);
+      allow create, update, delete: if isStaff();
+    }
+
+    match /predictions/{id} {
+      allow get, list: if isStaff() || (signedIn() && resource.data.student_id == request.auth.uid);
+      allow create, update, delete: if isStaff();
+    }
+
+    match /notifications/{id} {
+      allow get, list: if isStaff() || (signedIn() && resource.data.student_id == request.auth.uid);
+      allow create: if isStaff();
+      allow update: if isStaff() || (signedIn() && resource.data.student_id == request.auth.uid);
+      allow delete: if isStaff();
+    }
+
+    match /activities/{id} {
+      allow get, list: if isStaff() || (signedIn() && resource.data.student_id == request.auth.uid);
+      allow create, update, delete: if isStaff();
+    }
+
+    match /model_runs/{id} {
+      allow read, write: if isStaff();
+    }
+
+    match /audit_logs/{id} {
+      allow read, write: if isStaff();
+    }
+
+    match /image_blobs/{id} {
+      allow get: if isStaff() || (signedIn() && resource.data.owner_uid == request.auth.uid);
+      allow list: if false;
+      allow create: if signedIn() && request.resource.data.owner_uid == request.auth.uid;
+      allow update, delete: if isStaff() || (signedIn() && resource.data.owner_uid == request.auth.uid);
+    }
+  }
+}

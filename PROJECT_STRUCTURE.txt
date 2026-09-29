@@ -1,0 +1,17 @@
+EduPredict AI root
+├── index.html
+├── app.js
+├── style.css
+├── config.js
+├── manifest.json
+├── manifest.webmanifest
+├── sw.js
+├── icon.svg
+├── showcase.html
+├── FIREBASE_SETUP.md
+├── firebase.rules
+├── README.md
+├── BACKEND_README.md
+├── main.py
+├── requirements.txt
+└── training_sample.csv
