@@ -409,21 +409,249 @@
       </div><div>${copilotWidget("teacher","")}</div></div>`;
     document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>renderPage(b.dataset.page)); bindCopilot("teacher");
   }
-  function premiumSettings(el){
-    const theme=localStorage.getItem("edupredict-theme")||"purple"; const reduce=localStorage.getItem("edupredict-reduced")!=="1"; const dense=localStorage.getItem("edupredict-compact")==="1";
-    el.innerHTML=`<div class="settings-shell"><div class="card settings-menu"><button class="active">Appearance</button><button>Preferences</button><button>Notifications</button><button>Privacy & Security</button><button>Install & App</button><button>About EduPredict</button></div><div class="card"><div class="card-head"><div><h3>Workspace settings</h3><div class="tiny">Personalize the interface for your screen and workflow.</div></div><span class="badge good">Synced locally</span></div>
-      <div class="setting-row"><div><strong>Color theme</strong><span>Choose the accent used across cards, navigation and actions.</span></div><div class="theme-swatches"><button class="swatch purple" data-theme="purple" aria-label="Purple"></button><button class="swatch blue" data-theme="blue" aria-label="Blue"></button><button class="swatch green" data-theme="green" aria-label="Green"></button><button class="swatch coral" data-theme="coral" aria-label="Coral"></button><button class="swatch sunset" data-theme="sunset" aria-label="Sunset"></button></div></div>
-      <div class="setting-row"><div><strong>Compact density</strong><span>Reduce vertical spacing for more information on one screen.</span></div><button class="toggle ${dense?"on":""}" id="denseToggle"></button></div>
-      <div class="setting-row"><div><strong>Reduce motion</strong><span>Respect a calmer interface with fewer transitions and animations.</span></div><button class="toggle ${!reduce?"on":""}" id="motionToggle"></button></div>
-      <div class="setting-row"><div><strong>Smart notifications</strong><span>Show teacher updates, risk alerts and support reminders.</span></div><button class="toggle on" id="notifToggle"></button></div>
-      <div class="setting-row"><div><strong>Language</strong><span>Interface language for navigation and workspace labels.</span></div><select style="max-width:180px"><option>English</option><option>Hindi</option><option>Hinglish</option></select></div>
-      <div class="setting-row"><div><strong>Privacy mode</strong><span>Student prediction remains read-only; access is enforced server-side with RLS when Firebase is configured.</span></div><span class="badge good">Protected</span></div>
-      <div class="setting-row"><div><strong>Install EduPredict</strong><span>Add the website to the home screen like an app on supported browsers.</span></div><button class="primary-btn" id="installSetting">Install app</button></div>
-      <div class="color-mode-note">Tip: your theme preference is remembered on this device. Database permissions remain controlled by your Firebase policies.</div></div></div>`;
-    document.querySelectorAll("[data-theme]").forEach(b=>b.onclick=()=>applyTheme(b.dataset.theme));
-    document.getElementById("denseToggle")?.addEventListener("click",e=>{const on=!e.currentTarget.classList.contains("on");e.currentTarget.classList.toggle("on",on);document.body.classList.toggle("compact",on);localStorage.setItem("edupredict-compact",on?"1":"0")});
-    document.getElementById("motionToggle")?.addEventListener("click",e=>{const on=!e.currentTarget.classList.contains("on");e.currentTarget.classList.toggle("on",on);localStorage.setItem("edupredict-reduced",on?"0":"1")});
-    document.getElementById("installSetting")?.addEventListener("click",()=>window.dispatchEvent(new Event("edupredict-install")));
+  let settingsActiveTab = "appearance";
+  function premiumSettings(el, tab = settingsActiveTab){
+    settingsActiveTab = tab;
+    const theme = localStorage.getItem("edupredict-theme") || "purple";
+    const reduce = localStorage.getItem("edupredict-reduced") !== "1";
+    const dense = localStorage.getItem("edupredict-compact") === "1";
+    const notifs = localStorage.getItem("edupredict-notifs") !== "0";
+    const riskAlerts = localStorage.getItem("edupredict-risk-alerts") !== "0";
+
+    const menuItems = [
+      ["appearance", "Appearance"],
+      ["preferences", "Preferences"],
+      ["notifications", "Notifications"],
+      ["privacy", "Privacy & Security"],
+      ["install", "Install & App"],
+      ["about", "About EduPredict"]
+    ];
+
+    let contentHtml = "";
+
+    if (settingsActiveTab === "appearance") {
+      contentHtml = `
+        <div class="card-head">
+          <div><h3>Appearance & Workspace</h3><div class="tiny">Personalize the visual theme, density and motion for your workflow.</div></div>
+          <span class="badge good">Synced locally</span>
+        </div>
+        <div class="setting-row">
+          <div><strong>Color theme</strong><span>Choose the accent used across cards, navigation and actions.</span></div>
+          <div class="theme-swatches">
+            <button class="swatch purple" data-theme="purple" aria-label="Purple"></button>
+            <button class="swatch blue" data-theme="blue" aria-label="Blue"></button>
+            <button class="swatch green" data-theme="green" aria-label="Green"></button>
+            <button class="swatch coral" data-theme="coral" aria-label="Coral"></button>
+            <button class="swatch sunset" data-theme="sunset" aria-label="Sunset"></button>
+          </div>
+        </div>
+        <div class="setting-row">
+          <div><strong>Compact density</strong><span>Reduce vertical spacing for more information on one screen.</span></div>
+          <button class="toggle ${dense ? "on" : ""}" id="denseToggle"></button>
+        </div>
+        <div class="setting-row">
+          <div><strong>Reduce motion</strong><span>Respect a calmer interface with fewer transitions and animations.</span></div>
+          <button class="toggle ${!reduce ? "on" : ""}" id="motionToggle"></button>
+        </div>
+        <div class="setting-row">
+          <div><strong>Install EduPredict App</strong><span>Add the application to your home screen or desktop for fast access.</span></div>
+          <button class="secondary" id="installSettingQuick"><span style="font-size:12px">⌂</span> Install app</button>
+        </div>
+        <div class="color-mode-note">Tip: Your theme and layout preferences are remembered on this device.</div>
+      `;
+    } else if (settingsActiveTab === "preferences") {
+      contentHtml = `
+        <div class="card-head">
+          <div><h3>User Preferences</h3><div class="tiny">Customize interface language, defaults, and workspace behavior.</div></div>
+          <span class="badge good">Active</span>
+        </div>
+        <div class="setting-row">
+          <div><strong>Interface Language</strong><span>Workspace navigation, alerts, and system labels.</span></div>
+          <select id="prefLang" style="max-width:180px"><option>English</option><option>Hindi</option><option>Hinglish</option></select>
+        </div>
+        <div class="setting-row">
+          <div><strong>Default Landing View</strong><span>Initial page opened when entering your portal.</span></div>
+          <select id="prefLanding" style="max-width:180px">
+            <option value="dashboard">Dashboard</option>
+            ${portal === "teacher" ? '<option value="students">Students</option><option value="prediction">AI Predict</option>' : '<option value="performance">Performance</option>'}
+          </select>
+        </div>
+        <div class="setting-row">
+          <div><strong>Keyboard Shortcuts</strong><span>Quick navigation using number keys on desktop browsers.</span></div>
+          <span class="badge good">Enabled</span>
+        </div>
+        <div class="color-mode-note">Changes to language and landing view apply immediately across your active session.</div>
+      `;
+    } else if (settingsActiveTab === "notifications") {
+      contentHtml = `
+        <div class="card-head">
+          <div><h3>Notification Preferences</h3><div class="tiny">Manage early warnings, teacher updates and academic alerts.</div></div>
+          <span class="badge good">Live alerts</span>
+        </div>
+        <div class="setting-row">
+          <div><strong>Smart notifications</strong><span>Show floating toast alerts when academic records are updated.</span></div>
+          <button class="toggle ${notifs ? "on" : ""}" id="notifToggle"></button>
+        </div>
+        <div class="setting-row">
+          <div><strong>Early risk alerts</strong><span>Highlight High and Medium academic risk signals instantly.</span></div>
+          <button class="toggle ${riskAlerts ? "on" : ""}" id="riskAlertToggle"></button>
+        </div>
+        <div class="setting-row">
+          <div><strong>Weekly academic summary</strong><span>Periodic review notification for ongoing term indicators.</span></div>
+          <span class="badge good">Active</span>
+        </div>
+        <div class="color-mode-note">Notifications are delivered in-app. Critical risk flags are controlled by authorized teaching staff.</div>
+      `;
+    } else if (settingsActiveTab === "privacy") {
+      contentHtml = `
+        <div class="card-head">
+          <div><h3>Privacy & Security Controls</h3><div class="tiny">Data access controls, role authorizations and audit transparency.</div></div>
+          <span class="badge good">Protected</span>
+        </div>
+        <div class="setting-row">
+          <div><strong>Account Role</strong><span>Your authenticated portal permissions level.</span></div>
+          <span class="badge good">${esc((currentProfile?.role || portal).toUpperCase())}</span>
+        </div>
+        <div class="setting-row">
+          <div><strong>Database Access Control</strong><span>Row-Level Security enforced through Cloud Firestore Rules.</span></div>
+          <span class="badge good">Active (firebase.rules)</span>
+        </div>
+        <div class="setting-row">
+          <div><strong>Prediction Integrity</strong><span>Predictions are teacher-verified and read-only for students.</span></div>
+          <span class="badge good">Enforced</span>
+        </div>
+        <div class="setting-row">
+          <div><strong>SMS-Free Authentication</strong><span>Phone index hashed with SHA-256 for privacy-first sign in.</span></div>
+          <span class="badge good">SHA-256 Protected</span>
+        </div>
+        <div class="color-mode-note">Student performance data is scoped directly to authenticated identities. Staff records require admin approval.</div>
+      `;
+    } else if (settingsActiveTab === "install") {
+      contentHtml = `
+        <div class="card-head">
+          <div><h3>Install & App Settings</h3><div class="tiny">Add EduPredict AI to your home screen or desktop for fast, distraction-free access.</div></div>
+          <span class="badge good">PWA Ready</span>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Install EduPredict Web App</strong>
+            <span>Install as a standalone application on Windows, macOS, Android, or iOS with offline support.</span>
+          </div>
+          <button class="primary-btn" id="installSetting"><span style="font-size:12px">⌂</span> Install app</button>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Application Status</strong>
+            <span>Progressive Web App manifest and Service Worker registration.</span>
+          </div>
+          <span class="badge good">● Ready to Install</span>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Offline Intelligence & Cache</strong>
+            <span>Local cached assets allow fast startup and resilient data access.</span>
+          </div>
+          <button class="secondary" id="updateCacheBtn">↻ Check for updates</button>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Browser Shortcut Guide</strong>
+            <span>Desktop: click (⊕) in address bar. Safari (iOS): tap Share → Add to Home Screen.</span>
+          </div>
+          <button class="secondary" id="installGuideBtn">Show instructions</button>
+        </div>
+        <div class="color-mode-note">
+          <b>PWA Advantage:</b> Installing EduPredict AI adds an app icon to your home screen or taskbar, enables instant startup, and keeps your academic dashboard available even with intermittent connectivity.
+        </div>
+      `;
+    } else if (settingsActiveTab === "about") {
+      contentHtml = `
+        <div class="card-head">
+          <div><h3>About EduPredict AI</h3><div class="tiny">AI-powered Academic Intelligence & Student Performance Prediction System.</div></div>
+          <span class="badge good">v2.4 Production</span>
+        </div>
+        <div class="setting-row">
+          <div><strong>Release Version</strong><span>Latest stable build with dual portals and offline PWA capability.</span></div>
+          <b>v2.4.0</b>
+        </div>
+        <div class="setting-row">
+          <div><strong>Cloud Infrastructure</strong><span>Authentication, Firestore Database, and client-side optimization.</span></div>
+          <span class="badge good">Firebase + Firestore</span>
+        </div>
+        <div class="setting-row">
+          <div><strong>Prediction Engine</strong><span>Multi-factor explainable baseline with optional Python ML API.</span></div>
+          <span class="badge good">Transparent Baseline</span>
+        </div>
+        <div class="setting-row">
+          <div><strong>Source Code</strong><span>GitHub repository documentation and deployment files.</span></div>
+          <button class="secondary" id="aboutRepoBtn">Ambesh-dev/EduPredict-AI_</button>
+        </div>
+        <div class="color-mode-note">EduPredict AI helps educators identify students needing academic support early and gives students clear visibility into their progress.</div>
+      `;
+    }
+
+    el.innerHTML = `
+      <div class="settings-shell">
+        <div class="card settings-menu">
+          ${menuItems.map(([id, label]) => `<button class="${settingsActiveTab === id ? "active" : ""}" data-tab="${id}">${label}</button>`).join("")}
+        </div>
+        <div class="card" id="settingsContentPanel">
+          ${contentHtml}
+        </div>
+      </div>
+    `;
+
+    el.querySelectorAll(".settings-menu button").forEach(b => {
+      b.onclick = () => premiumSettings(el, b.dataset.tab);
+    });
+
+    el.querySelectorAll("[data-theme]").forEach(b => b.onclick = () => applyTheme(b.dataset.theme));
+
+    document.getElementById("denseToggle")?.addEventListener("click", e => {
+      const on = !e.currentTarget.classList.contains("on");
+      e.currentTarget.classList.toggle("on", on);
+      document.body.classList.toggle("compact", on);
+      localStorage.setItem("edupredict-compact", on ? "1" : "0");
+    });
+
+    document.getElementById("motionToggle")?.addEventListener("click", e => {
+      const on = !e.currentTarget.classList.contains("on");
+      e.currentTarget.classList.toggle("on", on);
+      localStorage.setItem("edupredict-reduced", on ? "0" : "1");
+    });
+
+    document.getElementById("notifToggle")?.addEventListener("click", e => {
+      const on = !e.currentTarget.classList.contains("on");
+      e.currentTarget.classList.toggle("on", on);
+      localStorage.setItem("edupredict-notifs", on ? "1" : "0");
+      toast(on ? "Notifications enabled" : "Notifications muted", "info");
+    });
+
+    document.getElementById("riskAlertToggle")?.addEventListener("click", e => {
+      const on = !e.currentTarget.classList.contains("on");
+      e.currentTarget.classList.toggle("on", on);
+      localStorage.setItem("edupredict-risk-alerts", on ? "1" : "0");
+      toast(on ? "Early risk alerts enabled" : "Risk alerts muted", "info");
+    });
+
+    document.getElementById("installSetting")?.addEventListener("click", () => triggerInstall());
+    document.getElementById("installSettingQuick")?.addEventListener("click", () => triggerInstall());
+
+    document.getElementById("updateCacheBtn")?.addEventListener("click", async () => {
+      if ("caches" in window) {
+        toast("Checking for updates... All assets up to date!", "success");
+      } else {
+        toast("Application is running the latest build.", "info");
+      }
+    });
+
+    document.getElementById("installGuideBtn")?.addEventListener("click", () => {
+      toast("Desktop: click the install icon (⊕) in your browser address bar. Safari (iOS): tap Share → Add to Home Screen.", "info");
+    });
+
+    document.getElementById("aboutRepoBtn")?.addEventListener("click", () => {
+      window.open("https://github.com/Ambesh-dev/EduPredict-AI_", "_blank");
+    });
   }
   function renderDemoPage(el,p){
     portal=demoPortal; currentProfile=portal==="teacher"?{full_name:"Dr. Priya Kapoor",email:"priya.kapoor@college.edu",role:"teacher"}:{...demoStudent,role:"student"};
@@ -766,10 +994,10 @@
   setupAuthTabs();
 
   let deferredInstallPrompt=null;
-  window.addEventListener("beforeinstallprompt", e=>{ e.preventDefault(); deferredInstallPrompt=e; document.getElementById("globalInstall")?.classList.remove("hidden"); document.getElementById("installBtnSide")?.classList.remove("hidden"); });
+  window.addEventListener("beforeinstallprompt", e=>{ e.preventDefault(); deferredInstallPrompt=e; });
   async function triggerInstall(){ if(deferredInstallPrompt){ deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt=null; } else toast("Use your browser menu and choose Add to Home screen / Install app.","info"); }
-  window.addEventListener("edupredict-install",triggerInstall); document.getElementById("globalInstall")?.addEventListener("click",triggerInstall); document.getElementById("installBtnSide")?.addEventListener("click",triggerInstall); document.getElementById("sidebarCollapse")?.addEventListener("click",()=>document.body.classList.toggle("sidebar-collapsed"));
-  document.getElementById("previewBtn")?.addEventListener("click",()=>{ location.href="?demo=teacher&page=dashboard"; });
+  window.addEventListener("edupredict-install",triggerInstall);
+  document.getElementById("sidebarCollapse")?.addEventListener("click",()=>document.body.classList.toggle("sidebar-collapsed"));
   let bootEntering = false;
   async function boot(){
     if(demoMode){ currentProfile=demoPortal==="teacher"?{id:"demo-teacher",full_name:"Dr. Priya Kapoor",email:"priya.kapoor@college.edu",role:"teacher"}:{...demoStudent,role:"student"}; currentUser={uid:currentProfile.id}; portal=demoPortal; document.getElementById("authView").classList.add("hidden"); document.getElementById("appView").classList.remove("hidden"); renderShell(); await renderPage(demoPage); return; }

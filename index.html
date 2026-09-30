@@ -25,7 +25,6 @@
 <div id="authView" class="auth-shell">
   <header class="auth-topbar">
     <div class="brand-lockup"><div class="brand-mark">E</div><div><b>EduPredict</b><span>AI</span><small>Academic Intelligence</small></div></div>
-    <button id="previewBtn" class="ghost-btn">Preview premium dashboard <span>↗</span></button>
   </header>
   <main class="auth-stage">
     <section class="hero-copy">
@@ -91,16 +90,54 @@
     <div id="roleBadge" class="role-badge"></div>
     <nav id="nav"></nav>
     <div class="sidebar-pro"><div class="pro-orb">✦</div><div><strong>Insight mode</strong><span>Live academic workspace</span></div></div>
-    <button id="installBtnSide" class="install-btn hidden"><span>⌂</span> Install app</button>
     <button id="logoutBtn" class="logout-btn">↪ <span>Sign out</span></button>
   </aside>
 
   <main class="main">
     <header class="topbar glass-topbar">
       <div class="top-title"><div class="eyebrow" id="portalEyebrow">STUDENT ACADEMIC INTELLIGENCE</div><h2 id="pageTitle">Dashboard</h2></div>
-      <div class="top-actions"><button id="globalInstall" class="ghost-btn compact hidden">Install app</button><button id="refreshBtn" class="icon-btn" title="Refresh">↻</button><div id="userChip" class="user-chip"></div></div>
+      <div class="top-actions"><button id="refreshBtn" class="icon-btn" title="Refresh">↻</button><div id="userChip" class="user-chip"></div></div>
     </header>
-    <section id="content"></section>
+    <section id="content">
+      <!-- Settings Template for Student and Teacher Portal -->
+      <template id="settingsInstallTemplate">
+        <div class="card-head">
+          <div><h3>Install & App Settings</h3><div class="tiny">Add EduPredict AI to your home screen or desktop for fast, distraction-free access.</div></div>
+          <span class="badge good">PWA Ready</span>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Install EduPredict Web App</strong>
+            <span>Install as a standalone application on Windows, macOS, Android, or iOS with offline support.</span>
+          </div>
+          <button class="primary-btn" id="installSetting"><span style="font-size:12px">⌂</span> Install app</button>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Application Status</strong>
+            <span>Progressive Web App manifest and Service Worker registration.</span>
+          </div>
+          <span class="badge good">● Ready to Install</span>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Offline Intelligence & Cache</strong>
+            <span>Local cached assets allow fast startup and resilient data access.</span>
+          </div>
+          <button class="secondary" id="updateCacheBtn">↻ Check for updates</button>
+        </div>
+        <div class="setting-row">
+          <div>
+            <strong>Browser Shortcut Guide</strong>
+            <span>Desktop: click (⊕) in address bar. Safari (iOS): tap Share → Add to Home Screen.</span>
+          </div>
+          <button class="secondary" id="installGuideBtn">Show instructions</button>
+        </div>
+        <div class="color-mode-note">
+          <b>PWA Advantage:</b> Installing EduPredict AI adds an app icon to your home screen or taskbar, enables instant startup, and keeps your academic dashboard available even with intermittent connectivity.
+        </div>
+      </template>
+    </section>
   </main>
 
   <div class="mobile-nav" id="mobileNav"></div>
