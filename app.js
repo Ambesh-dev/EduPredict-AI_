@@ -335,9 +335,103 @@
     chart:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="12" width="3.4" height="8"/><rect x="10.3" y="7" width="3.4" height="13"/><rect x="16.6" y="3" width="3.4" height="17"/></svg>',
     doc:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v5h5M8.5 13h7M8.5 16.5h7"/></svg>',
     upload:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4m0 0 4 4m-4-4-4 4"/><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/></svg>',
-    gear:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.1"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l1.9-1.4-2-3.4-2.2.8a7.6 7.6 0 0 0-2.6-1.5L14 2.5h-4l-.5 2.5a7.6 7.6 0 0 0-2.6 1.5l-2.2-.8-2 3.4L4.6 10.5a7.6 7.6 0 0 0 0 3L2.7 15l2 3.4 2.2-.8c.75.65 1.63 1.16 2.6 1.5l.5 2.4h4l.5-2.5a7.6 7.6 0 0 0 2.6-1.5l2.2.8 2-3.4-1.9-1.4Z"/></svg>'
+    gear:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.1"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l1.9-1.4-2-3.4-2.2.8a7.6 7.6 0 0 0-2.6-1.5L14 2.5h-4l-.5 2.5a7.6 7.6 0 0 0-2.6 1.5l-2.2-.8-2 3.4L4.6 10.5a7.6 7.6 0 0 0 0 3L2.7 15l2 3.4 2.2-.8c.75.65 1.63 1.16 2.6 1.5l.5 2.4h4l.5-2.5a7.6 7.6 0 0 0 2.6-1.5l2.2.8 2-3.4-1.9-1.4Z"/></svg>',
+    more:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/><circle cx="5" cy="12" r="1.5"/></svg>',
+    logout:'<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>'
   };
   function navIcon(k){return `<span class="nav-ic">${NAV_ICONS[k]||NAV_ICONS.spark}</span>`}
+
+  // Mobile Browser & Touch Detection
+  function detectMobileMode() {
+    const ua = navigator.userAgent || navigator.vendor || window.opera || "";
+    const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua);
+    const isSmallScreen = window.innerWidth <= 840;
+    const hasTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const isMobile = isMobileUA || (isSmallScreen && hasTouch) || isSmallScreen;
+
+    if (isMobile) {
+      document.documentElement.classList.add("is-mobile-app");
+      document.body.classList.add("is-mobile-app");
+    } else {
+      document.documentElement.classList.remove("is-mobile-app");
+      document.body.classList.remove("is-mobile-app");
+    }
+
+    // Dynamic Viewport Height for mobile browsers to avoid URL bar layout shifts
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+  window.addEventListener("resize", detectMobileMode);
+  window.addEventListener("orientationchange", detectMobileMode);
+  detectMobileMode();
+
+  // Mobile Action Sheet (Drawer) Controller
+  function openMobileSheet() {
+    const sheet = document.getElementById("mobileSheet");
+    if (!sheet) return;
+
+    const name = currentProfile?.full_name || currentProfile?.email || "User";
+    const initial = (name.charAt(0) || "E").toUpperCase();
+    const avatar = document.getElementById("sheetAvatar");
+    if (avatar) avatar.textContent = initial;
+    const userName = document.getElementById("sheetUserName");
+    if (userName) userName.textContent = name;
+    const roleBadge = document.getElementById("sheetUserRole");
+    if (roleBadge) roleBadge.textContent = (currentProfile?.role || portal).toUpperCase();
+    const userEmail = document.getElementById("sheetUserEmail");
+    if (userEmail) userEmail.textContent = currentProfile?.email || currentProfile?.phone || "account@tihs.edu.in";
+
+    const navStudent = [
+      ["dashboard","home","Dashboard","Real-time academic signals"],
+      ["profile","user","My Profile","Personal & student identity"],
+      ["performance","trend","Academic Metrics","Continuous assessment meters"],
+      ["warnings","alert","Early Warnings","Notices & LU 75% attendance"],
+      ["report","doc","PDF Report","Official performance statement"],
+      ["settings","gear","Settings & Theme","Personal preferences & PWA"]
+    ];
+    const navTeacher = [
+      ["dashboard","home","Dashboard","Batch status & risk overview"],
+      ["students","users","Student Roster","TIHS section directory"],
+      ["prediction","spark","AI Predictions","TensorFlow.js batch inference"],
+      ["warnings","alert","Early Warnings","LU 75% attendance alerts"],
+      ["analytics","chart","Analytics","Batch performance distribution"],
+      ["reports","doc","Student Reports","PDF & CSV grade exports"],
+      ["import","upload","Excel Import","Bulk batch CSV/XLSX updater"],
+      ["settings","gear","Settings & PWA","App cache & offline options"]
+    ];
+    const nav = portal === "student" ? navStudent : navTeacher;
+    const sheetNav = document.getElementById("mobileSheetNav");
+    if (sheetNav) {
+      sheetNav.innerHTML = nav.map(([id, icon, label, sub]) => `
+        <button class="sheet-nav-item ${page === id ? 'active' : ''}" data-page="${id}">
+          <span class="sheet-nav-ic">${NAV_ICONS[icon] || NAV_ICONS.spark}</span>
+          <div class="sheet-nav-text">
+            <strong>${label}</strong>
+            <small>${sub}</small>
+          </div>
+          ${page === id ? '<span class="sheet-active-dot">●</span>' : '<span class="sheet-arrow">›</span>'}
+        </button>
+      `).join("");
+
+      sheetNav.querySelectorAll("button").forEach(b => {
+        b.onclick = () => {
+          closeMobileSheet();
+          renderPage(b.dataset.page);
+        };
+      });
+    }
+
+    sheet.classList.remove("hidden");
+    requestAnimationFrame(() => sheet.classList.add("open"));
+  }
+
+  function closeMobileSheet() {
+    const sheet = document.getElementById("mobileSheet");
+    if (!sheet) return;
+    sheet.classList.remove("open");
+    setTimeout(() => sheet.classList.add("hidden"), 220);
+  }
+
   function renderShell(){
     const navStudent=[
       ["dashboard","home","Home"],["profile","user","Profile"],["performance","trend","Performance"],
@@ -349,11 +443,76 @@
       ["import","upload","Import"],["settings","gear","Settings"]
     ];
     const nav=portal==="student"?navStudent:navTeacher;
+
+    // Desktop sidebar nav
     document.getElementById("nav").innerHTML=nav.map(([id,icon,label])=>`<button data-page="${id}" class="${page===id?'active':''}" title="${label}">${navIcon(icon)}<span class="nav-label">${label}</span></button>`).join("");
     document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>renderPage(b.dataset.page));
+
+    // Native Mobile App Bottom Navigation Dock (5 key tabs + More drawer)
     const mobile=document.getElementById("mobileNav");
-    if(mobile) mobile.innerHTML=nav.slice(0,5).map(([id,icon,label])=>`<button data-page="${id}" class="${page===id?'active':''}">${navIcon(icon)}<small>${label}</small></button>`).join("");
-    mobile?.querySelectorAll("button").forEach(b=>b.onclick=()=>renderPage(b.dataset.page));
+    if(mobile){
+      const primaryStudent = [
+        ["dashboard","home","Home"],
+        ["profile","user","Profile"],
+        ["performance","trend","Metrics"],
+        ["warnings","alert","Alerts"],
+        ["__more__","more","More"]
+      ];
+      const primaryTeacher = [
+        ["dashboard","home","Home"],
+        ["students","users","Students"],
+        ["prediction","spark","AI Predict"],
+        ["warnings","alert","Warnings"],
+        ["__more__","more","More"]
+      ];
+      const primary = portal === "student" ? primaryStudent : primaryTeacher;
+      const isMoreActive = !primary.slice(0, 4).some(([id]) => id === page);
+
+      mobile.innerHTML = primary.map(([id, icon, label]) => {
+        const isActive = (id === "__more__" && isMoreActive) || page === id;
+        return `
+          <button data-page="${id}" class="mobile-tab-btn ${isActive ? 'active' : ''}" type="button">
+            <div class="mobile-tab-ic">${NAV_ICONS[icon] || NAV_ICONS.spark}</div>
+            <span class="mobile-tab-label">${label}</span>
+            ${isActive ? '<div class="mobile-tab-indicator"></div>' : ''}
+          </button>
+        `;
+      }).join("");
+
+      mobile.querySelectorAll("button").forEach(b => {
+        b.onclick = () => {
+          const target = b.dataset.page;
+          if (target === "__more__") {
+            openMobileSheet();
+          } else {
+            closeMobileSheet();
+            renderPage(target);
+          }
+        };
+      });
+    }
+
+    // Top mobile menu button
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    if (mobileMenuBtn) {
+      mobileMenuBtn.onclick = () => openMobileSheet();
+    }
+
+    // Sheet close triggers
+    const closeBtn = document.getElementById("closeMobileSheetBtn");
+    if (closeBtn) closeBtn.onclick = () => closeMobileSheet();
+    const sheetBackdrop = document.getElementById("mobileSheetBackdrop");
+    if (sheetBackdrop) sheetBackdrop.onclick = () => closeMobileSheet();
+
+    // Sheet logout button
+    const mobileLogoutBtn = document.getElementById("mobileLogoutBtn");
+    if (mobileLogoutBtn) {
+      mobileLogoutBtn.onclick = () => {
+        closeMobileSheet();
+        document.getElementById("logoutBtn")?.click();
+      };
+    }
+
     document.getElementById("roleBadge").textContent=portal==="student"?"STUDENT PORTAL":`${currentProfile.role.toUpperCase()} PORTAL`;
     document.getElementById("userChip").textContent=currentProfile.full_name || currentProfile.email || currentProfile.phone || "User";
     document.getElementById("portalEyebrow").textContent=portal==="student"?"STUDENT ACADEMIC INTELLIGENCE":"TEACHER ACADEMIC INTELLIGENCE";
