@@ -97,6 +97,22 @@ body.sidebar-collapsed nav button{justify-content:center;padding:10px 0;width:10
 body.sidebar-collapsed nav button .nav-ic{margin:0}
 body.sidebar-collapsed .logout-btn{justify-content:center;padding:11px 0;width:100%;text-align:center;gap:0}
 body.sidebar-collapsed .logout-btn .logout-ic{font-size:16px;display:inline-flex;align-items:center;justify-content:center;line-height:1}
+
+/* TIHS Course & Section Switcher */
+.tihs-bar{background:rgba(255,255,255,.68);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-radius:18px;padding:12px 18px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:var(--shadow-sm),var(--edge)}
+.tihs-brand-tag{display:flex;align-items:center;gap:11px}
+.tihs-badge{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#7928ca,#ff0080);color:#fff;display:grid;place-items:center;font-weight:900;font-size:15px;box-shadow:0 8px 18px -4px rgba(121,40,202,.45)}
+.tihs-brand-tag b{font-size:12px;display:block;letter-spacing:-.01em;color:var(--text)}
+.tihs-brand-tag span{font-size:9px;color:var(--muted);display:block;margin-top:1px}
+.tihs-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tihs-select{padding:7px 12px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.9);font-size:11px;font-weight:800;color:var(--text);margin:0;cursor:pointer;outline:0;transition:.18s}
+.tihs-select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(107,93,244,.15)}
+.tihs-pills{display:inline-flex;padding:3px;background:rgba(235,235,248,.8);border-radius:11px;gap:2px}
+.tihs-pill{border:0;background:transparent;padding:6px 12px;border-radius:8px;font-size:10px;font-weight:800;color:var(--muted);transition:.18s;cursor:pointer}
+.tihs-pill:hover{color:var(--text)}
+.tihs-pill.active{background:#fff;color:var(--primary);box-shadow:0 4px 12px rgba(33,31,64,.08)}
+.tihs-count-badge{padding:6px 11px;border-radius:999px;background:rgba(107,93,244,.12);color:var(--primary);font-size:10px;font-weight:800;white-space:nowrap}
+
 @media(max-width:1100px){.auth-stage{grid-template-columns:1fr;gap:40px}.auth-card{justify-self:start;max-width:none}.split-dashboard{grid-template-columns:1fr}.g4{grid-template-columns:repeat(2,1fr)}.app-shell{grid-template-columns:220px 1fr}.settings-shell{grid-template-columns:1fr}}
 @media(max-width:760px){.auth-shell{padding:18px 16px}.auth-topbar .ghost-btn{display:none}.auth-stage{margin-top:45px}.hero-copy h1{font-size:48px}.hero-mini-grid{grid-template-columns:1fr 1fr}.mini-card:last-child{display:none}.app-shell{display:block}.sidebar{position:fixed;left:12px;right:12px;bottom:12px;top:auto;height:auto;padding:9px;border:1px solid rgba(255,255,255,.85);border-radius:18px;box-shadow:0 20px 55px rgba(40,34,98,.22)}.sidebar-top,.role-badge,.sidebar-pro,.logout-btn{display:none}.sidebar nav{display:flex;overflow:auto}.sidebar nav button{flex:1;min-width:82px;text-align:center;padding:9px 7px;font-size:9px;justify-content:center}.main{padding:13px 13px 105px}.glass-topbar{top:9px}.top-title h2{font-size:23px}.user-chip{display:none}.g4,.g3,.g2{grid-template-columns:1fr}.kpi-row{grid-template-columns:1fr}.profile-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.span2{grid-column:auto}.dual-fields{grid-template-columns:1fr}.hero-banner{padding:18px}.auth-card{padding:22px}.auth-foot{font-size:8px}.settings-shell{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}

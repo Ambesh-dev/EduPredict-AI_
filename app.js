@@ -23,12 +23,40 @@
     {title:"Assignment milestone",message:"Great consistency in submitted assignments. Maintain the same pace.",kind:"success",created_at:"2026-09-28T16:15:00"},
     {title:"Exam prep reminder",message:"Your teacher recommends a focused revision block for upcoming assessments.",kind:"warning",created_at:"2026-09-27T11:10:00"}
   ];
+  const TIHS_COURSES = [
+    "BCA", "BBA", "B.Com", "B.Com (Hons)", "BAJMC", "BFA", "B.Sc", "B.Ed", "M.Com", "MBA", "MCA"
+  ];
+  const TIHS_YEARS = ["1st Year", "2nd Year", "3rd Year"];
+  const TIHS_SECTIONS = ["All", "A", "B"];
+  let tihsFilter = {
+    course: "BCA",
+    year: "1st Year",
+    section: "A"
+  };
+
   const demoStudents = [
-    {...demoStudent,id:"s1",full_name:"Aarav Sharma",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543210",email:"aarav@demo.local"},
-    {...demoStudent,id:"s2",full_name:"Ananya Verma",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543211",email:"ananya@demo.local"},
-    {...demoStudent,id:"s3",full_name:"Rohan Singh",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543212",email:"rohan@demo.local"},
-    {...demoStudent,id:"s4",full_name:"Mehak Gupta",course:"BCA",class_year:"2nd Year",class_section:"A",phone:"+91 9876543213",email:"mehak@demo.local"},
-    {...demoStudent,id:"s5",full_name:"Vansh Tiwari",course:"BCA",class_year:"2nd Year",class_section:"B",phone:"+91 9876543214",email:"vansh@demo.local"}
+    // BCA 1st Year Section A
+    {id:"s1",full_name:"Aarav Sharma",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543210",email:"aarav.sharma@tihs.edu.in",father_name:"Rajesh Sharma",academic:{attendance:88,assignment_score:81,internal_score:79,exam_score:84,previous_score:76},prediction:{predicted_score:82,risk_level:"Low",confidence:91,model_name:"TensorFlow.js Neural Net"}},
+    {id:"s2",full_name:"Ananya Verma",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543211",email:"ananya.verma@tihs.edu.in",father_name:"Suresh Verma",academic:{attendance:74,assignment_score:68,internal_score:65,exam_score:62,previous_score:64},prediction:{predicted_score:66,risk_level:"Medium",confidence:84,model_name:"TensorFlow.js Neural Net"}},
+    {id:"s3",full_name:"Rohan Singh",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543212",email:"rohan.singh@tihs.edu.in",father_name:"Dinesh Singh",academic:{attendance:52,assignment_score:48,internal_score:45,exam_score:40,previous_score:44},prediction:{predicted_score:46,risk_level:"High",confidence:94,model_name:"TensorFlow.js Neural Net"}},
+    {id:"s4",full_name:"Priya Saxena",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543215",email:"priya.saxena@tihs.edu.in",father_name:"Anand Saxena",academic:{attendance:94,assignment_score:92,internal_score:90,exam_score:95,previous_score:91},prediction:{predicted_score:93,risk_level:"Low",confidence:96,model_name:"TensorFlow.js Neural Net"}},
+    {id:"s5",full_name:"Aditya Shukla",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543216",email:"aditya.shukla@tihs.edu.in",father_name:"Kamlesh Shukla",academic:{attendance:78,assignment_score:75,internal_score:72,exam_score:70,previous_score:71},prediction:{predicted_score:73,risk_level:"Low",confidence:88,model_name:"TensorFlow.js Neural Net"}},
+
+    // BCA 1st Year Section B
+    {id:"s6",full_name:"Vansh Tiwari",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543214",email:"vansh.tiwari@tihs.edu.in",father_name:"Manoj Tiwari",academic:{attendance:82,assignment_score:80,internal_score:78,exam_score:82,previous_score:79},prediction:{predicted_score:80,risk_level:"Low",confidence:89,model_name:"TensorFlow.js Neural Net"}},
+    {id:"s7",full_name:"Mehak Gupta",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543213",email:"mehak.gupta@tihs.edu.in",father_name:"Rakesh Gupta",academic:{attendance:62,assignment_score:58,internal_score:54,exam_score:50,previous_score:55},prediction:{predicted_score:55,risk_level:"Medium",confidence:86,model_name:"TensorFlow.js Neural Net"}},
+    {id:"s8",full_name:"Ayush Srivastava",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543217",email:"ayush.srivastava@tihs.edu.in",father_name:"Prakash Srivastava",academic:{attendance:44,assignment_score:40,internal_score:38,exam_score:35,previous_score:41},prediction:{predicted_score:39,risk_level:"High",confidence:97,model_name:"TensorFlow.js Neural Net"}},
+    {id:"s9",full_name:"Shreya Mishra",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543218",email:"shreya.mishra@tihs.edu.in",father_name:"Santosh Mishra",academic:{attendance:89,assignment_score:86,internal_score:84,exam_score:88,previous_score:85},prediction:{predicted_score:87,risk_level:"Low",confidence:93,model_name:"TensorFlow.js Neural Net"}},
+    {id:"s10",full_name:"Harsh Vardhan",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543219",email:"harsh.vardhan@tihs.edu.in",father_name:"Virendra Vardhan",academic:{attendance:71,assignment_score:68,internal_score:66,exam_score:64,previous_score:67},prediction:{predicted_score:67,risk_level:"Medium",confidence:85,model_name:"TensorFlow.js Neural Net"}},
+
+    // BBA 1st Year Section A
+    {id:"s11",full_name:"Tanya Agarwal",course:"BBA",class_year:"1st Year",class_section:"A",phone:"+91 9876543220",email:"tanya.agarwal@tihs.edu.in",father_name:"Pankaj Agarwal",academic:{attendance:85,assignment_score:82,internal_score:80,exam_score:84,previous_score:81},prediction:{predicted_score:83,risk_level:"Low",confidence:90,model_name:"TensorFlow.js Neural Net"}},
+    {id:"s12",full_name:"Siddharth Pandey",course:"BBA",class_year:"1st Year",class_section:"A",phone:"+91 9876543221",email:"siddharth.pandey@tihs.edu.in",father_name:"Rajeev Pandey",academic:{attendance:49,assignment_score:45,internal_score:42,exam_score:40,previous_score:46},prediction:{predicted_score:44,risk_level:"High",confidence:95,model_name:"TensorFlow.js Neural Net"}},
+    {id:"s13",full_name:"Kriti Rastogi",course:"BBA",class_year:"1st Year",class_section:"A",phone:"+91 9876543222",email:"kriti.rastogi@tihs.edu.in",father_name:"Ashok Rastogi",academic:{attendance:91,assignment_score:89,internal_score:87,exam_score:90,previous_score:88},prediction:{predicted_score:89,risk_level:"Low",confidence:94,model_name:"TensorFlow.js Neural Net"}},
+
+    // B.Com 1st Year Section A
+    {id:"s14",full_name:"Utkarsh Maurya",course:"B.Com",class_year:"1st Year",class_section:"A",phone:"+91 9876543223",email:"utkarsh.maurya@tihs.edu.in",father_name:"Ram Maurya",academic:{attendance:79,assignment_score:76,internal_score:74,exam_score:78,previous_score:75},prediction:{predicted_score:77,risk_level:"Low",confidence:88,model_name:"TensorFlow.js Neural Net"}},
+    {id:"s15",full_name:"Riya Tripathi",course:"B.Com",class_year:"1st Year",class_section:"A",phone:"+91 9876543224",email:"riya.tripathi@tihs.edu.in",father_name:"Govind Tripathi",academic:{attendance:58,assignment_score:52,internal_score:50,exam_score:48,previous_score:53},prediction:{predicted_score:51,risk_level:"Medium",confidence:87,model_name:"TensorFlow.js Neural Net"}}
   ];
 
   if (hasConfig) {
@@ -399,15 +427,187 @@
       </div><div>${copilotWidget("student","")}</div></div>`;
     document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>renderPage(b.dataset.page)); bindCopilot("student");
   }
+  function renderTIHSBatchBar(currentBatchCount = 0) {
+    return `
+      <div class="tihs-bar">
+        <div class="tihs-brand-tag">
+          <div class="tihs-badge">T</div>
+          <div>
+            <b>Techno Institute of Higher Studies (TIHS Lucknow)</b>
+            <span>Affiliated with University of Lucknow (LU) & AKTU • Academic Roster</span>
+          </div>
+        </div>
+        <div class="tihs-controls">
+          <select id="tihsCourseSelect" class="tihs-select" title="Select Program">
+            ${TIHS_COURSES.map(c => `<option value="${c}" ${tihsFilter.course === c ? "selected" : ""}>${c}</option>`).join("")}
+          </select>
+          <select id="tihsYearSelect" class="tihs-select" title="Select Academic Year">
+            ${TIHS_YEARS.map(y => `<option value="${y}" ${tihsFilter.year === y ? "selected" : ""}>${y}</option>`).join("")}
+          </select>
+          <div class="tihs-pills" id="tihsSectionPills">
+            ${TIHS_SECTIONS.map(s => `
+              <button class="tihs-pill ${tihsFilter.section === s ? "active" : ""}" data-section="${s}" type="button">
+                ${s === "All" ? "All Secs" : "Sec " + s}
+              </button>
+            `).join("")}
+          </div>
+          <span class="tihs-count-badge" id="tihsBatchCount">⚡ ${currentBatchCount} Students in Batch</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function bindTIHSBatchBar(onFilterChange) {
+    const courseEl = document.getElementById("tihsCourseSelect");
+    const yearEl = document.getElementById("tihsYearSelect");
+    if (courseEl) {
+      courseEl.onchange = e => {
+        tihsFilter.course = e.target.value;
+        onFilterChange();
+      };
+    }
+    if (yearEl) {
+      yearEl.onchange = e => {
+        tihsFilter.year = e.target.value;
+        onFilterChange();
+      };
+    }
+    document.querySelectorAll("#tihsSectionPills .tihs-pill").forEach(btn => {
+      btn.onclick = () => {
+        tihsFilter.section = btn.dataset.section;
+        onFilterChange();
+      };
+    });
+  }
+
+  function filterByTIHSBatch(list) {
+    return list.filter(s => {
+      const c = (s.course || "").toLowerCase();
+      const y = (s.class_year || "").toLowerCase();
+      const sec = (s.class_section || "").toUpperCase();
+      const matchCourse = !tihsFilter.course || c === tihsFilter.course.toLowerCase();
+      const matchYear = !tihsFilter.year || y === tihsFilter.year.toLowerCase();
+      const matchSec = !tihsFilter.section || tihsFilter.section === "All" || sec === tihsFilter.section.toUpperCase();
+      return matchCourse && matchYear && matchSec;
+    });
+  }
+
   async function premiumTeacherDashboard(el){
-    const list=isDemo()?demoStudents:await loadStudents(); const riskCount=3; const avg=76;
-    el.innerHTML=`<div class="hero-banner"><div style="position:relative;z-index:1"><div class="eyebrow">TEACHER COMMAND CENTER</div><h3>Make the next academic action obvious.</h3><p>Search students, surface early warnings, review predictions and talk to the AI Copilot without leaving the dashboard.</p><div class="hero-actions"><button class="primary-btn" data-page="students">Search students →</button><button class="ghost-btn" data-page="warnings">View early warnings</button></div></div></div>
-      <div class="grid g4" style="margin-top:16px"><div class="card stat"><div class="label">Students</div><div class="value">${list.length}</div><div class="sub">Firestore registered</div></div><div class="card stat"><div class="label">High / medium risk</div><div class="value">${riskCount}</div><div class="sub">Needs review</div></div><div class="card stat"><div class="label">Avg prediction</div><div class="value">${avg}%</div><div class="sub">Across recent records</div></div><div class="card stat"><div class="label">Model status</div><div class="value" style="font-size:17px">Ready</div><div class="sub">Prediction workspace</div></div></div>
-      <div class="split-dashboard" style="margin-top:16px"><div>
-        <div class="grid g2"><div class="card"><div class="card-head"><h3>Early signal board</h3><span class="badge warn">3 students</span></div><div class="kpi-row"><div class="kpi"><span class="tiny">Attendance watch</span><b>78%</b></div><div class="kpi"><span class="tiny">Assessment watch</span><b>72%</b></div><div class="kpi"><span class="tiny">Predicted avg</span><b>76%</b></div></div><div style="margin-top:14px" class="notice risk"><h4>3 students need a closer look</h4><p>Low assessment consistency is contributing to the current support signal.</p></div></div><div class="card"><div class="card-head"><h3>Quick workflow</h3></div><div class="notice info"><h4>01 · Find a student</h4><p>Search by name, course or class.</p></div><div class="notice info"><h4>02 · Enter academic data</h4><p>Publish the latest teacher-controlled prediction.</p></div><div class="notice info"><h4>03 · Notify at-risk students</h4><p>Send targeted support notifications in one click.</p></div></div></div>
-        <div class="card" style="margin-top:16px"><div class="card-head"><h3>Recent students</h3><button class="secondary" data-page="students">Open student directory</button></div><div class="table-wrap"><table><thead><tr><th>Student</th><th>Course</th><th>Class</th><th>Signal</th></tr></thead><tbody>${list.slice(0,4).map((s,i)=>`<tr><td><b>${esc(s.full_name||s.profile?.full_name)}</b><div class="tiny">${esc(s.email||s.profile?.email||"")}</div></td><td>${esc(s.course||"BCA")}</td><td>${esc(s.class_year||"1st Year")} · ${esc(s.class_section||"A")}</td><td><span class="badge ${i===0?"good":i<3?"warn":"risk"}">${i===0?"Stable":i<3?"Watch":"High"}</span></td></tr>`).join("")}</tbody></table></div></div>
-      </div><div>${copilotWidget("teacher","")}</div></div>`;
-    document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>renderPage(b.dataset.page)); bindCopilot("teacher");
+    const allStudents = await loadStudents();
+    const batch = filterByTIHSBatch(allStudents);
+    const list = batch.length ? batch : allStudents;
+    
+    let riskCount = 0, totalScore = 0, totalAtt = 0, scoreCount = 0;
+    for (const s of list) {
+      const p = s.prediction || await getPrediction(s.id);
+      const a = s.academic || await getAcademic(s.id);
+      if (p && (p.risk_level === "High" || p.risk_level === "Medium")) riskCount++;
+      if (p && p.predicted_score) { totalScore += Number(p.predicted_score); scoreCount++; }
+      if (a && a.attendance) totalAtt += Number(a.attendance);
+    }
+    const avgScore = scoreCount ? Math.round(totalScore / scoreCount) : 76;
+    const avgAtt = list.length ? Math.round(totalAtt / list.length) : 78;
+
+    el.innerHTML = `
+      ${renderTIHSBatchBar(list.length)}
+      <div class="hero-banner">
+        <div style="position:relative;z-index:1">
+          <div class="eyebrow">TEACHER COMMAND CENTER • TIHS LUCKNOW</div>
+          <h3>${tihsFilter.course} ${tihsFilter.year} ${tihsFilter.section === "All" ? "(All Sections)" : "Section " + tihsFilter.section}</h3>
+          <p>Academic performance monitoring for <strong>${tihsFilter.course}</strong> under Lucknow University syllabus. Real-time early detection, 75% attendance compliance, and TensorFlow.js neural predictions.</p>
+          <div class="hero-actions">
+            <button class="primary-btn" data-page="students">View Section Roster →</button>
+            <button class="ghost-btn" data-page="warnings">View Early Warnings</button>
+          </div>
+        </div>
+      </div>
+      <div class="grid g4" style="margin-top:16px">
+        <div class="card stat">
+          <div class="label">Section Batch</div>
+          <div class="value">${list.length}</div>
+          <div class="sub">${tihsFilter.course} • ${tihsFilter.year}</div>
+        </div>
+        <div class="card stat">
+          <div class="label">At-Risk Students</div>
+          <div class="value">${riskCount}</div>
+          <div class="sub">Needs intervention</div>
+        </div>
+        <div class="card stat">
+          <div class="label">Batch Avg Score</div>
+          <div class="value">${avgScore}%</div>
+          <div class="sub">TensorFlow.js Neural Net</div>
+        </div>
+        <div class="card stat">
+          <div class="label">Batch Attendance</div>
+          <div class="value">${avgAtt}%</div>
+          <div class="sub">LU minimum: 75%</div>
+        </div>
+      </div>
+      <div class="split-dashboard" style="margin-top:16px">
+        <div>
+          <div class="grid g2">
+            <div class="card">
+              <div class="card-head">
+                <h3>Batch Academic Signal</h3>
+                <span class="badge ${avgAtt >= 75 ? "good" : "risk"}">${avgAtt}% Attendance</span>
+              </div>
+              <div class="kpi-row">
+                <div class="kpi"><span class="tiny">LU Attendance</span><b>${avgAtt}%</b></div>
+                <div class="kpi"><span class="tiny">Risk Students</span><b>${riskCount}</b></div>
+                <div class="kpi"><span class="tiny">Predicted Avg</span><b>${avgScore}%</b></div>
+              </div>
+              <div style="margin-top:14px" class="notice ${riskCount > 0 ? "warning" : "info"}">
+                <h4>${riskCount > 0 ? `${riskCount} students require academic support` : "Batch is performing smoothly"}</h4>
+                <p>${riskCount > 0 ? "Attendance below the 75% LU requirement or low continuous internal marks detected in this batch." : "All students in this section currently meet University of Lucknow academic requirements."}</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-head"><h3>Teacher Workflow</h3></div>
+              <div class="notice info"><h4>01 · Switch Section</h4><p>Switch between BCA Sec A / B, BBA or B.Com instantly with the top bar.</p></div>
+              <div class="notice info"><h4>02 · Update Assessments</h4><p>Enter continuous internals and attendance in student academic data.</p></div>
+              <div class="notice info"><h4>03 · Trigger Intervention</h4><p>View early warning signals and notify students in one click.</p></div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:16px">
+            <div class="card-head">
+              <h3>${tihsFilter.course} ${tihsFilter.year} Student Directory</h3>
+              <button class="secondary" data-page="students">Manage Directory</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Student</th><th>Course & Section</th><th>Phone</th><th>Prediction</th><th>Risk Level</th></tr></thead>
+                <tbody>
+                  ${list.map(s => {
+                    const p = s.prediction || demoPrediction;
+                    const isHigh = p.risk_level === "High";
+                    const isMed = p.risk_level === "Medium";
+                    return `<tr>
+                      <td>
+                        <div class="student-line">
+                          <img class="avatar" src="${avatarData(s.full_name || s.profile?.full_name)}">
+                          <div>
+                            <b>${esc(s.full_name || s.profile?.full_name)}</b>
+                            <div class="tiny">${esc(s.email || s.profile?.email || "")}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>${esc(s.course)} · Sec ${esc(s.class_section || "A")}</td>
+                      <td>${esc(s.phone || "")}</td>
+                      <td><b>${money(p.predicted_score)}%</b></td>
+                      <td><span class="badge ${isHigh ? "risk" : isMed ? "warn" : "good"}">${esc(p.risk_level)}</span></td>
+                    </tr>`;
+                  }).join("") || '<tr><td colspan="5" class="empty">No students found in this section.</td></tr>'}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div>${copilotWidget("teacher", "")}</div>
+      </div>
+    `;
+    bindTIHSBatchBar(() => premiumTeacherDashboard(el));
+    document.querySelectorAll("[data-page]").forEach(b => b.onclick = () => renderPage(b.dataset.page));
+    bindCopilot("teacher");
   }
   let settingsActiveTab = "appearance";
   function premiumSettings(el, tab = settingsActiveTab){
@@ -681,18 +881,24 @@
   }
 
   async function getStudent(id=currentUser.id){
-    if(isDemo()) return demoStudent;
+    if(isDemo()) return demoStudents.find(x => x.id === id) || demoStudent;
     const {data,error}=await sb.from("student_profiles").select("*").eq("id",id).single();
     if(error && error.code!=="PGRST116") throw error;
     return data;
   }
   async function getAcademic(id=currentUser.id){
-    if(isDemo()) return demoAcademic;
+    if(isDemo()) {
+      const match = demoStudents.find(x => x.id === id);
+      return match?.academic || demoAcademic;
+    }
     const {data,error}=await sb.from("academic_records").select("*").eq("student_id",id).order("created_at",{ascending:false}).limit(1);
     if(error) throw error; return data?.[0]||null;
   }
   async function getPrediction(id=currentUser.id){
-    if(isDemo()) return demoPrediction;
+    if(isDemo()) {
+      const match = demoStudents.find(x => x.id === id);
+      return match?.prediction || demoPrediction;
+    }
     const {data,error}=await sb.from("predictions").select("*").eq("student_id",id).order("created_at",{ascending:false}).limit(1);
     if(error) throw error; return data?.[0]||null;
   }
@@ -944,7 +1150,13 @@
   }
 
   async function loadStudents(){
-    if(isDemo()) return demoStudents;
+    if(isDemo()) {
+      studentsCache = demoStudents.map(s => ({
+        ...s,
+        profile: { full_name: s.full_name, email: s.email, phone: s.phone }
+      }));
+      return studentsCache;
+    }
     const {data,error}=await sb.from("student_profiles").select("*").order("created_at",{ascending:false});
     if(error) throw error;
     const ids=(data||[]).map(x=>x.id);
@@ -955,14 +1167,19 @@
   }
 
   async function teacherStudents(el){
-    const list=await loadStudents();
-    el.innerHTML=`<div class="card"><div class="card-head"><h3>Student management</h3><span class="badge good">${list.length} registered</span></div>
-      <div class="toolbar"><input id="studentSearch" placeholder="Search name / phone"><select id="courseFilter"><option value="">All courses</option>${[...new Set(list.map(x=>x.course).filter(Boolean))].map(x=>`<option>${esc(x)}</option>`).join("")}</select><select id="classFilter"><option value="">All classes</option>${[...new Set(list.map(x=>x.class_year).filter(Boolean))].map(x=>`<option>${esc(x)}</option>`).join("")}</select></div>
-      <div class="table-wrap"><table><thead><tr><th>Student</th><th>Phone</th><th>Course</th><th>Class</th><th>Section</th><th>Action</th></tr></thead><tbody id="studentRows"></tbody></table></div></div>`;
+    const all = await loadStudents();
+    const batch = filterByTIHSBatch(all);
+    const list = batch.length ? batch : all;
+    el.innerHTML=`
+      ${renderTIHSBatchBar(list.length)}
+      <div class="card"><div class="card-head"><h3>Student management — ${tihsFilter.course} (${tihsFilter.year}, Sec ${tihsFilter.section})</h3><span class="badge good">${list.length} in batch</span></div>
+      <div class="toolbar"><input id="studentSearch" placeholder="Search name / phone in batch"><select id="courseFilter"><option value="">All courses</option>${[...new Set(all.map(x=>x.course).filter(Boolean))].map(x=>`<option ${tihsFilter.course===x?'selected':''}>${esc(x)}</option>`).join("")}</select><select id="classFilter"><option value="">All classes</option>${[...new Set(all.map(x=>x.class_year).filter(Boolean))].map(x=>`<option ${tihsFilter.year===x?'selected':''}>${esc(x)}</option>`).join("")}</select></div>
+      <div class="table-wrap"><table><thead><tr><th>Student</th><th>Phone</th><th>Course</th><th>Class & Section</th><th>Action</th></tr></thead><tbody id="studentRows"></tbody></table></div></div>`;
+    bindTIHSBatchBar(() => teacherStudents(el));
     const render=()=>{
       const q=document.getElementById("studentSearch").value.toLowerCase(), c=document.getElementById("courseFilter").value, y=document.getElementById("classFilter").value;
-      const rows=list.filter(s=>(!q||`${s.profile.full_name} ${s.profile.phone}`.toLowerCase().includes(q))&&(!c||s.course===c)&&(!y||s.class_year===y));
-      document.getElementById("studentRows").innerHTML=rows.map(s=>`<tr><td><div class="student-line"><img class="avatar" src="${avatarData(s.profile.full_name)}"><div><b>${esc(s.profile.full_name||"Unnamed")}</b><div class="muted small">${esc(s.gmail||s.profile.email||"")}</div></div></div></td><td>${esc(s.profile.phone||"")}</td><td>${esc(s.course||"")}</td><td>${esc(s.class_year||"")}</td><td>${esc(s.class_section||"")}</td><td><button class="secondary editStudent" data-id="${s.id}">Academic data</button></td></tr>`).join("")||'<tr><td colspan="6" class="empty">No students match the filters.</td></tr>';
+      const rows=list.filter(s=>(!q||`${s.profile?.full_name||s.full_name} ${s.profile?.phone||s.phone}`.toLowerCase().includes(q))&&(!c||s.course===c)&&(!y||s.class_year===y));
+      document.getElementById("studentRows").innerHTML=rows.map(s=>`<tr><td><div class="student-line"><img class="avatar" src="${avatarData(s.profile?.full_name||s.full_name)}"><div><b>${esc(s.profile?.full_name||s.full_name||"Unnamed")}</b><div class="muted small">${esc(s.gmail||s.profile?.email||s.email||"")}</div></div></div></td><td>${esc(s.profile?.phone||s.phone||"")}</td><td>${esc(s.course||"")}</td><td>${esc(s.class_year||"")} · Sec ${esc(s.class_section||"A")}</td><td><button class="secondary editStudent" data-id="${s.id}">Academic data</button></td></tr>`).join("")||'<tr><td colspan="5" class="empty">No students match the current section filter.</td></tr>';
       document.querySelectorAll(".editStudent").forEach(b=>b.onclick=()=>academicEditor(b.dataset.id));
     };
     ["studentSearch","courseFilter","classFilter"].forEach(id=>document.getElementById(id).oninput=render); render();
@@ -1004,12 +1221,16 @@
   }
 
   async function teacherPrediction(el){
-    const list=await loadStudents();
-    el.innerHTML=`<div class="card">
+    const all = await loadStudents();
+    const batch = filterByTIHSBatch(all);
+    const list = batch.length ? batch : all;
+    el.innerHTML=`
+      ${renderTIHSBatchBar(list.length)}
+      <div class="card">
       <div class="card-head">
         <div>
-          <h3>AI Performance Prediction</h3>
-          <div class="tiny">Client-side Deep Learning Engine</div>
+          <h3>AI Performance Prediction — ${tihsFilter.course} (${tihsFilter.year}, Sec ${tihsFilter.section})</h3>
+          <div class="tiny">TIHS Lucknow • Client-side Neural Net Roster</div>
         </div>
         <div style="display:flex;gap:8px;align-items:center">
           <span class="badge good" id="tfStatusBadge">TensorFlow.js Active</span>
@@ -1018,18 +1239,19 @@
       </div>
       <p class="muted small">Predictions are powered by an in-browser <strong>TensorFlow.js Neural Network</strong> (Dense Multi-Layer Perceptron) running client-side with instant evaluation and zero server latency.</p>
       <div class="table-wrap"><table><thead><tr><th>Student</th><th>Latest prediction</th><th>Risk</th><th>Engine</th><th>Action</th></tr></thead><tbody id="predRows"></tbody></table></div></div>`;
+    bindTIHSBatchBar(() => teacherPrediction(el));
     const ids=list.map(x=>x.id); let preds=ids.length?(await sb.from("predictions").select("*").in("student_id",ids).order("created_at",{ascending:false})).data||[]:[];
     const latest={}; preds.forEach(p=>{if(!latest[p.student_id])latest[p.student_id]=p});
     document.getElementById("predRows").innerHTML=list.map(s=>{
-      const p=latest[s.id];
+      const p=latest[s.id] || s.prediction;
       return `<tr>
-        <td>${esc(s.profile.full_name||"Unnamed")}</td>
+        <td>${esc(s.profile?.full_name||s.full_name||"Unnamed")}</td>
         <td>${p?money(p.predicted_score)+"%":"—"}</td>
         <td>${p?`<span class="badge ${p.risk_level==="High"?"risk":p.risk_level==="Medium"?"warn":"good"}">${p.risk_level}</span>`:"—"}</td>
         <td><small class="muted">${esc(p?.model_name||"TensorFlow.js Neural Net")}</small></td>
         <td><button class="secondary" onclick="window.__editAcademic('${s.id}')">Update</button></td>
       </tr>`;
-    }).join("")||'<tr><td colspan="5" class="empty">No students.</td></tr>';
+    }).join("")||'<tr><td colspan="5" class="empty">No students in this section.</td></tr>';
 
     const retrainBtn = document.getElementById("retrainTFBtn");
     if(retrainBtn){
@@ -1054,19 +1276,33 @@
   window.__editAcademic=academicEditor;
 
   async function teacherWarnings(el){
-    const list=await loadStudents(), ids=list.map(x=>x.id);
-    let preds=ids.length?(await sb.from("predictions").select("student_id,predicted_score,risk_level,created_at").in("student_id",ids).order("created_at",{ascending:false})).data||[]:[];
-    const latest={}; preds.forEach(p=>{if(!latest[p.student_id])latest[p.student_id]=p});
-    const risks=list.filter(s=>latest[s.id]&&(latest[s.id].risk_level==="High"||latest[s.id].risk_level==="Medium"));
-    el.innerHTML=`<div class="card"><div class="card-head"><h3>Smart early warning system</h3><button id="notifyAll" class="primary">Notify all at-risk students</button></div>
-      <p class="muted small">Only students in the current risk list receive the notification.</p>
+    const all = await loadStudents();
+    const batch = filterByTIHSBatch(all);
+    const list = batch.length ? batch : all;
+    const ids = list.map(x=>x.id);
+    let preds = ids.length ? (await sb.from("predictions").select("student_id,predicted_score,risk_level,created_at").in("student_id",ids).order("created_at",{ascending:false})).data||[] : [];
+    const latest = {}; preds.forEach(p=>{if(!latest[p.student_id])latest[p.student_id]=p});
+    const risks = list.filter(s=>{
+      const p = latest[s.id] || s.prediction;
+      return p && (p.risk_level==="High" || p.risk_level==="Medium");
+    });
+    el.innerHTML=`
+      ${renderTIHSBatchBar(list.length)}
+      <div class="card"><div class="card-head"><h3>Smart early warning system — ${tihsFilter.course} (${tihsFilter.year}, Sec ${tihsFilter.section})</h3><button id="notifyAll" class="primary">Notify all at-risk students</button></div>
+      <p class="muted small">Students with low attendance (< 75% LU requirement) or high/medium predicted risk signals in <strong>${tihsFilter.course}</strong>.</p>
       <div class="table-wrap"><table><thead><tr><th>Student</th><th>Prediction</th><th>Risk</th><th>Reason</th></tr></thead><tbody>
-      ${risks.map(s=>{const p=latest[s.id];return `<tr><td>${esc(s.profile.full_name)}</td><td>${money(p.predicted_score)}%</td><td><span class="badge ${p.risk_level==="High"?"risk":"warn"}">${p.risk_level}</span></td><td>Current predicted score is below the support threshold.</td></tr>`}).join("")||'<tr><td colspan="4" class="empty">No at-risk students currently detected.</td></tr>'}
+      ${risks.map(s=>{
+        const p = latest[s.id] || s.prediction;
+        const a = s.academic;
+        const attMsg = a && a.attendance < 75 ? ` (Attendance: ${a.attendance}% below 75% LU rule)` : "";
+        return `<tr><td>${esc(s.profile?.full_name||s.full_name)}</td><td>${money(p.predicted_score)}%</td><td><span class="badge ${p.risk_level==="High"?"risk":"warn"}">${p.risk_level}</span></td><td>Current predicted score is below the support threshold${attMsg}.</td></tr>`;
+      }).join("")||'<tr><td colspan="4" class="empty">No at-risk students currently detected in this section.</td></tr>'}
       </tbody></table></div></div>`;
+    bindTIHSBatchBar(() => teacherWarnings(el));
     document.getElementById("notifyAll").onclick=async()=>{
-      if(!risks.length) return toast("No at-risk students","info");
-      const payload=risks.map(s=>({student_id:s.id,title:"Teacher support notification",message:"Your teacher has identified that you may benefit from additional academic support. Please review your performance and contact your teacher.",kind:"warning",created_by:currentUser.id}));
-      const r=await sb.from("notifications").insert(payload); if(r.error) toast(r.error.message,"error"); else toast(`Notification sent to ${risks.length} at-risk students`,"success");
+      if(!risks.length) return toast("No at-risk students in this section","info");
+      const payload=risks.map(s=>({student_id:s.id,title:"TIHS Academic Support Notification",message:`Your teacher has noted that your academic performance in ${tihsFilter.course} needs attention. Please review your attendance and internals.`,kind:"warning",created_by:currentUser.id}));
+      const r=await sb.from("notifications").insert(payload); if(r.error) toast(r.error.message,"error"); else toast(`Notification sent to ${risks.length} at-risk students in ${tihsFilter.course} Sec ${tihsFilter.section}`,"success");
     };
   }
 
