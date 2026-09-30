@@ -345,7 +345,7 @@
   function detectMobileMode() {
     const ua = navigator.userAgent || navigator.vendor || window.opera || "";
     const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua);
-    const isSmallScreen = window.innerWidth <= 840;
+    const isSmallScreen = window.innerWidth <= 920;
     const hasTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
     const isMobile = isMobileUA || (isSmallScreen && hasTouch) || isSmallScreen;
 
@@ -363,6 +363,7 @@
   }
   window.addEventListener("resize", detectMobileMode);
   window.addEventListener("orientationchange", detectMobileMode);
+  window.addEventListener("load", detectMobileMode);
   detectMobileMode();
 
   // Mobile Action Sheet (Drawer) Controller

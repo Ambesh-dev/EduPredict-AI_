@@ -22,7 +22,7 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0/dist/tf.min.js"></script>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20260930_v4">
 </head>
 <body>
 <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="ambient ambient-c"></div>
@@ -194,13 +194,16 @@
   <nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation"></nav>
 </div>
 
-<script src="config.js"></script>
-<script src="app.js"></script>
+<script src="config.js?v=20260930_v4"></script>
+<script src="app.js?v=20260930_v4"></script>
 <script>
 // Register the service worker only on deployed HTTPS/localhost-safe environments.
-// Skipping it during local development prevents stale-cache loops while editing.
 if (location.protocol === 'https:' && 'serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js?v=20260930_v4').then(reg => {
+      reg.update().catch(()=>{});
+    }).catch(()=>{});
+  });
 }
 </script>
 </body>
