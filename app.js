@@ -321,7 +321,7 @@
       ["import","upload","Import"],["settings","gear","Settings"]
     ];
     const nav=portal==="student"?navStudent:navTeacher;
-    document.getElementById("nav").innerHTML=nav.map(([id,icon,label])=>`<button data-page="${id}" class="${page===id?'active':''}">${navIcon(icon)} ${label}</button>`).join("");
+    document.getElementById("nav").innerHTML=nav.map(([id,icon,label])=>`<button data-page="${id}" class="${page===id?'active':''}" title="${label}">${navIcon(icon)}<span class="nav-label">${label}</span></button>`).join("");
     document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>renderPage(b.dataset.page));
     const mobile=document.getElementById("mobileNav");
     if(mobile) mobile.innerHTML=nav.slice(0,5).map(([id,icon,label])=>`<button data-page="${id}" class="${page===id?'active':''}">${navIcon(icon)}<small>${label}</small></button>`).join("");
@@ -997,7 +997,23 @@
   window.addEventListener("beforeinstallprompt", e=>{ e.preventDefault(); deferredInstallPrompt=e; });
   async function triggerInstall(){ if(deferredInstallPrompt){ deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice; deferredInstallPrompt=null; } else toast("Use your browser menu and choose Add to Home screen / Install app.","info"); }
   window.addEventListener("edupredict-install",triggerInstall);
-  document.getElementById("sidebarCollapse")?.addEventListener("click",()=>document.body.classList.toggle("sidebar-collapsed"));
+  const collapseBtn=document.getElementById("sidebarCollapse");
+  if(collapseBtn){
+    const syncCollapseBtn=()=>{
+      const isCollapsed=document.body.classList.contains("sidebar-collapsed");
+      collapseBtn.setAttribute("title", isCollapsed ? "Expand sidebar" : "Collapse sidebar");
+      collapseBtn.setAttribute("aria-label", isCollapsed ? "Expand sidebar" : "Collapse sidebar");
+    };
+    if(localStorage.getItem("edupredict-sidebar-collapsed")==="true"){
+      document.body.classList.add("sidebar-collapsed");
+    }
+    syncCollapseBtn();
+    collapseBtn.addEventListener("click",()=>{
+      const isCollapsed=document.body.classList.toggle("sidebar-collapsed");
+      localStorage.setItem("edupredict-sidebar-collapsed", isCollapsed ? "true" : "false");
+      syncCollapseBtn();
+    });
+  }
   let bootEntering = false;
   async function boot(){
     if(demoMode){ currentProfile=demoPortal==="teacher"?{id:"demo-teacher",full_name:"Dr. Priya Kapoor",email:"priya.kapoor@college.edu",role:"teacher"}:{...demoStudent,role:"student"}; currentUser={uid:currentProfile.id}; portal=demoPortal; document.getElementById("authView").classList.add("hidden"); document.getElementById("appView").classList.remove("hidden"); renderShell(); await renderPage(demoPage); return; }
