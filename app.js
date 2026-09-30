@@ -980,6 +980,102 @@
     `;
   }
 
+  function renderAppleDualRingSVG(attendance = 75, cri = 75, size = 110) {
+    const attVal = Math.max(0, Math.min(100, Math.round(attendance || 0)));
+    const criVal = Math.max(0, Math.min(100, Math.round(cri || 0)));
+
+    const rOuter = 46;
+    const cOuter = 2 * Math.PI * rOuter;
+    const offOuter = cOuter - (attVal / 100) * cOuter;
+    const colorOuter = attVal >= 75 ? "#10b981" : attVal >= 60 ? "#f59e0b" : "#ef4444";
+
+    const rInner = 33;
+    const cInner = 2 * Math.PI * rInner;
+    const offInner = cInner - (criVal / 100) * cInner;
+    const colorInner = "#38bdf8";
+
+    return `
+      <div class="apple-dual-ring" style="width:${size}px;height:${size}px" title="Outer Ring: LU Attendance (${attVal}%) • Inner Ring: Career Readiness (${criVal}%)">
+        <svg viewBox="0 0 110 110" style="width:100%;height:100%;transform:rotate(-90deg)">
+          <circle cx="55" cy="55" r="${rOuter}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8" />
+          <circle cx="55" cy="55" r="${rOuter}" fill="none" stroke="${colorOuter}" stroke-width="8" stroke-linecap="round"
+            stroke-dasharray="${cOuter.toFixed(2)}" stroke-dashoffset="${offOuter.toFixed(2)}"
+            style="transition:stroke-dashoffset 1s ease" />
+          <circle cx="55" cy="55" r="${rInner}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="7" />
+          <circle cx="55" cy="55" r="${rInner}" fill="none" stroke="${colorInner}" stroke-width="7" stroke-linecap="round"
+            stroke-dasharray="${cInner.toFixed(2)}" stroke-dashoffset="${offInner.toFixed(2)}"
+            style="transition:stroke-dashoffset 1.2s ease" />
+        </svg>
+        <div class="dual-ring-center">
+          <b>${attVal}%</b>
+          <span>ATTEND</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderCircularAttendanceCardHTML(attendance = 75, studentName = "Student") {
+    const att = Math.max(0, Math.min(100, Math.round(attendance || 0)));
+    const isCompliant = att >= 75;
+    const isCondonable = att >= 60 && att < 75;
+    const ringColor = isCompliant ? "#10b981" : isCondonable ? "#f59e0b" : "#ef4444";
+    const statusText = isCompliant ? "LU Exam Safe" : isCondonable ? "Condonation Zone" : "Debarred (<60%)";
+    const badgeClass = isCompliant ? "good" : isCondonable ? "warn" : "risk";
+
+    const r = 48;
+    const c = 2 * Math.PI * r;
+    const offset = c - (att / 100) * c;
+
+    const totalHeld = 60;
+    const attended = Math.round((att / 100) * totalHeld);
+    let adviceHtml = "";
+    if (isCompliant) {
+      const safeMiss = Math.floor((attended - 0.75 * totalHeld) / 0.75);
+      adviceHtml = `<strong>Safe Margin:</strong> You hold a strong buffer and can safely miss up to <strong>${Math.max(1, safeMiss)} lectures</strong> without falling below LU 75%.`;
+    } else {
+      const needed = Math.ceil((0.75 * totalHeld - attended) / 0.25);
+      adviceHtml = `<strong>Action Required:</strong> Attendance is below Lucknow University's 75% examination threshold. Must attend next <strong>${needed} consecutive lectures</strong> to avoid semester debarment.`;
+    }
+
+    return `
+      <div class="attendance-ring-card">
+        <div style="position:relative;width:120px;height:120px;flex-shrink:0">
+          <svg viewBox="0 0 120 120" style="width:100%;height:100%;transform:rotate(-90deg)">
+            <defs>
+              <filter id="glow-att-${att}" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+            </defs>
+            <circle cx="60" cy="60" r="${r}" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="10" />
+            <line x1="60" y1="60" x2="6" y2="60" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="2,2" opacity="0.85" />
+            <circle cx="60" cy="60" r="${r}" fill="none" stroke="${ringColor}" stroke-width="10" stroke-linecap="round"
+              stroke-dasharray="${c.toFixed(2)}" stroke-dashoffset="${offset.toFixed(2)}"
+              filter="url(#glow-att-${att})"
+              style="transition:stroke-dashoffset 1s ease" />
+          </svg>
+          <div class="ring-center-content">
+            <b style="font-size:22px;color:var(--text);font-family:'Manrope',sans-serif">${att}%</b>
+            <span style="font-size:8px;letter-spacing:0.06em;color:var(--muted);font-weight:700">ATTENDANCE</span>
+          </div>
+        </div>
+
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
+            <span class="eyebrow" style="color:${ringColor}">LUCKNOW UNIVERSITY 75% CRITERION</span>
+            <span class="badge ${badgeClass}">${statusText}</span>
+          </div>
+          <h4 style="margin:4px 0 6px;font-size:13px;color:var(--text)">Semester Examination Eligibility Status</h4>
+          <p class="muted small" style="margin:0 0 10px;line-height:1.4">${adviceHtml}</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <button class="primary-btn slim ask-copilot-attendance-btn" data-att="${att}" style="font-size:10px">⚖️ Doctor Attendance with AI Copilot →</button>
+            <span class="tiny" style="color:var(--muted)">Target: 75.0% Mandatory</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
   function copilotWidget(who, studentName=""){
     return `<div class="card copilot-card">
       <div class="copilot-top">
@@ -1070,6 +1166,18 @@
         });
       };
     }
+
+    document.querySelectorAll(".ask-copilot-attendance-btn").forEach(btn => {
+      btn.onclick = async () => {
+        const q = "Calculate my Lucknow University 75% attendance recovery";
+        addBubble(q, "user");
+        const widget = document.querySelector(".copilot-card");
+        if (widget) widget.scrollIntoView({ behavior: "smooth" });
+        const studentCtx = document.getElementById("copilotStudent")?.value || "";
+        const answer = await copilotAnswer(q, who, studentCtx);
+        addBubble(answer, "ai");
+      };
+    });
   }
 
   async function premiumStudentDashboard(el){
@@ -1082,7 +1190,7 @@
 
     el.innerHTML = `
       <div class="hero-banner">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;z-index:1">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;z-index:1;flex-wrap:wrap">
           <div>
             <div class="eyebrow">${timeGreeting().toUpperCase()}, ${esc((s?.full_name || currentProfile?.full_name || "STUDENT").split(" ")[0].toUpperCase())}</div>
             <h3>Your academic pulse is looking steady.</h3>
@@ -1092,11 +1200,8 @@
               <button class="ghost-btn" data-page="profile">Manage GitHub & Certs</button>
             </div>
           </div>
-          <div class="score-ring">
-            <div>
-              <b>${a ? money(score) : "--"}</b>
-              <span>academic</span>
-            </div>
+          <div>
+            ${renderAppleDualRingSVG(a?.attendance, metrics.careerReadinessIndex, 115)}
           </div>
         </div>
       </div>
@@ -1153,6 +1258,8 @@
               <div class="sub">Active alerts</div>
             </div>
           </div>
+
+          ${renderCircularAttendanceCardHTML(a?.attendance, s?.full_name)}
 
           <div class="grid g2" style="margin-top:16px">
             <div class="card">
@@ -1308,13 +1415,18 @@
     el.innerHTML = `
       ${renderTIHSBatchBar(list.length)}
       <div class="hero-banner">
-        <div style="position:relative;z-index:1">
-          <div class="eyebrow">TEACHER COMMAND CENTER • TIHS LUCKNOW</div>
-          <h3>${tihsFilter.course} ${tihsFilter.year} ${tihsFilter.section === "All" ? "(All Sections)" : "Section " + tihsFilter.section}</h3>
-          <p>Academic performance monitoring for <strong>${tihsFilter.course}</strong> under Lucknow University syllabus. Real-time early detection, 75% attendance compliance, and TensorFlow.js neural predictions.</p>
-          <div class="hero-actions">
-            <button class="primary-btn" data-page="students">View Section Roster →</button>
-            <button class="ghost-btn" data-page="warnings">View Early Warnings</button>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;z-index:1;flex-wrap:wrap">
+          <div>
+            <div class="eyebrow">TEACHER COMMAND CENTER • TIHS LUCKNOW</div>
+            <h3>${tihsFilter.course} ${tihsFilter.year} ${tihsFilter.section === "All" ? "(All Sections)" : "Section " + tihsFilter.section}</h3>
+            <p>Academic performance monitoring for <strong>${tihsFilter.course}</strong> under Lucknow University syllabus. Real-time early detection, 75% attendance compliance, and TensorFlow.js neural predictions.</p>
+            <div class="hero-actions">
+              <button class="primary-btn" data-page="students">View Section Roster →</button>
+              <button class="ghost-btn" data-page="warnings">View Early Warnings</button>
+            </div>
+          </div>
+          <div>
+            ${renderAppleDualRingSVG(avgAtt, avgScore, 115)}
           </div>
         </div>
       </div>
@@ -2117,7 +2229,9 @@
 
       <div class="split-dashboard">
         <div>
-          <div class="grid g2">
+          ${renderCircularAttendanceCardHTML(a.attendance, s?.full_name)}
+
+          <div class="grid g2" style="margin-top:16px">
             <div class="card">
               <div class="card-head">
                 <h3>Latest Academic Indicators</h3>

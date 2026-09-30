@@ -1185,6 +1185,70 @@ button, a, input, select{-webkit-tap-highlight-color:transparent}
   display: inline-block;
 }
 
+
+/* Apple-style Activity Rings */
+.apple-dual-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.dual-ring-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.dual-ring-center b {
+  font-size: 15px;
+  font-weight: 800;
+  font-family: 'Manrope', sans-serif;
+  color: #fff;
+  display: block;
+  line-height: 1;
+}
+
+.dual-ring-center span {
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  display: block;
+  margin-top: 2px;
+}
+
+.attendance-ring-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(14, 20, 32, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  margin-top: 14px;
+}
+
+.ring-center-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .attendance-ring-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+}
+
 @media(prefers-reduced-motion:reduce){
   *{scroll-behavior:auto!important;transition:none!important}
 }
