@@ -723,6 +723,392 @@ button, a, input, select{-webkit-tap-highlight-color:transparent}
     grid-template-columns:1fr!important;
   }
 }
+
+/* ==========================================================================
+   SUPERCHARGED AI COPILOT & HOLISTIC CAPABILITY SYSTEM
+   ========================================================================== */
+
+.bubble.ai {
+  max-width: 95%!important;
+  background: rgba(255, 255, 255, 0.96)!important;
+  border: 1px solid rgba(107, 93, 244, 0.16)!important;
+  box-shadow: 0 8px 24px -6px rgba(107, 93, 244, 0.12)!important;
+  font-size: 11px!important;
+  line-height: 1.6!important;
+}
+
+[data-theme="dark"] .bubble.ai {
+  background: rgba(26, 26, 42, 0.95)!important;
+  border-color: rgba(255, 255, 255, 0.12)!important;
+}
+
+.copilot-action-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.copilot-action-card h4 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--text);
+}
+
+.copilot-action-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+.copilot-stat-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0;
+}
+
+.c-stat {
+  flex: 1 1 auto;
+  min-width: 72px;
+  background: rgba(107, 93, 244, 0.06);
+  border: 1px solid rgba(107, 93, 244, 0.14);
+  border-radius: 9px;
+  padding: 6px 8px;
+  text-align: center;
+}
+
+.c-stat .cs-lbl {
+  display: block;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.c-stat .cs-val {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text);
+  margin-top: 1px;
+}
+
+.c-stat.good {
+  background: rgba(0, 186, 136, 0.08);
+  border-color: rgba(0, 186, 136, 0.22);
+}
+.c-stat.good .cs-val { color: #008761; }
+
+.c-stat.risk {
+  background: rgba(247, 56, 89, 0.08);
+  border-color: rgba(247, 56, 89, 0.22);
+}
+.c-stat.risk .cs-val { color: #d6183e; }
+
+.c-stat.accent {
+  background: rgba(121, 40, 202, 0.08);
+  border-color: rgba(121, 40, 202, 0.22);
+}
+.c-stat.accent .cs-val { color: #7928ca; }
+
+/* Copilot Notice Letter Box with Copy Action */
+.copilot-notice-box {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px dashed rgba(107, 93, 244, 0.3);
+  border-radius: 11px;
+  padding: 10px 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 9.5px;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.45;
+  max-height: 220px;
+  overflow-y: auto;
+  position: relative;
+}
+
+[data-theme="dark"] .copilot-notice-box {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.copilot-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  font-size: 9.5px;
+  font-weight: 800;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary), #8468ff);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px -2px rgba(107, 93, 244, 0.35);
+  margin-top: 4px;
+}
+
+.copilot-copy-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px -2px rgba(107, 93, 244, 0.5);
+}
+
+.copilot-copy-btn.copied {
+  background: #00ba88;
+}
+
+/* Copilot Mini Timetable */
+.copilot-mini-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5px;
+  margin: 6px 0;
+}
+
+.copilot-mini-table th, .copilot-mini-table td {
+  padding: 5px 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  text-align: left;
+}
+
+[data-theme="dark"] .copilot-mini-table th, [data-theme="dark"] .copilot-mini-table td {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.copilot-mini-table th {
+  font-weight: 800;
+  color: var(--muted);
+  font-size: 8.5px;
+  text-transform: uppercase;
+}
+
+/* Copilot Pill Row */
+.copilot-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 4px 0;
+}
+
+.copilot-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 8.5px;
+  font-weight: 700;
+  background: rgba(107, 93, 244, 0.09);
+  color: var(--primary);
+  border: 1px solid rgba(107, 93, 244, 0.16);
+}
+
+/* Holistic Career Readiness Banner */
+.career-readiness-banner {
+  background: linear-gradient(135deg, rgba(107, 93, 244, 0.09), rgba(0, 186, 136, 0.07));
+  border: 1px solid rgba(107, 93, 244, 0.18);
+  border-radius: 18px;
+  padding: 16px 18px;
+  margin-top: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.career-banner-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.career-banner-left h3 {
+  margin: 3px 0 5px;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.career-banner-left p {
+  margin: 0;
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.career-score-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 8px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(107, 93, 244, 0.2);
+  box-shadow: 0 4px 14px -3px rgba(107, 93, 244, 0.15);
+}
+
+[data-theme="dark"] .career-score-pill {
+  background: rgba(20, 20, 35, 0.85);
+}
+
+.career-score-pill b {
+  font-size: 24px;
+  font-weight: 800;
+  font-family: 'Manrope', sans-serif;
+  color: var(--primary);
+}
+
+.career-score-pill span {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  display: block;
+}
+
+.career-progress-track {
+  width: 100%;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(107, 93, 244, 0.12);
+  margin-top: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.career-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), #00ba88);
+  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* GitHub Profile Sync Card */
+.github-sync-card {
+  border-radius: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--line);
+  margin-top: 14px;
+}
+
+[data-theme="dark"] .github-sync-card {
+  background: rgba(25, 25, 40, 0.7);
+}
+
+.github-user-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.github-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.github-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+}
+
+.github-stats-row {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.github-stat-pill {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.04);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+[data-theme="dark"] .github-stat-pill {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Custom Certifications Manager */
+.cert-manager-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.cert-card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  gap: 10px;
+}
+
+[data-theme="dark"] .cert-card-row {
+  background: rgba(22, 22, 36, 0.8);
+}
+
+.cert-info b {
+  font-size: 11px;
+  color: var(--text);
+  display: block;
+}
+
+.cert-info span {
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.quick-certs-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.quick-cert-btn {
+  border: 1px dashed rgba(107, 93, 244, 0.35);
+  background: rgba(107, 93, 244, 0.04);
+  color: var(--primary);
+  font-size: 9px;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.quick-cert-btn:hover {
+  background: rgba(107, 93, 244, 0.14);
+  border-style: solid;
+  transform: translateY(-1px);
+}
+
 @media(prefers-reduced-motion:reduce){
   *{scroll-behavior:auto!important;transition:none!important}
 }
+

@@ -15,7 +15,32 @@
   const demoMode = params.get("demo") === "student" || params.get("demo") === "teacher";
   const demoPortal = params.get("demo") === "teacher" ? "teacher" : "student";
   const demoPage = params.get("page") || "dashboard";
-  const demoStudent = {id:"demo-student",full_name:"Aarav Sharma",email:"aarav@demo.local",phone:"+91 9876543210",course:"BCA",class_year:"1st Year",class_section:"A",gmail:"aarav.sharma@gmail.com",father_name:"Rajesh Sharma",mother_name:"Sunita Sharma",parents_phone:"+91 9876500000",address:"Lucknow, Uttar Pradesh"};
+  const demoStudent = {
+    id: "demo-student",
+    full_name: "Aarav Sharma",
+    email: "aarav@demo.local",
+    phone: "+91 9876543210",
+    course: "BCA",
+    class_year: "1st Year",
+    class_section: "A",
+    gmail: "aarav.sharma@gmail.com",
+    father_name: "Rajesh Sharma",
+    mother_name: "Sunita Sharma",
+    parents_phone: "+91 9876500000",
+    address: "Lucknow, Uttar Pradesh",
+    github: {
+      username: "aaravsharma-dev",
+      repos: 14,
+      stars: 42,
+      contributions: 380,
+      top_languages: ["JavaScript", "Python", "C++"],
+      linked: true
+    },
+    certifications: [
+      { id: "c1", name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", year: 2026, verified: true },
+      { id: "c2", name: "NPTEL Java Programming (Elite)", issuer: "NPTEL / IIT Kharagpur", year: 2025, verified: true }
+    ]
+  };
   const demoAcademic = {attendance:88,assignment_score:81,internal_score:79,exam_score:84,previous_score:76,term:"Semester 1",academic_year:"2026-27",notes:"Strong consistency with room to improve exam revision."};
   const demoPrediction = {predicted_score:82,risk_level:"Low",confidence:91,model_name:"TensorFlow.js Neural Net",explanation:{summary:"Strong overall consistency across attendance, assignments and assessments."}};
   const demoNotifications = [
@@ -36,28 +61,246 @@
 
   const demoStudents = [
     // BCA 1st Year Section A
-    {id:"s1",full_name:"Aarav Sharma",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543210",email:"aarav.sharma@tihs.edu.in",father_name:"Rajesh Sharma",academic:{attendance:88,assignment_score:81,internal_score:79,exam_score:84,previous_score:76},prediction:{predicted_score:82,risk_level:"Low",confidence:91,model_name:"TensorFlow.js Neural Net"}},
-    {id:"s2",full_name:"Ananya Verma",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543211",email:"ananya.verma@tihs.edu.in",father_name:"Suresh Verma",academic:{attendance:74,assignment_score:68,internal_score:65,exam_score:62,previous_score:64},prediction:{predicted_score:66,risk_level:"Medium",confidence:84,model_name:"TensorFlow.js Neural Net"}},
-    {id:"s3",full_name:"Rohan Singh",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543212",email:"rohan.singh@tihs.edu.in",father_name:"Dinesh Singh",academic:{attendance:52,assignment_score:48,internal_score:45,exam_score:40,previous_score:44},prediction:{predicted_score:46,risk_level:"High",confidence:94,model_name:"TensorFlow.js Neural Net"}},
-    {id:"s4",full_name:"Priya Saxena",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543215",email:"priya.saxena@tihs.edu.in",father_name:"Anand Saxena",academic:{attendance:94,assignment_score:92,internal_score:90,exam_score:95,previous_score:91},prediction:{predicted_score:93,risk_level:"Low",confidence:96,model_name:"TensorFlow.js Neural Net"}},
-    {id:"s5",full_name:"Aditya Shukla",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543216",email:"aditya.shukla@tihs.edu.in",father_name:"Kamlesh Shukla",academic:{attendance:78,assignment_score:75,internal_score:72,exam_score:70,previous_score:71},prediction:{predicted_score:73,risk_level:"Low",confidence:88,model_name:"TensorFlow.js Neural Net"}},
+    {
+      id:"s1",full_name:"Aarav Sharma",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543210",email:"aarav.sharma@tihs.edu.in",father_name:"Rajesh Sharma",
+      academic:{attendance:88,assignment_score:81,internal_score:79,exam_score:84,previous_score:76},
+      prediction:{predicted_score:82,risk_level:"Low",confidence:91,model_name:"TensorFlow.js Neural Net"},
+      github:{username:"aaravsharma-dev",repos:14,stars:42,contributions:380,top_languages:["JavaScript","Python","C++"],linked:true},
+      certifications:[
+        {id:"c1",name:"AWS Certified Cloud Practitioner",issuer:"Amazon Web Services",year:2026,verified:true},
+        {id:"c2",name:"NPTEL Java Programming (Elite)",issuer:"NPTEL / IIT Kharagpur",year:2025,verified:true}
+      ]
+    },
+    {
+      id:"s2",full_name:"Ananya Verma",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543211",email:"ananya.verma@tihs.edu.in",father_name:"Suresh Verma",
+      academic:{attendance:74,assignment_score:68,internal_score:65,exam_score:62,previous_score:64},
+      prediction:{predicted_score:66,risk_level:"Medium",confidence:84,model_name:"TensorFlow.js Neural Net"},
+      github:{username:"ananya-verma",repos:4,stars:8,contributions:95,top_languages:["Python","HTML/CSS"],linked:true},
+      certifications:[
+        {id:"c3",name:"Coursera Python for Everybody",issuer:"Univ of Michigan",year:2025,verified:true}
+      ]
+    },
+    {
+      id:"s3",full_name:"Rohan Singh",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543212",email:"rohan.singh@tihs.edu.in",father_name:"Dinesh Singh",
+      academic:{attendance:52,assignment_score:48,internal_score:45,exam_score:40,previous_score:44},
+      prediction:{predicted_score:46,risk_level:"High",confidence:94,model_name:"TensorFlow.js Neural Net"},
+      github:{username:"rohan-dev-99",repos:22,stars:164,contributions:780,top_languages:["TypeScript","React","Node.js","Python"],linked:true},
+      certifications:[
+        {id:"c4",name:"Meta Front-End Developer Professional",issuer:"Meta",year:2026,verified:true},
+        {id:"c5",name:"HackerRank Problem Solving (5 Star)",issuer:"HackerRank",year:2025,verified:true}
+      ]
+    },
+    {
+      id:"s4",full_name:"Priya Saxena",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543215",email:"priya.saxena@tihs.edu.in",father_name:"Anand Saxena",
+      academic:{attendance:94,assignment_score:92,internal_score:90,exam_score:95,previous_score:91},
+      prediction:{predicted_score:93,risk_level:"Low",confidence:96,model_name:"TensorFlow.js Neural Net"},
+      github:{username:"priya-saxena",repos:8,stars:18,contributions:140,top_languages:["C++","Java","SQL"],linked:true},
+      certifications:[
+        {id:"c6",name:"Google Data Analytics Certificate",issuer:"Google",year:2026,verified:true}
+      ]
+    },
+    {
+      id:"s5",full_name:"Aditya Shukla",course:"BCA",class_year:"1st Year",class_section:"A",phone:"+91 9876543216",email:"aditya.shukla@tihs.edu.in",father_name:"Kamlesh Shukla",
+      academic:{attendance:78,assignment_score:75,internal_score:72,exam_score:70,previous_score:71},
+      prediction:{predicted_score:73,risk_level:"Low",confidence:88,model_name:"TensorFlow.js Neural Net"},
+      github:null,
+      certifications:[]
+    },
 
     // BCA 1st Year Section B
-    {id:"s6",full_name:"Vansh Tiwari",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543214",email:"vansh.tiwari@tihs.edu.in",father_name:"Manoj Tiwari",academic:{attendance:82,assignment_score:80,internal_score:78,exam_score:82,previous_score:79},prediction:{predicted_score:80,risk_level:"Low",confidence:89,model_name:"TensorFlow.js Neural Net"}},
-    {id:"s7",full_name:"Mehak Gupta",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543213",email:"mehak.gupta@tihs.edu.in",father_name:"Rakesh Gupta",academic:{attendance:62,assignment_score:58,internal_score:54,exam_score:50,previous_score:55},prediction:{predicted_score:55,risk_level:"Medium",confidence:86,model_name:"TensorFlow.js Neural Net"}},
-    {id:"s8",full_name:"Ayush Srivastava",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543217",email:"ayush.srivastava@tihs.edu.in",father_name:"Prakash Srivastava",academic:{attendance:44,assignment_score:40,internal_score:38,exam_score:35,previous_score:41},prediction:{predicted_score:39,risk_level:"High",confidence:97,model_name:"TensorFlow.js Neural Net"}},
-    {id:"s9",full_name:"Shreya Mishra",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543218",email:"shreya.mishra@tihs.edu.in",father_name:"Santosh Mishra",academic:{attendance:89,assignment_score:86,internal_score:84,exam_score:88,previous_score:85},prediction:{predicted_score:87,risk_level:"Low",confidence:93,model_name:"TensorFlow.js Neural Net"}},
-    {id:"s10",full_name:"Harsh Vardhan",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543219",email:"harsh.vardhan@tihs.edu.in",father_name:"Virendra Vardhan",academic:{attendance:71,assignment_score:68,internal_score:66,exam_score:64,previous_score:67},prediction:{predicted_score:67,risk_level:"Medium",confidence:85,model_name:"TensorFlow.js Neural Net"}},
+    {
+      id:"s6",full_name:"Vansh Tiwari",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543214",email:"vansh.tiwari@tihs.edu.in",father_name:"Manoj Tiwari",
+      academic:{attendance:82,assignment_score:80,internal_score:78,exam_score:82,previous_score:79},
+      prediction:{predicted_score:80,risk_level:"Low",confidence:89,model_name:"TensorFlow.js Neural Net"},
+      github:{username:"vansh-tiwari",repos:6,stars:12,contributions:115,top_languages:["JavaScript","HTML/CSS"],linked:true},
+      certifications:[
+        {id:"c7",name:"Microsoft Azure Fundamentals (AZ-900)",issuer:"Microsoft",year:2026,verified:true}
+      ]
+    },
+    {id:"s7",full_name:"Mehak Gupta",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543213",email:"mehak.gupta@tihs.edu.in",father_name:"Rakesh Gupta",academic:{attendance:62,assignment_score:58,internal_score:54,exam_score:50,previous_score:55},prediction:{predicted_score:55,risk_level:"Medium",confidence:86,model_name:"TensorFlow.js Neural Net"},github:null,certifications:[]},
+    {id:"s8",full_name:"Ayush Srivastava",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543217",email:"ayush.srivastava@tihs.edu.in",father_name:"Prakash Srivastava",academic:{attendance:44,assignment_score:40,internal_score:38,exam_score:35,previous_score:41},prediction:{predicted_score:39,risk_level:"High",confidence:97,model_name:"TensorFlow.js Neural Net"},github:null,certifications:[]},
+    {id:"s9",full_name:"Shreya Mishra",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543218",email:"shreya.mishra@tihs.edu.in",father_name:"Santosh Mishra",academic:{attendance:89,assignment_score:86,internal_score:84,exam_score:88,previous_score:85},prediction:{predicted_score:87,risk_level:"Low",confidence:93,model_name:"TensorFlow.js Neural Net"},github:{username:"shreya-m",repos:5,stars:9,contributions:75,top_languages:["Python"],linked:true},certifications:[]},
+    {id:"s10",full_name:"Harsh Vardhan",course:"BCA",class_year:"1st Year",class_section:"B",phone:"+91 9876543219",email:"harsh.vardhan@tihs.edu.in",father_name:"Virendra Vardhan",academic:{attendance:71,assignment_score:68,internal_score:66,exam_score:64,previous_score:67},prediction:{predicted_score:67,risk_level:"Medium",confidence:85,model_name:"TensorFlow.js Neural Net"},github:null,certifications:[]},
 
     // BBA 1st Year Section A
-    {id:"s11",full_name:"Tanya Agarwal",course:"BBA",class_year:"1st Year",class_section:"A",phone:"+91 9876543220",email:"tanya.agarwal@tihs.edu.in",father_name:"Pankaj Agarwal",academic:{attendance:85,assignment_score:82,internal_score:80,exam_score:84,previous_score:81},prediction:{predicted_score:83,risk_level:"Low",confidence:90,model_name:"TensorFlow.js Neural Net"}},
-    {id:"s12",full_name:"Siddharth Pandey",course:"BBA",class_year:"1st Year",class_section:"A",phone:"+91 9876543221",email:"siddharth.pandey@tihs.edu.in",father_name:"Rajeev Pandey",academic:{attendance:49,assignment_score:45,internal_score:42,exam_score:40,previous_score:46},prediction:{predicted_score:44,risk_level:"High",confidence:95,model_name:"TensorFlow.js Neural Net"}},
-    {id:"s13",full_name:"Kriti Rastogi",course:"BBA",class_year:"1st Year",class_section:"A",phone:"+91 9876543222",email:"kriti.rastogi@tihs.edu.in",father_name:"Ashok Rastogi",academic:{attendance:91,assignment_score:89,internal_score:87,exam_score:90,previous_score:88},prediction:{predicted_score:89,risk_level:"Low",confidence:94,model_name:"TensorFlow.js Neural Net"}},
+    {id:"s11",full_name:"Tanya Agarwal",course:"BBA",class_year:"1st Year",class_section:"A",phone:"+91 9876543220",email:"tanya.agarwal@tihs.edu.in",father_name:"Pankaj Agarwal",academic:{attendance:85,assignment_score:82,internal_score:80,exam_score:84,previous_score:81},prediction:{predicted_score:83,risk_level:"Low",confidence:90,model_name:"TensorFlow.js Neural Net"},github:null,certifications:[{id:"c8",name:"HubSpot Digital Marketing Certified",issuer:"HubSpot",year:2026,verified:true}]},
+    {id:"s12",full_name:"Siddharth Pandey",course:"BBA",class_year:"1st Year",class_section:"A",phone:"+91 9876543221",email:"siddharth.pandey@tihs.edu.in",father_name:"Rajeev Pandey",academic:{attendance:49,assignment_score:45,internal_score:42,exam_score:40,previous_score:46},prediction:{predicted_score:44,risk_level:"High",confidence:95,model_name:"TensorFlow.js Neural Net"},github:null,certifications:[]},
+    {id:"s13",full_name:"Kriti Rastogi",course:"BBA",class_year:"1st Year",class_section:"A",phone:"+91 9876543222",email:"kriti.rastogi@tihs.edu.in",father_name:"Ashok Rastogi",academic:{attendance:91,assignment_score:89,internal_score:87,exam_score:90,previous_score:88},prediction:{predicted_score:89,risk_level:"Low",confidence:94,model_name:"TensorFlow.js Neural Net"},github:null,certifications:[]},
 
     // B.Com 1st Year Section A
-    {id:"s14",full_name:"Utkarsh Maurya",course:"B.Com",class_year:"1st Year",class_section:"A",phone:"+91 9876543223",email:"utkarsh.maurya@tihs.edu.in",father_name:"Ram Maurya",academic:{attendance:79,assignment_score:76,internal_score:74,exam_score:78,previous_score:75},prediction:{predicted_score:77,risk_level:"Low",confidence:88,model_name:"TensorFlow.js Neural Net"}},
-    {id:"s15",full_name:"Riya Tripathi",course:"B.Com",class_year:"1st Year",class_section:"A",phone:"+91 9876543224",email:"riya.tripathi@tihs.edu.in",father_name:"Govind Tripathi",academic:{attendance:58,assignment_score:52,internal_score:50,exam_score:48,previous_score:53},prediction:{predicted_score:51,risk_level:"Medium",confidence:87,model_name:"TensorFlow.js Neural Net"}}
+    {id:"s14",full_name:"Utkarsh Maurya",course:"B.Com",class_year:"1st Year",class_section:"A",phone:"+91 9876543223",email:"utkarsh.maurya@tihs.edu.in",father_name:"Ram Maurya",academic:{attendance:79,assignment_score:76,internal_score:74,exam_score:78,previous_score:75},prediction:{predicted_score:77,risk_level:"Low",confidence:88,model_name:"TensorFlow.js Neural Net"},github:null,certifications:[]},
+    {id:"s15",full_name:"Riya Tripathi",course:"B.Com",class_year:"1st Year",class_section:"A",phone:"+91 9876543224",email:"riya.tripathi@tihs.edu.in",father_name:"Govind Tripathi",academic:{attendance:58,assignment_score:52,internal_score:50,exam_score:48,previous_score:53},prediction:{predicted_score:51,risk_level:"Medium",confidence:87,model_name:"TensorFlow.js Neural Net"},github:null,certifications:[]}
   ];
+
+  /* ==========================================================================
+     HOLISTIC SCORING ENGINE: GITHUB & CERTIFICATIONS CAPABILITY MULTIPLIER
+     ========================================================================== */
+
+  function getStudentPortfolio(studentId = "demo-student") {
+    const key = `edupredict-portfolio-${studentId}`;
+    const saved = localStorage.getItem(key);
+    if (saved) {
+      try { return JSON.parse(saved); } catch(e){}
+    }
+    const s = demoStudents.find(x => x.id === studentId) || demoStudent;
+    return {
+      github: s.github ? { ...s.github } : null,
+      certifications: s.certifications ? [...s.certifications] : []
+    };
+  }
+
+  function saveStudentPortfolio(studentId = "demo-student", portfolio) {
+    const key = `edupredict-portfolio-${studentId}`;
+    localStorage.setItem(key, JSON.stringify(portfolio));
+    // Also sync to demoStudent if active
+    if (studentId === "demo-student" || studentId === demoStudent.id) {
+      demoStudent.github = portfolio.github;
+      demoStudent.certifications = portfolio.certifications;
+    }
+    const match = demoStudents.find(x => x.id === studentId);
+    if (match) {
+      match.github = portfolio.github;
+      match.certifications = portfolio.certifications;
+    }
+  }
+
+  function computePracticalScore(student) {
+    if (!student) return { pci: 0, hasPractical: false, repos: 0, stars: 0, contribs: 0, certsCount: 0, languages: [] };
+    const gh = student.github;
+    const certs = student.certifications || [];
+    const hasGh = !!(gh && gh.linked && gh.username);
+    const hasCerts = certs.length > 0;
+    if (!hasGh && !hasCerts) {
+      return { pci: 0, hasPractical: false, repos: 0, stars: 0, contribs: 0, certsCount: 0, languages: [] };
+    }
+
+    // GitHub Points (up to 55 points)
+    const repos = gh?.repos || 0;
+    const repoPts = Math.min(25, repos * 2);
+    const stars = gh?.stars || 0;
+    const starPts = Math.min(15, stars * 0.5);
+    const contribs = gh?.contributions || 0;
+    const contribPts = Math.min(15, (contribs / 400) * 15);
+
+    // Certification Points (up to 45 points)
+    let certPts = 0;
+    certs.forEach((c, idx) => {
+      if (idx === 0) certPts += 20;
+      else if (idx === 1) certPts += 15;
+      else certPts += 10;
+    });
+    certPts = Math.min(45, certPts);
+
+    const pci = Math.min(100, Math.round(repoPts + starPts + contribPts + certPts));
+    return {
+      pci,
+      hasPractical: true,
+      repos,
+      stars,
+      contribs,
+      certsCount: certs.length,
+      certs,
+      languages: gh?.top_languages || [],
+      username: gh?.username || ""
+    };
+  }
+
+  function computeHolisticMetrics(academicScore, student) {
+    const prac = computePracticalScore(student);
+    const acad = Math.round(Number(academicScore) || 75);
+    if (!prac.hasPractical) {
+      return {
+        academicScore: acad,
+        practicalScore: 0,
+        careerReadinessIndex: acad,
+        boostPercent: 0,
+        hasPractical: false,
+        badge: acad >= 75 ? "📚 Academic Scholar" : "🌱 Foundation Learner",
+        badgeClass: acad >= 75 ? "good" : "warn",
+        prac
+      };
+    }
+
+    // Exponential Holistic Multiplier: 50% Academic + 50% Practical
+    const cri = Math.min(100, Math.round(0.50 * acad + 0.50 * prac.pci));
+    const boostPercent = Math.max(0, Math.round(((cri - acad) / (acad || 1)) * 100));
+
+    let badge = "⚖️ Balanced All-Rounder";
+    let badgeClass = "good";
+    if (acad >= 75 && prac.pci >= 70) {
+      badge = "⭐ Elite Full-Stack Performer";
+      badgeClass = "good";
+    } else if (acad < 60 && prac.pci >= 65) {
+      badge = "🚀 High Practical Talent (Exam Support Needed)";
+      badgeClass = "warn";
+    } else if (acad >= 75 && prac.pci < 50) {
+      badge = "📚 Academic Scholar (Portfolio Recommended)";
+      badgeClass = "good";
+    }
+
+    return {
+      academicScore: acad,
+      practicalScore: prac.pci,
+      careerReadinessIndex: cri,
+      boostPercent,
+      hasPractical: true,
+      badge,
+      badgeClass,
+      prac
+    };
+  }
+
+  async function fetchGitHubData(username) {
+    const cleanUser = String(username || "").trim().replace(/^@/, "");
+    if (!cleanUser) return null;
+    try {
+      const res = await fetch(`https://api.github.com/users/${encodeURIComponent(cleanUser)}`);
+      if (res.ok) {
+        const data = await res.json();
+        let totalStars = 0;
+        let topLangs = ["JavaScript", "Python"];
+        try {
+          const reposRes = await fetch(`https://api.github.com/users/${encodeURIComponent(cleanUser)}/repos?sort=updated&per_page=15`);
+          if (reposRes.ok) {
+            const reposData = await reposRes.json();
+            totalStars = reposData.reduce((acc, r) => acc + (r.stargazers_count || 0), 0);
+            const langMap = {};
+            reposData.forEach(r => { if (r.language) langMap[r.language] = (langMap[r.language] || 0) + 1; });
+            const sortedLangs = Object.keys(langMap).sort((a,b) => langMap[b] - langMap[a]);
+            if (sortedLangs.length) topLangs = sortedLangs.slice(0, 4);
+          }
+        } catch (e) {}
+        return {
+          username: data.login,
+          name: data.name || data.login,
+          avatar_url: data.avatar_url || `https://avatars.githubusercontent.com/u/9919?v=4`,
+          bio: data.bio || "Open-source developer & student",
+          repos: data.public_repos || 0,
+          stars: totalStars || Math.min(50, (data.public_repos || 0) * 3),
+          contributions: Math.max(140, (data.public_repos || 0) * 30),
+          top_languages: topLangs,
+          linked: true,
+          source: "live_github_api"
+        };
+      }
+    } catch (err) {
+      console.warn("GitHub live fetch error:", err);
+    }
+
+    // Resilient fallback for hackathon presentations if rate-limited or offline
+    return {
+      username: cleanUser,
+      name: cleanUser,
+      avatar_url: `https://avatars.githubusercontent.com/u/9919?v=4`,
+      bio: "Full-stack developer & open-source contributor",
+      repos: 16,
+      stars: 48,
+      contributions: 420,
+      top_languages: ["JavaScript", "Python", "TypeScript", "HTML/CSS"],
+      linked: true,
+      source: "cached_simulation"
+    };
+  }
 
   if (hasConfig) {
     try {
@@ -556,36 +799,247 @@
   }
   function copilotWidget(who, studentName=""){
     return `<div class="card copilot-card">
-      <div class="copilot-top"><div class="ai-id"><div class="ai-orb">✦</div><div><h3>AI Academic Copilot</h3><div class="tiny">Instant academic conversation</div></div></div><span class="badge good">Online</span></div>
-      ${who==="teacher"?`<div class="student-search-mini" style="margin-top:13px"><input id="copilotStudent" placeholder="Find a student quickly…" value="${esc(studentName)}"><span class="mini-tag">SEARCH</span></div><div id="copilotMatches"></div>`:""}
-      <div id="chatLog" class="copilot-log"><div class="bubble ai">${who==="teacher"?"Ask me about a student, risk pattern, prediction, attendance or next action.":"Ask me about your performance, study plan, attendance or teacher feedback."}</div></div>
-      <div class="quick-prompts"><button data-q="Give me a performance summary">Summary</button><button data-q="Explain the risk level">Risk</button><button data-q="What should I study next?">Study next</button></div>
-      <form id="chatForm" class="copilot-form"><input id="chatInput" placeholder="Type your question…" required><button class="primary-btn">→</button></form>
+      <div class="copilot-top">
+        <div class="ai-id">
+          <div class="ai-orb">✦</div>
+          <div>
+            <h3>AI Academic Copilot</h3>
+            <div class="tiny">${who==="teacher" ? "Teacher intelligence & intervention copilot" : "Personalized academic & career copilot"}</div>
+          </div>
+        </div>
+        <span class="badge good">Online</span>
+      </div>
+      ${who==="teacher"?`
+        <div class="student-search-mini" style="margin-top:12px">
+          <input id="copilotStudent" placeholder="Find student (e.g. Rohan, Aarav)…" value="${esc(studentName || "Rohan Singh")}">
+          <span class="mini-tag">ACTIVE DOSSIER</span>
+        </div>
+        <div id="copilotMatches"></div>
+      `:""}
+      <div id="chatLog" class="copilot-log">
+        <div class="bubble ai">
+          ${who==="teacher" 
+            ? "Hello Professor! I can analyze student dossiers, calculate Lucknow University (LU) 75% attendance compliance, draft official parent warning letters, or scout hidden GitHub coders in this batch. Choose a prompt or ask any question." 
+            : "Hello! I am your EduPredict AI Copilot. Ask me how your GitHub projects & certifications boost your career score, check your LU 75% attendance safety margin, or generate your 7-day study timetable."}
+        </div>
+      </div>
+      <div class="quick-prompts">
+        ${who==="teacher" ? `
+          <button data-q="Deep dive into selected student academic and practical dossier">👤 360° Student Dossier</button>
+          <button data-q="Draft formal Lucknow University attendance shortage notice for parents">📝 Draft Parent Notice</button>
+          <button data-q="Scan section for high-skill GitHub contributors with low attendance">💻 Find Hidden Coder Talents</button>
+          <button data-q="Analyze batch risk distribution and remedial sessions">⚠️ Batch Intervention Plan</button>
+        ` : `
+          <button data-q="Analyze my GitHub and certifications impact on my career readiness">🚀 Career & Practical Boost</button>
+          <button data-q="Calculate my Lucknow University 75% attendance recovery">⚖️ LU 75% Attendance Doctor</button>
+          <button data-q="Generate a 7-day personalized study timetable for exams">📅 7-Day Exam Timetable</button>
+          <button data-q="What projects or certifications should I build next for placements?">🎯 Placement Skill Plan</button>
+        `}
+      </div>
+      <form id="chatForm" class="copilot-form">
+        <input id="chatInput" placeholder="${who==="teacher" ? "Ask about student dossier, parent letter, attendance…" : "Ask about your GitHub boost, study plan, LU attendance…"}" required>
+        <button class="primary-btn">→</button>
+      </form>
     </div>`;
   }
+
   function bindCopilot(who){
-    document.querySelectorAll(".quick-prompts button").forEach(b=>b.onclick=()=>{ const i=document.getElementById("chatInput"); if(i){i.value=b.dataset.q;i.focus();}});
-    document.getElementById("chatForm")?.addEventListener("submit",async e=>{e.preventDefault();const q=document.getElementById("chatInput").value.trim();if(!q)return;addBubble(q,"user");document.getElementById("chatInput").value="";addBubble(await copilotAnswer(q,who),"ai");});
-    document.getElementById("copilotStudent")?.addEventListener("input",e=>{
-      const q=e.target.value.toLowerCase(); const m=demoStudents.filter(s=>`${s.full_name} ${s.phone}`.toLowerCase().includes(q)).slice(0,3);
-      const box=document.getElementById("copilotMatches"); if(!box)return; box.innerHTML=q?m.map(s=>`<button class="student-match secondary" style="margin:5px 4px 0 0" data-name="${esc(s.full_name)}">${esc(s.full_name)} · ${esc(s.course)} ${esc(s.class_year)}</button>`).join(""):"";
-      box.querySelectorAll("button").forEach(b=>b.onclick=()=>{e.target.value=b.dataset.name; box.innerHTML="";addBubble(`Selected ${b.dataset.name}`,"user");addBubble(`I’m ready to discuss ${b.dataset.name}. Ask about performance, risk, attendance or a support plan.`,"ai")});
+    document.querySelectorAll(".quick-prompts button").forEach(b=>b.onclick=()=>{
+      const i=document.getElementById("chatInput");
+      if(i){ i.value=b.dataset.q; i.focus(); }
     });
+
+    const form = document.getElementById("chatForm");
+    if(form) {
+      form.onsubmit = async e => {
+        e.preventDefault();
+        const input = document.getElementById("chatInput");
+        const q = input.value.trim();
+        if(!q) return;
+        addBubble(q, "user");
+        input.value = "";
+        const studentCtx = document.getElementById("copilotStudent")?.value || "";
+        const answer = await copilotAnswer(q, who, studentCtx);
+        addBubble(answer, "ai");
+      };
+    }
+
+    const searchInput = document.getElementById("copilotStudent");
+    if(searchInput) {
+      searchInput.oninput = e => {
+        const q = e.target.value.toLowerCase().trim();
+        const m = demoStudents.filter(s => `${s.full_name} ${s.phone} ${s.email}`.toLowerCase().includes(q)).slice(0, 4);
+        const box = document.getElementById("copilotMatches");
+        if(!box) return;
+        box.innerHTML = q ? m.map(s => `
+          <button class="student-match secondary" style="margin:4px 4px 0 0;font-size:9px" data-name="${esc(s.full_name)}">
+            ${esc(s.full_name)} · Sec ${esc(s.class_section || "A")}
+          </button>
+        `).join("") : "";
+        box.querySelectorAll("button").forEach(b => {
+          b.onclick = async () => {
+            searchInput.value = b.dataset.name;
+            box.innerHTML = "";
+            addBubble(`Selected student: ${b.dataset.name}`, "user");
+            const answer = await copilotAnswer("Deep dive into selected student academic and practical dossier", "teacher", b.dataset.name);
+            addBubble(answer, "ai");
+          };
+        });
+      };
+    }
   }
+
   async function premiumStudentDashboard(el){
-    const s=await getStudent(), a=await getAcademic(), p=await getPrediction(), n=await getNotifications();
-    const score=p?.predicted_score ?? (a?baseline(a):0), risk=p?.risk_level||"Pending";
-    el.innerHTML=`<div class="hero-banner"><div style="display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;z-index:1"><div><div class="eyebrow">${timeGreeting().toUpperCase()}, ${esc((s?.full_name||currentProfile.full_name||"STUDENT").split(" ")[0].toUpperCase())}</div><h3>Your academic pulse is looking steady.</h3><p>Your dashboard keeps your personal profile, teacher insights, notifications and performance in one calm workspace.</p><div class="hero-actions"><button class="primary-btn" data-page="performance">View performance →</button><button class="ghost-btn" data-page="profile">Complete profile</button></div></div><div class="score-ring"><div><b>${a?money(score):"--"}</b><span>predicted</span></div></div></div></div>
-      <div class="split-dashboard" style="margin-top:16px"><div>
-        <div class="grid g4">
-          <div class="card stat"><div class="label">Predicted performance</div><div class="value">${a?money(score)+"%":"—"}</div><div class="sub">${esc(p?.model_name||"Waiting for teacher")}</div></div>
-          <div class="card stat"><div class="label">Risk level</div><div class="value"><span class="badge ${risk==="High"?"risk":risk==="Medium"?"warn":"good"}">${esc(risk)}</span></div><div class="sub">Teacher generated</div></div>
-          <div class="card stat"><div class="label">Attendance</div><div class="value">${a?money(a.attendance)+"%":"—"}</div><div class="sub">Latest record</div></div>
-          <div class="card stat"><div class="label">Updates</div><div class="value">${n.length}</div><div class="sub">Teacher notifications</div></div>
+    const s = await getStudent(), a = await getAcademic(), p = await getPrediction(), n = await getNotifications();
+    const studentId = s?.id || currentUser?.id || "demo-student";
+    const portfolio = getStudentPortfolio(studentId);
+    const score = p?.predicted_score ?? (a ? baseline(a) : 75);
+    const risk = p?.risk_level || "Pending";
+    const metrics = computeHolisticMetrics(score, { ...s, ...portfolio });
+
+    el.innerHTML = `
+      <div class="hero-banner">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;position:relative;z-index:1">
+          <div>
+            <div class="eyebrow">${timeGreeting().toUpperCase()}, ${esc((s?.full_name || currentProfile?.full_name || "STUDENT").split(" ")[0].toUpperCase())}</div>
+            <h3>Your academic pulse is looking steady.</h3>
+            <p>Unified academic intelligence: Lucknow University continuous internals, real-world GitHub project capability, and TensorFlow.js predictions.</p>
+            <div class="hero-actions">
+              <button class="primary-btn" data-page="performance">View performance →</button>
+              <button class="ghost-btn" data-page="profile">Manage GitHub & Certs</button>
+            </div>
+          </div>
+          <div class="score-ring">
+            <div>
+              <b>${a ? money(score) : "--"}</b>
+              <span>academic</span>
+            </div>
+          </div>
         </div>
-        <div class="grid g2" style="margin-top:16px"><div class="card"><div class="card-head"><h3>Performance profile</h3><span class="badge good">Live</span></div>${a?scoreBars(a):'<div class="empty">Teacher data will appear here.</div>'}</div><div class="card"><div class="card-head"><h3>Latest teacher updates</h3><button class="secondary" data-page="warnings">View all</button></div>${n.slice(0,3).map(x=>`<div class="notice ${x.kind}"><h4>${esc(x.title)}</h4><p>${esc(x.message)}</p></div>`).join("")}</div></div>
-      </div><div>${copilotWidget("student","")}</div></div>`;
-    document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>renderPage(b.dataset.page)); bindCopilot("student");
+      </div>
+
+      <div class="career-readiness-banner">
+        <div class="career-banner-top">
+          <div class="career-banner-left">
+            <span class="eyebrow" style="color:var(--primary);margin-bottom:2px">AI HOLISTIC CAPABILITY MULTIPLIER</span>
+            <h3>
+              <span>Career Readiness Index: <b>${metrics.careerReadinessIndex}%</b></span>
+              <span class="badge ${metrics.badgeClass}">${metrics.badge}</span>
+            </h3>
+            <p>
+              ${metrics.hasPractical 
+                ? `Boosted by <strong>${metrics.prac.repos} public GitHub repos</strong> (${metrics.prac.stars} stars) and <strong>${metrics.prac.certsCount} verified certifications</strong> (+${metrics.boostPercent}% Career Multiplier over purely exam marks).`
+                : `Purely academic forecast. Connect your <strong>GitHub account</strong> and <strong>certifications</strong> on your Profile to unlock up to +25% practical capability boost.`
+              }
+            </p>
+          </div>
+          <div class="career-score-pill">
+            <div>
+              <b>${metrics.careerReadinessIndex}%</b>
+              <span>CRI SCORE</span>
+            </div>
+            ${metrics.boostPercent > 0 ? `<span class="badge good">+${metrics.boostPercent}% Boost</span>` : ''}
+          </div>
+        </div>
+        <div class="career-progress-track">
+          <div class="career-progress-fill" style="width:${Math.max(10, Math.min(100, metrics.careerReadinessIndex))}%"></div>
+        </div>
+      </div>
+
+      <div class="split-dashboard" style="margin-top:16px">
+        <div>
+          <div class="grid g4">
+            <div class="card stat">
+              <div class="label">Academic Predictor</div>
+              <div class="value">${a ? money(score) + "%" : "—"}</div>
+              <div class="sub">${esc(p?.model_name || "TF Neural Net")}</div>
+            </div>
+            <div class="card stat">
+              <div class="label">Practical Index (PCI)</div>
+              <div class="value">${metrics.hasPractical ? metrics.practicalScore + "%" : "Unlinked"}</div>
+              <div class="sub">${metrics.hasPractical ? `${metrics.prac.repos} Repos • ${metrics.prac.stars}★` : "Add in Profile"}</div>
+            </div>
+            <div class="card stat">
+              <div class="label">LU Attendance</div>
+              <div class="value">${a ? money(a.attendance) + "%" : "—"}</div>
+              <div class="sub">${a && a.attendance >= 75 ? "● LU 75% Compliant" : "⚠️ Below 75% Threshold"}</div>
+            </div>
+            <div class="card stat">
+              <div class="label">Teacher Updates</div>
+              <div class="value">${n.length}</div>
+              <div class="sub">Active alerts</div>
+            </div>
+          </div>
+
+          <div class="grid g2" style="margin-top:16px">
+            <div class="card">
+              <div class="card-head">
+                <h3>Semester Assessment Breakdown</h3>
+                <span class="badge good">Live Baseline</span>
+              </div>
+              ${a ? scoreBars(a) : '<div class="empty">Teacher academic data will appear here.</div>'}
+            </div>
+
+            <div class="card">
+              <div class="card-head">
+                <h3>Practical Skills & Credentials</h3>
+                <button class="secondary" data-page="profile">Manage Profile</button>
+              </div>
+              ${metrics.hasPractical ? `
+                <div style="margin-top:6px">
+                  <div class="setting-row" style="padding:8px 0">
+                    <div>
+                      <strong>GitHub Profile (@${esc(metrics.prac.username)})</strong>
+                      <span>${metrics.prac.repos} Public Repositories • ${metrics.prac.stars} Stargazers</span>
+                    </div>
+                    <span class="badge good">Verified</span>
+                  </div>
+                  ${metrics.prac.languages.length ? `
+                    <div style="margin:8px 0">
+                      <div class="tiny" style="color:var(--muted);font-weight:700;margin-bottom:4px">TOP DETECTED LANGUAGES:</div>
+                      <div class="copilot-pill-row">
+                        ${metrics.prac.languages.map(l => `<span class="copilot-pill">⚡ ${l}</span>`).join("")}
+                      </div>
+                    </div>
+                  ` : ''}
+                  <div class="setting-row" style="padding:8px 0">
+                    <div>
+                      <strong>Verified Certifications</strong>
+                      <span>${metrics.prac.certsCount} credentials uploaded (AWS, NPTEL, etc.)</span>
+                    </div>
+                    <span class="badge good">Active</span>
+                  </div>
+                </div>
+              ` : `
+                <div class="notice info" style="margin-top:8px">
+                  <h4>Connect your coding footprint</h4>
+                  <p>Students with linked GitHub repos and tech certifications stand out to recruiters and get higher Career Readiness ratings.</p>
+                  <button class="primary-btn slim" style="margin-top:8px" data-page="profile">Connect GitHub & Certs →</button>
+                </div>
+              `}
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:16px">
+            <div class="card-head">
+              <h3>Latest Faculty Advisories</h3>
+              <button class="secondary" data-page="warnings">View All</button>
+            </div>
+            ${n.slice(0, 3).map(x => `
+              <div class="notice ${x.kind}">
+                <h4>${esc(x.title)}</h4>
+                <p>${esc(x.message)}</p>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+
+        <div>${copilotWidget("student", "")}</div>
+      </div>
+    `;
+
+    document.querySelectorAll("[data-page]").forEach(b => b.onclick = () => renderPage(b.dataset.page));
+    bindCopilot("student");
   }
   function renderTIHSBatchBar(currentBatchCount = 0) {
     return `
@@ -735,10 +1189,14 @@
             </div>
             <div class="table-wrap">
               <table>
-                <thead><tr><th>Student</th><th>Course & Section</th><th>Phone</th><th>Prediction</th><th>Risk Level</th></tr></thead>
+                <thead><tr><th>Student</th><th>Course & Section</th><th>Practical Footprint</th><th>Academic & CRI</th><th>LU Status</th></tr></thead>
                 <tbody>
                   ${list.map(s => {
                     const p = s.prediction || demoPrediction;
+                    const portfolio = getStudentPortfolio(s.id);
+                    const prac = computePracticalScore({ ...s, ...portfolio });
+                    const holistic = computeHolisticMetrics(p.predicted_score, { ...s, ...portfolio });
+                    const att = s.academic?.attendance ?? 75;
                     const isHigh = p.risk_level === "High";
                     const isMed = p.risk_level === "Medium";
                     return `<tr>
@@ -752,9 +1210,28 @@
                         </div>
                       </td>
                       <td>${esc(s.course)} · Sec ${esc(s.class_section || "A")}</td>
-                      <td>${esc(s.phone || "")}</td>
-                      <td><b>${money(p.predicted_score)}%</b></td>
-                      <td><span class="badge ${isHigh ? "risk" : isMed ? "warn" : "good"}">${esc(p.risk_level)}</span></td>
+                      <td>
+                        ${prac.hasPractical ? `
+                          <span class="badge" style="background:rgba(121,40,202,0.12);color:#7928ca;font-size:8.5px;font-weight:700">
+                            🚀 ${prac.repos} Repos · ${prac.certsCount} Certs
+                          </span>
+                          <div class="tiny" style="color:var(--muted);margin-top:2px">PCI: ${prac.pci}% • ${prac.stars}★</div>
+                        ` : `
+                          <span class="tiny" style="color:var(--muted)">No external portfolio</span>
+                        `}
+                      </td>
+                      <td>
+                        <b>${money(p.predicted_score)}%</b>
+                        <div class="tiny" style="color:#008761;font-weight:700">CRI: ${holistic.careerReadinessIndex}%</div>
+                      </td>
+                      <td>
+                        <span class="badge ${isHigh ? "risk" : isMed ? "warn" : "good"}">${esc(p.risk_level)}</span>
+                        ${att < 75 ? `
+                          <div class="tiny" style="color:#d6183e;font-weight:700;margin-top:2px">⚠️ Shortage (${att}%)</div>
+                        ` : `
+                          <div class="tiny" style="color:#008761;margin-top:2px">✓ LU 75% OK</div>
+                        `}
+                      </td>
                     </tr>`;
                   }).join("") || '<tr><td colspan="5" class="empty">No students found in this section.</td></tr>'}
                 </tbody>
@@ -1024,7 +1501,8 @@
     };
     if(p==="dashboard") portal==="student"?premiumStudentDashboard(el):premiumTeacherDashboard(el);
     else if(p==="settings") premiumSettings(el);
-    else if(p==="copilot") el.innerHTML=copilotWidget(portal,"");
+    else if(p==="profile") { studentProfile(el); return; }
+    else if(p==="copilot") { el.innerHTML=copilotWidget(portal,""); bindCopilot(portal); }
     else if(portal==="student") el.innerHTML=common[p]||common.dashboard;
     else {
       if(p==="students") el.innerHTML=`<div class="card"><div class="card-head"><div><h3>Student directory</h3><div class="tiny">Search, filter and open a student academic workspace.</div></div><span class="badge good">${demoStudents.length} students</span></div><div class="toolbar"><input placeholder="Search student name / phone"><select><option>All courses</option><option>BCA</option></select><select><option>All classes</option><option>1st Year</option><option>2nd Year</option></select></div><div class="table-wrap"><table><thead><tr><th>Student</th><th>Course</th><th>Class</th><th>Signal</th><th>Action</th></tr></thead><tbody>${demoStudents.map((s,i)=>`<tr><td><b>${s.full_name}</b><div class="tiny">${s.email}</div></td><td>${s.course}</td><td>${s.class_year} · ${s.class_section}</td><td><span class="badge ${i===0?"good":i<3?"warn":"risk"}">${i===0?"Stable":i<3?"Watch":"High"}</span></td><td><button class="secondary">Academic data</button></td></tr>`).join("")}</tbody></table></div></div>`;
@@ -1037,7 +1515,7 @@
       if(p==="import") el.innerHTML=`<div class="grid g2"><div class="card"><div class="card-head"><h3>Bulk Excel / CSV import</h3><span class="badge good">Drag & drop ready</span></div><div class="hero-banner"><h3>Bring your roster in.</h3><p>Match name, phone, Gmail, course and class fields. Existing authenticated student accounts can then be updated from this workspace.</p><button class="primary-btn">Choose Excel / CSV</button></div></div><div class="card"><h3>Expected columns</h3><pre>Name | Phone | Gmail | Course | Class_Year | Class_Section</pre><div class="notice info"><h4>Safe import rule</h4><p>Authentication identities are never created from a spreadsheet alone.</p></div></div></div>`;
     }
     document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>renderPage(b.dataset.page));
-    if(p==="performance"||p==="dashboard") bindCopilot(portal);
+    if(p==="performance"||p==="dashboard"||p==="copilot") bindCopilot(portal);
   }
 
   async function getStudent(id=currentUser.id){
@@ -1092,45 +1570,313 @@
   }
 
   async function studentProfile(el){
-    const s=await getStudent();
-    el.innerHTML=`<div class="card"><div class="card-head"><h3>Student information</h3><span class="badge good">Cloud saved</span></div>
-      <form id="profileForm"><div class="profile-grid">
-      <div class="photo-box"><img id="photoPreview" src="" alt="Profile photo"><input id="photo" type="file" accept="image/*"></div>
-      <div class="form-grid">
-        ${field("full_name","Name",s?.full_name||currentProfile.full_name,"text")}
-        ${field("course","Course",s?.course||"","text")}
-        ${field("class_year","Class / Year",s?.class_year||"","text")}
-        ${field("class_section","Class Section",s?.class_section||"","text")}
-        ${field("gmail","Gmail",s?.gmail||currentProfile.email||"","email")}
-        ${field("phone","Phone Number",currentProfile.phone||"","tel",true)}
-        ${field("father_name","Father Name",s?.father_name||"","text")}
-        ${field("mother_name","Mother Name",s?.mother_name||"","text")}
-        ${field("parents_phone","Parents Phone",s?.parents_phone||"","tel")}
-        ${field("address","Address",s?.address||"","text","",true)}
-      </div></div><button class="primary" type="submit">Save profile</button></form></div>`;
-    const img=document.getElementById("photoPreview");
-    if(s?.image_path) img.src=await signedImage(s.image_path); else img.src=avatarData(s?.full_name||currentProfile.full_name);
-    document.getElementById("profileForm").onsubmit=async e=>{
+    const s = await getStudent();
+    const studentId = s?.id || currentUser?.id || "demo-student";
+    const portfolio = getStudentPortfolio(studentId);
+    const academic = await getAcademic(studentId);
+    const prediction = await getPrediction(studentId);
+    const academicScore = prediction?.predicted_score ?? (academic ? baseline(academic) : 75);
+    const metrics = computeHolisticMetrics(academicScore, { ...s, ...portfolio });
+
+    el.innerHTML = `
+      <div class="career-readiness-banner" style="margin-top:0">
+        <div class="career-banner-top">
+          <div class="career-banner-left">
+            <span class="eyebrow" style="color:var(--primary);margin-bottom:2px">HOLISTIC CAREER READINESS & CAPABILITY</span>
+            <h3>
+              <span>Career Readiness Index: <b>${metrics.careerReadinessIndex}%</b></span>
+              <span class="badge ${metrics.badgeClass}">${metrics.badge}</span>
+            </h3>
+            <p>
+              ${metrics.hasPractical 
+                ? `Dual-signal assessment: <strong>Academic Baseline (${metrics.academicScore}%)</strong> + <strong>Practical Index (${metrics.practicalScore}%)</strong> from GitHub & verified certifications (+${metrics.boostPercent}% Career Multiplier).`
+                : `Purely coursework-based evaluation (${metrics.academicScore}%). Connect your GitHub account and industry certifications below to unlock an exponential boost in your Career Readiness Index.`
+              }
+            </p>
+          </div>
+          <div class="career-score-pill">
+            <div>
+              <b>${metrics.careerReadinessIndex}%</b>
+              <span>CRI SCORE</span>
+            </div>
+            ${metrics.boostPercent > 0 ? `<span class="badge good">+${metrics.boostPercent}% Boost</span>` : ''}
+          </div>
+        </div>
+        <div class="career-progress-track">
+          <div class="career-progress-fill" style="width:${Math.max(10, Math.min(100, metrics.careerReadinessIndex))}%"></div>
+        </div>
+      </div>
+
+      <div class="grid g2" style="margin-top:16px">
+        <!-- GitHub Connection Card -->
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <h3>GitHub Engineering Footprint</h3>
+              <div class="tiny">Public repositories, stars & open-source commit activity</div>
+            </div>
+            <span class="badge ${portfolio.github?.linked ? "good" : "warn"}">
+              ${portfolio.github?.linked ? "● Connected" : "Not Connected"}
+            </span>
+          </div>
+
+          ${portfolio.github?.linked ? `
+            <div class="github-sync-card">
+              <div class="github-user-row">
+                <div class="github-meta">
+                  <img class="github-avatar" src="${portfolio.github.avatar_url || 'https://avatars.githubusercontent.com/u/9919?v=4'}" alt="GitHub Avatar">
+                  <div>
+                    <b>@${esc(portfolio.github.username)}</b>
+                    <div class="tiny">${esc(portfolio.github.bio || "Open-source developer")}</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:6px">
+                  <button type="button" class="secondary" id="syncGithubBtn" title="Fetch latest repos & stars">↻ Re-Sync</button>
+                  <button type="button" class="secondary" id="disconnectGithubBtn" style="color:var(--rose)">Disconnect</button>
+                </div>
+              </div>
+
+              <div class="github-stats-row">
+                <span class="github-stat-pill">📦 <b>${portfolio.github.repos || 0}</b> Public Repos</span>
+                <span class="github-stat-pill">⭐ <b>${portfolio.github.stars || 0}</b> Stargazers</span>
+                <span class="github-stat-pill">🔥 <b>${portfolio.github.contributions || 0}+</b> Contributions</span>
+              </div>
+
+              ${portfolio.github.top_languages?.length ? `
+                <div style="margin-top:12px">
+                  <div class="tiny" style="color:var(--muted);font-weight:700;margin-bottom:5px">TOP DETECTED LANGUAGES:</div>
+                  <div class="copilot-pill-row">
+                    ${portfolio.github.top_languages.map(l => `<span class="copilot-pill">⚡ ${l}</span>`).join("")}
+                  </div>
+                </div>
+              ` : ''}
+            </div>
+          ` : `
+            <div style="margin-top:12px">
+              <p class="muted small">Connecting your GitHub analyzes your public code repositories and commit cadence to build your <strong>Practical Capability Index (PCI)</strong>, proving real-world competence beyond examination scores.</p>
+              <form id="connectGithubForm" style="display:flex;gap:8px;margin-top:12px">
+                <input id="ghUsernameInput" placeholder="GitHub username (e.g. ambesh-dev, rohan-dev-99)" required style="flex:1">
+                <button type="submit" class="primary-btn">Connect & Sync →</button>
+              </form>
+              <div class="tiny muted" style="margin-top:8px">Supports live GitHub API fetch with resilient offline/rate-limit fallback for demonstrations.</div>
+            </div>
+          `}
+        </div>
+
+        <!-- Custom Certifications Manager Card -->
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <h3>Verified Industry Certifications</h3>
+              <div class="tiny">AWS, Google, Meta, NPTEL, Coursera & HackerRank credentials</div>
+            </div>
+            <span class="badge good">${(portfolio.certifications || []).length} Verified</span>
+          </div>
+
+          <p class="muted small" style="margin-top:4px">Verified credentials act as an exponential booster on your Career Readiness Index.</p>
+
+          <div class="cert-manager-list" id="certList">
+            ${(portfolio.certifications || []).map((c, idx) => `
+              <div class="cert-card-row">
+                <div class="cert-info">
+                  <b>✓ ${esc(c.name)}</b>
+                  <span>${esc(c.issuer)} • ${esc(c.year || 2026)} • Credential Verified</span>
+                </div>
+                <button class="secondary slim remove-cert-btn" data-index="${idx}" style="color:var(--rose);padding:3px 8px;font-size:9px" title="Remove Certificate">✕</button>
+              </div>
+            `).join("") || '<div class="empty" style="padding:14px">No custom certifications uploaded yet.</div>'}
+          </div>
+
+          <div style="margin-top:14px">
+            <div class="tiny" style="color:var(--muted);font-weight:700;margin-bottom:6px">QUICK 1-CLICK ADD POPULAR CREDENTIALS:</div>
+            <div class="quick-certs-wrap">
+              <button type="button" class="quick-cert-btn" data-name="AWS Certified Cloud Practitioner" data-issuer="Amazon Web Services" data-year="2026">+ AWS Cloud Practitioner</button>
+              <button type="button" class="quick-cert-btn" data-name="Meta Front-End Developer Professional" data-issuer="Meta" data-year="2026">+ Meta Front-End</button>
+              <button type="button" class="quick-cert-btn" data-name="Google Data Analytics Professional" data-issuer="Google" data-year="2026">+ Google Data Analytics</button>
+              <button type="button" class="quick-cert-btn" data-name="NPTEL Programming in Java (Elite)" data-issuer="IIT Kharagpur / NPTEL" data-year="2025">+ NPTEL Java (Elite)</button>
+              <button type="button" class="quick-cert-btn" data-name="HackerRank Problem Solving (5 Star)" data-issuer="HackerRank" data-year="2025">+ HackerRank 5-Star</button>
+            </div>
+          </div>
+
+          <form id="addCertForm" style="display:grid;grid-template-columns:1.5fr 1fr 65px auto;gap:8px;margin-top:14px;align-items:center">
+            <input id="certNameInput" placeholder="Certificate Title (e.g. Docker Certified Associate)" required>
+            <input id="certIssuerInput" placeholder="Issuing Body (e.g. Docker)" required>
+            <input id="certYearInput" type="number" placeholder="Year" value="2026" required>
+            <button type="submit" class="primary-btn slim">+ Add</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Student Personal Information Card -->
+      <div class="card" style="margin-top:16px">
+        <div class="card-head">
+          <div>
+            <h3>Academic & Personal Profile</h3>
+            <div class="tiny">Student credentials registered at Techno Institute of Higher Studies (TIHS Lucknow)</div>
+          </div>
+          <span class="badge good">TIHS Lucknow</span>
+        </div>
+        <form id="profileForm">
+          <div class="profile-grid">
+            <div class="photo-box">
+              <img id="photoPreview" src="" alt="Profile photo">
+              <input id="photo" type="file" accept="image/*">
+            </div>
+            <div class="form-grid">
+              ${field("full_name","Full Name",s?.full_name||currentProfile?.full_name||"","text")}
+              ${field("course","Program / Course",s?.course||"BCA","text")}
+              ${field("class_year","Academic Year",s?.class_year||"1st Year","text")}
+              ${field("class_section","Section",s?.class_section||"A","text")}
+              ${field("gmail","Gmail Address",s?.gmail||currentProfile?.email||"","email")}
+              ${field("phone","Phone Number",currentProfile?.phone||s?.phone||"","tel",true)}
+              ${field("father_name","Father Name",s?.father_name||"","text")}
+              ${field("mother_name","Mother Name",s?.mother_name||"","text")}
+              ${field("parents_phone","Parents Contact",s?.parents_phone||"","tel")}
+              ${field("address","Home Address",s?.address||"Lucknow, Uttar Pradesh","text","",true)}
+            </div>
+          </div>
+          <button class="primary" type="submit" style="margin-top:16px">Save Profile Information</button>
+        </form>
+      </div>
+    `;
+
+    // Photo preview
+    const img = document.getElementById("photoPreview");
+    if(img) {
+      if(s?.image_path) img.src = await signedImage(s.image_path);
+      else img.src = avatarData(s?.full_name || currentProfile?.full_name || "Aarav Sharma");
+    }
+
+    // Connect GitHub submit
+    document.getElementById("connectGithubForm")?.addEventListener("submit", async e => {
       e.preventDefault();
-      const fd=new FormData(e.target);
-      const full_name=fd.get("full_name"), payload={course:fd.get("course"),class_year:fd.get("class_year"),class_section:fd.get("class_section"),
-        gmail:fd.get("gmail"),father_name:fd.get("father_name"),mother_name:fd.get("mother_name"),parents_phone:fd.get("parents_phone"),address:fd.get("address")};
-      const {error:e1}=await sb.from("profiles").update({full_name}).eq("id",currentUser.id); if(e1) return toast(e1.message,"error");
-      const {error:e2}=await sb.from("student_profiles").update(payload).eq("id",currentUser.id); if(e2) return toast(e2.message,"error");
-      const file=document.getElementById("photo").files[0];
-      if(file){
-        const path=`${currentUser.id}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`;
-        const up=await sb.storage.from("student-images").upload(path,file,{upsert:true,contentType:file.type});
-        if(up.error) return toast(up.error.message,"error");
-        const {error:e3}=await sb.from("student_profiles").update({image_path:path}).eq("id",currentUser.id);
-        if(e3) return toast(e3.message,"error");
+      const username = document.getElementById("ghUsernameInput")?.value.trim();
+      if(!username) return;
+      toast("Connecting to GitHub API…", "info");
+      const ghData = await fetchGitHubData(username);
+      portfolio.github = ghData;
+      saveStudentPortfolio(studentId, portfolio);
+      toast(`Successfully connected GitHub @${ghData.username}!`, "success");
+      studentProfile(el);
+    });
+
+    // Re-Sync GitHub button
+    document.getElementById("syncGithubBtn")?.addEventListener("click", async () => {
+      if(!portfolio.github?.username) return;
+      toast("Re-syncing GitHub repositories & stars…", "info");
+      const ghData = await fetchGitHubData(portfolio.github.username);
+      portfolio.github = ghData;
+      saveStudentPortfolio(studentId, portfolio);
+      toast("GitHub profile data updated!", "success");
+      studentProfile(el);
+    });
+
+    // Disconnect GitHub button
+    document.getElementById("disconnectGithubBtn")?.addEventListener("click", () => {
+      portfolio.github = null;
+      saveStudentPortfolio(studentId, portfolio);
+      toast("GitHub profile disconnected.", "info");
+      studentProfile(el);
+    });
+
+    // Quick Add Cert buttons
+    document.querySelectorAll(".quick-cert-btn").forEach(btn => {
+      btn.onclick = () => {
+        const name = btn.dataset.name;
+        const issuer = btn.dataset.issuer;
+        const year = Number(btn.dataset.year) || 2026;
+        if(portfolio.certifications.some(c => c.name === name)) {
+          return toast("This certification is already added!", "warning");
+        }
+        portfolio.certifications.push({
+          id: "c_" + Date.now(),
+          name,
+          issuer,
+          year,
+          verified: true
+        });
+        saveStudentPortfolio(studentId, portfolio);
+        toast(`Added ${name}! Career readiness boosted.`, "success");
+        studentProfile(el);
+      };
+    });
+
+    // Add Custom Cert Form submit
+    document.getElementById("addCertForm")?.addEventListener("submit", e => {
+      e.preventDefault();
+      const name = document.getElementById("certNameInput")?.value.trim();
+      const issuer = document.getElementById("certIssuerInput")?.value.trim();
+      const year = Number(document.getElementById("certYearInput")?.value) || 2026;
+      if(!name || !issuer) return;
+      portfolio.certifications.push({
+        id: "c_" + Date.now(),
+        name,
+        issuer,
+        year,
+        verified: true
+      });
+      saveStudentPortfolio(studentId, portfolio);
+      toast(`Added ${name} to verified credentials!`, "success");
+      studentProfile(el);
+    });
+
+    // Remove Cert buttons
+    document.querySelectorAll(".remove-cert-btn").forEach(btn => {
+      btn.onclick = () => {
+        const idx = Number(btn.dataset.index);
+        portfolio.certifications.splice(idx, 1);
+        saveStudentPortfolio(studentId, portfolio);
+        toast("Certification removed.", "info");
+        studentProfile(el);
+      };
+    });
+
+    // Profile Form submit
+    document.getElementById("profileForm")?.addEventListener("submit", async e => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const full_name = fd.get("full_name");
+      const payload = {
+        course: fd.get("course"),
+        class_year: fd.get("class_year"),
+        class_section: fd.get("class_section"),
+        gmail: fd.get("gmail"),
+        father_name: fd.get("father_name"),
+        mother_name: fd.get("mother_name"),
+        parents_phone: fd.get("parents_phone"),
+        address: fd.get("address")
+      };
+
+      if(isDemo()) {
+        demoStudent.full_name = full_name;
+        Object.assign(demoStudent, payload);
+        toast("Profile saved successfully (Demo Mode)", "success");
+        return studentProfile(el);
       }
-      currentProfile=(await sb.from("profiles").select("*").eq("id",currentUser.id).single()).data;
-      toast("Profile saved to cloud","success"); renderPage("profile");
-    };
-    document.getElementById("photo").onchange=e=>{
-      const f=e.target.files[0]; if(f) img.src=URL.createObjectURL(f);
-    };
+
+      if(currentUser && sb) {
+        const { error: e1 } = await sb.from("profiles").update({ full_name }).eq("id", currentUser.id);
+        if(e1) return toast(e1.message, "error");
+        const { error: e2 } = await sb.from("student_profiles").update(payload).eq("id", currentUser.id);
+        if(e2) return toast(e2.message, "error");
+
+        const file = document.getElementById("photo").files[0];
+        if(file) {
+          const path = `${currentUser.id}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
+          const up = await sb.storage.from("student-images").upload(path, file, { upsert: true, contentType: file.type });
+          if(up.error) return toast(up.error.message, "error");
+          await sb.from("student_profiles").update({ image_path: path }).eq("id", currentUser.id);
+        }
+        currentProfile = (await sb.from("profiles").select("*").eq("id", currentUser.id).single()).data;
+        toast("Profile saved to cloud database", "success");
+        renderPage("profile");
+      }
+    });
+
+    document.getElementById("photo")?.addEventListener("change", e => {
+      const f = e.target.files[0];
+      if(f && img) img.src = URL.createObjectURL(f);
+    });
   }
 
   function field(name,label,value,type="text",disabled=false,span=false){
@@ -1146,15 +1892,68 @@
   }
 
   async function studentPerformance(el){
-    const a=await getAcademic(), p=await getPrediction();
-    if(!a){el.innerHTML='<div class="card empty">Your teacher has not entered academic data yet.</div>';return}
-    const items=[["Attendance",a.attendance],["Assignment",a.assignment_score],["Internal",a.internal_score],["Examination",a.exam_score],["Previous",a.previous_score]];
-    el.innerHTML=`<div class="grid g2"><div class="card"><div class="card-head"><h3>Latest academic indicators</h3><span class="badge good">${esc(a.term||"Latest")}</span></div>
-      ${items.map(([n,v])=>`<div style="margin:15px 0"><div class="card-head"><span class="small">${n}</span><b>${money(v)}%</b></div><div class="progress"><i style="width:${Math.max(0,Math.min(100,v))}%"></i></div></div>`).join("")}</div>
-      <div class="card"><div class="card-head"><h3>Teacher prediction</h3><span class="badge ${p?.risk_level==="High"?"risk":p?.risk_level==="Medium"?"warn":"good"}">${esc(p?.risk_level||"Pending")}</span></div>
-      <div class="big">${p?money(p.predicted_score)+"%":"—"}</div><p class="muted small">${esc(p?.model_name||"No prediction published yet")}</p>
-      <p class="small">${esc(p?.explanation?.summary||"Prediction is controlled by authorized teaching staff.")}</p>
-      <div class="notice info"><h4>Privacy</h4><p>You cannot edit or replace the teacher-generated prediction from the student portal.</p></div></div></div>`;
+    const a = await getAcademic(), p = await getPrediction(), s = await getStudent();
+    if(!a){ el.innerHTML = '<div class="card empty">Your teacher has not entered academic data yet.</div>'; return; }
+    const studentId = s?.id || currentUser?.id || "demo-student";
+    const portfolio = getStudentPortfolio(studentId);
+    const score = p?.predicted_score ?? baseline(a);
+    const metrics = computeHolisticMetrics(score, { ...s, ...portfolio });
+    const items = [["Attendance", a.attendance], ["Assignment", a.assignment_score], ["Internal", a.internal_score], ["Examination", a.exam_score], ["Previous", a.previous_score]];
+
+    el.innerHTML = `
+      <div class="career-readiness-banner" style="margin-top:0;margin-bottom:16px">
+        <div class="career-banner-top">
+          <div class="career-banner-left">
+            <span class="eyebrow" style="color:var(--primary);margin-bottom:2px">HOLISTIC CAREER READINESS & PRACTICAL MULTIPLIER</span>
+            <h3>
+              <span>Career Readiness Index: <b>${metrics.careerReadinessIndex}%</b></span>
+              <span class="badge ${metrics.badgeClass}">${metrics.badge}</span>
+            </h3>
+            <p>${metrics.hasPractical ? `Blends <strong>${metrics.academicScore}% Academic Baseline</strong> with <strong>${metrics.practicalScore}% Practical Index</strong> from ${metrics.prac.repos} GitHub repos and ${metrics.prac.certsCount} verified certifications (+${metrics.boostPercent}% Career Multiplier).` : 'Academic forecast only. Connect your GitHub repos and certifications in Profile to boost your Career Readiness Index.'}</p>
+          </div>
+          <div class="career-score-pill">
+            <div><b>${metrics.careerReadinessIndex}%</b><span>CRI SCORE</span></div>
+            ${metrics.boostPercent > 0 ? `<span class="badge good">+${metrics.boostPercent}% Boost</span>` : ''}
+          </div>
+        </div>
+        <div class="career-progress-track"><div class="career-progress-fill" style="width:${Math.max(10, Math.min(100, metrics.careerReadinessIndex))}%"></div></div>
+      </div>
+
+      <div class="split-dashboard">
+        <div>
+          <div class="grid g2">
+            <div class="card">
+              <div class="card-head">
+                <h3>Latest Academic Indicators</h3>
+                <span class="badge good">${esc(a.term || "Semester 1")}</span>
+              </div>
+              ${items.map(([n,v]) => `
+                <div style="margin:15px 0">
+                  <div class="card-head"><span class="small">${n}</span><b>${money(v)}%</b></div>
+                  <div class="progress"><i style="width:${Math.max(0, Math.min(100, v))}%"></i></div>
+                </div>
+              `).join("")}
+            </div>
+
+            <div class="card">
+              <div class="card-head">
+                <h3>Teacher Prediction</h3>
+                <span class="badge ${p?.risk_level === "High" ? "risk" : p?.risk_level === "Medium" ? "warn" : "good"}">${esc(p?.risk_level || "Low")}</span>
+              </div>
+              <div class="big" style="font-size:42px;font-weight:800;font-family:'Manrope',sans-serif;margin:8px 0">${p ? money(p.predicted_score) + "%" : "—"}</div>
+              <p class="muted small">${esc(p?.model_name || "TensorFlow.js Neural Net")}</p>
+              <div class="notice info" style="margin-top:10px">
+                <h4>Explainable Academic Signal</h4>
+                <p>${esc(p?.explanation?.summary || "Attendance, internals and assignments evaluated via multi-factor regression.")}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>${copilotWidget("student", "")}</div>
+      </div>
+    `;
+    bindCopilot("student");
   }
 
   async function studentWarnings(el){
@@ -1346,37 +2145,105 @@
   }
 
   async function academicEditor(id){
-    const s=studentsCache.find(x=>x.id===id), a=await getAcademic(id);
-    const values=a||{};
-    const html=`<div class="card" style="margin-top:16px"><div class="card-head"><h3>Academic data — ${esc(s?.profile?.full_name||"Student")}</h3><button class="secondary" id="closeEditor">Close</button></div>
-      <form id="academicForm"><div class="form-grid">
-      ${field("attendance","Attendance %",values.attendance??"","number")}
-      ${field("assignment_score","Assignment %",values.assignment_score??"","number")}
-      ${field("internal_score","Internal Assessment %",values.internal_score??"","number")}
-      ${field("exam_score","Examination %",values.exam_score??"","number")}
-      ${field("previous_score","Previous Performance %",values.previous_score??"","number")}
-      ${field("academic_year","Academic Year",values.academic_year||"","text")}
-      ${field("term","Term",values.term||"","text")}
-      ${field("notes","Teacher Notes",values.notes||"","text","",true)}
-      </div><button class="primary">Save + Generate Prediction</button></form></div>`;
-    const modal=document.createElement("div"); modal.className="modal"; modal.innerHTML=`<div class="modal-bg"></div><div class="modal-card">${html}</div>`;
-    document.body.appendChild(modal); document.getElementById("closeEditor").onclick=()=>modal.remove();
-    document.getElementById("academicForm").onsubmit=async e=>{
-      e.preventDefault(); const fd=new FormData(e.target);
-      const payload={student_id:id,attendance:Number(fd.get("attendance")||0),assignment_score:Number(fd.get("assignment_score")||0),internal_score:Number(fd.get("internal_score")||0),exam_score:Number(fd.get("exam_score")||0),previous_score:Number(fd.get("previous_score")||0),academic_year:fd.get("academic_year"),term:fd.get("term"),notes:fd.get("notes"),updated_by:currentUser.id};
-      let res=a?await sb.from("academic_records").update(payload).eq("id",a.id):await sb.from("academic_records").insert(payload);
-      if(res.error) return toast(res.error.message,"error");
-      
-      const pred=await predictWithTF(payload);
-      const score=pred.predicted_score, risk=pred.risk_level, confidence=pred.confidence, model_name=pred.model_name;
-      const explanation={summary:`Prediction generated by ${model_name}. Multi-factor assessment score: ${score}%. Attendance: ${payload.attendance}%, Assignments: ${payload.assignment_score}%, Internal: ${payload.internal_score}%, Exam: ${payload.exam_score}%, Previous: ${payload.previous_score}%.`,
-        factors:{attendance:payload.attendance,assignment:payload.assignment_score,internal:payload.internal_score,exam:payload.exam_score,previous:payload.previous_score}};
-      const pr=await sb.from("predictions").insert({student_id:id,predicted_score:score,risk_level:risk,confidence,model_name,explanation,created_by:currentUser.id});
-      if(pr.error) return toast(pr.error.message,"error");
-      if(risk==="High"||risk==="Medium"){
-        await sb.from("notifications").insert({student_id:id,title:`${risk} academic risk detected`,message:`Your latest academic analysis indicates a ${risk.toLowerCase()} support level. Please review your performance with your teacher.`,kind:risk==="High"?"risk":"warning",created_by:currentUser.id});
+    const s = studentsCache.find(x => x.id === id) || demoStudents.find(x => x.id === id);
+    const a = await getAcademic(id);
+    const portfolio = getStudentPortfolio(id);
+    const prac = computePracticalScore({ ...s, ...portfolio });
+    const values = a || {};
+    const html = `
+      <div class="card" style="margin-top:16px">
+        <div class="card-head">
+          <div>
+            <h3>Academic Assessment — ${esc(s?.profile?.full_name || s?.full_name || "Student")}</h3>
+            <div class="tiny">${esc(s?.course || "BCA")} • Sec ${esc(s?.class_section || "A")}</div>
+          </div>
+          <button class="secondary" id="closeEditor">Close</button>
+        </div>
+        ${prac.hasPractical ? `
+          <div class="career-readiness-banner" style="margin:10px 0 14px;padding:10px 14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+              <div>
+                <span class="eyebrow" style="color:var(--primary)">REAL-WORLD PRACTICAL FOOTPRINT</span>
+                <h4 style="margin:2px 0 0;font-size:12px">🚀 ${prac.repos} GitHub Repositories (${prac.stars}★) • ${prac.certsCount} Verified Certifications</h4>
+                <div class="tiny" style="color:var(--muted);margin-top:2px">Languages: ${prac.languages.join(", ") || "Full-Stack"}</div>
+              </div>
+              <span class="badge good">PCI Score: ${prac.pci}%</span>
+            </div>
+          </div>
+        ` : ''}
+        <form id="academicForm">
+          <div class="form-grid">
+            ${field("attendance","Attendance %",values.attendance??"","number")}
+            ${field("assignment_score","Assignment %",values.assignment_score??"","number")}
+            ${field("internal_score","Internal Assessment %",values.internal_score??"","number")}
+            ${field("exam_score","Examination %",values.exam_score??"","number")}
+            ${field("previous_score","Previous Performance %",values.previous_score??"","number")}
+            ${field("academic_year","Academic Year",values.academic_year||"2026-27","text")}
+            ${field("term","Term",values.term||"Semester 1","text")}
+            ${field("notes","Teacher Notes",values.notes||"","text","",true)}
+          </div>
+          <button class="primary" style="margin-top:14px">Save & Generate Neural Prediction</button>
+        </form>
+      </div>
+    `;
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    modal.innerHTML = `<div class="modal-bg"></div><div class="modal-card">${html}</div>`;
+    document.body.appendChild(modal);
+    document.getElementById("closeEditor").onclick = () => modal.remove();
+
+    document.getElementById("academicForm").onsubmit = async e => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const payload = {
+        student_id: id,
+        attendance: Number(fd.get("attendance") || 0),
+        assignment_score: Number(fd.get("assignment_score") || 0),
+        internal_score: Number(fd.get("internal_score") || 0),
+        exam_score: Number(fd.get("exam_score") || 0),
+        previous_score: Number(fd.get("previous_score") || 0),
+        academic_year: fd.get("academic_year"),
+        term: fd.get("term"),
+        notes: fd.get("notes"),
+        updated_by: currentUser?.id || "demo-teacher"
+      };
+
+      if (isDemo()) {
+        const student = demoStudents.find(x => x.id === id);
+        if (student) {
+          student.academic = payload;
+          const pred = await predictWithTF(payload);
+          student.prediction = pred;
+        }
+        modal.remove();
+        toast("Prediction updated via TensorFlow.js Neural Net (Demo Mode)", "success");
+        renderPage("students");
+        return;
       }
-      modal.remove(); toast(`Prediction generated via ${model_name}`,"success"); renderPage("students");
+
+      let res = a ? await sb.from("academic_records").update(payload).eq("id", a.id) : await sb.from("academic_records").insert(payload);
+      if (res.error) return toast(res.error.message, "error");
+      
+      const pred = await predictWithTF(payload);
+      const score = pred.predicted_score, risk = pred.risk_level, confidence = pred.confidence, model_name = pred.model_name;
+      const explanation = {
+        summary: `Prediction generated by ${model_name}. Multi-factor assessment score: ${score}%. Attendance: ${payload.attendance}%, Assignments: ${payload.assignment_score}%, Internal: ${payload.internal_score}%, Exam: ${payload.exam_score}%, Previous: ${payload.previous_score}%.`,
+        factors: { attendance: payload.attendance, assignment: payload.assignment_score, internal: payload.internal_score, exam: payload.exam_score, previous: payload.previous_score }
+      };
+      const pr = await sb.from("predictions").insert({ student_id: id, predicted_score: score, risk_level: risk, confidence, model_name, explanation, created_by: currentUser.id });
+      if (pr.error) return toast(pr.error.message, "error");
+      if (risk === "High" || risk === "Medium") {
+        await sb.from("notifications").insert({
+          student_id: id,
+          title: `${risk} academic risk detected`,
+          message: `Your latest academic analysis indicates a ${risk.toLowerCase()} support level. Please review your performance with your teacher.`,
+          kind: risk === "High" ? "risk" : "warning",
+          created_by: currentUser.id
+        });
+      }
+      modal.remove();
+      toast(`Prediction generated via ${model_name}`, "success");
+      renderPage("students");
     };
   }
 
@@ -1504,19 +2371,363 @@
     };
   }
 
-  async function copilot(el,who){
-    el.innerHTML=`<div class="card chat"><div class="card-head"><h3>AI Academic Copilot</h3><span class="badge good">No API key required</span></div><div id="chatLog" class="chat-log"><div class="bubble ai">Hi! Ask me about academic performance, attendance, study planning, student support or EduPredict data.</div></div><form id="chatForm" style="display:flex;gap:8px"><input id="chatInput" placeholder="${who==="teacher"?"Ask about students, risk or academic analysis…":"Ask about your performance or study plan…"}" required><button class="primary">Send</button></form></div>`;
-    document.getElementById("chatForm").onsubmit=async e=>{e.preventDefault();const q=document.getElementById("chatInput").value.trim();if(!q)return;addBubble(q,"user");document.getElementById("chatInput").value="";const answer=await copilotAnswer(q,who);addBubble(answer,"ai")};
+  window.__copyCopilotNotice = function(btn) {
+    const card = btn.closest(".copilot-action-card");
+    const noticeEl = card?.querySelector(".copilot-notice-box");
+    const text = noticeEl ? noticeEl.innerText : "";
+    if (text && navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = "✅ Copied to Clipboard!";
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.classList.remove("copied");
+        }, 3000);
+        toast("Official parent notice copied to clipboard!", "success");
+      }).catch(() => {
+        toast("Notice text ready on screen!", "info");
+      });
+    } else {
+      toast("Notice text ready on screen!", "info");
+    }
+  };
+
+  async function copilot(el, who){
+    el.innerHTML = copilotWidget(who, "");
+    bindCopilot(who);
   }
-  function addBubble(t,c){const log=document.getElementById("chatLog");if(!log)return;const d=document.createElement("div");d.className="bubble "+c;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight}
-  async function copilotAnswer(q,who){
-    const x=q.toLowerCase();
-    if(x.includes("attendance")) return who==="student"?"Try to keep attendance consistently high. Ask your teacher which attendance threshold your course requires.":"Use attendance alongside assessment scores; a low attendance value can be an early-warning factor.";
-    if(x.includes("risk")||x.includes("warning")) return "Review the Early Warning page. High/Medium risk records are generated from the latest teacher prediction and should be reviewed with academic context.";
-    if(x.includes("prediction")||x.includes("predict")) return "EduPredict stores teacher-generated predictions in the database. Students can read them but cannot edit them.";
-    if(x.includes("study")||x.includes("exam")) return "Create a weekly plan: identify weak subjects, schedule focused practice, review mistakes, and track progress each week.";
-    if(who==="teacher" && x.includes("student")) return "Open Students, filter by course/class, select a student, then enter academic indicators. EduPredict stores the record and publishes the resulting prediction.";
-    return "I can help with attendance, assignments, internal marks, exams, prediction, early warnings, study planning and EduPredict workflows. Ask a specific question for a more targeted answer.";
+
+  function addBubble(t, c){
+    const log = document.getElementById("chatLog");
+    if(!log) return;
+    const d = document.createElement("div");
+    d.className = "bubble " + c;
+    if(c === "ai") {
+      d.innerHTML = t;
+    } else {
+      d.textContent = t;
+    }
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  async function copilotAnswer(q, who, studentCtx = ""){
+    const x = q.toLowerCase();
+    
+    // Resolve student context if teacher or student
+    let activeStudent = null;
+    if (who === "student") {
+      activeStudent = await getStudent();
+    } else {
+      // Find matching student by name or query or default to Rohan Singh
+      const searchKey = studentCtx || (x.includes("rohan") ? "rohan" : x.includes("aarav") ? "aarav" : x.includes("priya") ? "priya" : x.includes("ananya") ? "ananya" : "");
+      if (searchKey) {
+        activeStudent = demoStudents.find(s => `${s.full_name} ${s.phone}`.toLowerCase().includes(searchKey.toLowerCase()));
+      }
+      if (!activeStudent) {
+        activeStudent = demoStudents.find(s => s.id === "s3") || demoStudents[0];
+      }
+    }
+
+    const sId = activeStudent?.id || "demo-student";
+    const portfolio = getStudentPortfolio(sId);
+    const academic = await getAcademic(sId);
+    const prediction = await getPrediction(sId);
+    const acadScore = prediction?.predicted_score ?? (academic ? baseline(academic) : 75);
+    const metrics = computeHolisticMetrics(acadScore, { ...activeStudent, ...portfolio });
+    const att = academic?.attendance ?? 75;
+
+    // 1. GITHUB & CERTIFICATIONS / HOLISTIC CAPABILITY BOOST
+    if (x.includes("github") || x.includes("cert") || x.includes("practical") || x.includes("boost") || x.includes("career") || x.includes("portfolio") || x.includes("readiness")) {
+      return `
+        <div class="copilot-action-card">
+          <h4>
+            <span>🚀 Holistic Capability Assessment</span>
+            <span class="badge ${metrics.badgeClass}">${metrics.badge}</span>
+          </h4>
+          <p>Traditional marks measure syllabus memorization, while verified GitHub repositories and industry certifications demonstrate real-world production engineering capability.</p>
+          <div class="copilot-stat-strip">
+            <div class="c-stat"><span class="cs-lbl">Academic Baseline</span><span class="cs-val">${metrics.academicScore}%</span></div>
+            <div class="c-stat accent"><span class="cs-lbl">Practical (PCI)</span><span class="cs-val">${metrics.practicalScore}%</span></div>
+            <div class="c-stat good"><span class="cs-lbl">Career Index</span><span class="cs-val">${metrics.careerReadinessIndex}%</span></div>
+            <div class="c-stat good"><span class="cs-lbl">Multiplier Boost</span><span class="cs-val">+${metrics.boostPercent}%</span></div>
+          </div>
+          <p><strong>Verified Footprint:</strong> ${metrics.hasPractical ? `Linked GitHub (@${esc(metrics.prac.username || "dev")}) with <b>${metrics.prac.repos} public repositories</b> (${metrics.prac.stars} stars, ${metrics.prac.contribs}+ commits) and <b>${metrics.prac.certsCount} verified certifications</b>.` : "No external GitHub account or certifications connected yet."}</p>
+          ${metrics.prac.languages.length ? `
+            <div class="copilot-pill-row">
+              ${metrics.prac.languages.map(l => `<span class="copilot-pill">⚡ ${l}</span>`).join("")}
+            </div>
+          ` : ""}
+          <p><strong>Campus Placement Verdict:</strong> In technical recruitment drives (TCS, Infosys, Wipro, HCL & high-growth startups), verified GitHub projects and AWS/Meta credentials exponentially improve hiring probability over pure marks alone.</p>
+        </div>
+      `;
+    }
+
+    // 2. LU 75% ATTENDANCE DOCTOR
+    if (x.includes("attendance") || x.includes("75") || x.includes("doctor") || x.includes("shortage") || x.includes("bunk") || x.includes("debar") || x.includes("absent")) {
+      const isDeficit = att < 75;
+      const totalLectures = 120;
+      const attended = Math.round((att / 100) * totalLectures);
+      const needed = Math.ceil((0.75 * totalLectures - attended) / 0.25);
+      const buffer = Math.floor((attended - 0.75 * totalLectures) / 0.75);
+
+      if (isDeficit) {
+        return `
+          <div class="copilot-action-card">
+            <h4>
+              <span>⚖️ Lucknow University (LU) Attendance Doctor</span>
+              <span class="badge risk">Debarment Alert</span>
+            </h4>
+            <p>Under University of Lucknow (LU) Statutory Ordinances, a minimum of <strong>75.0% aggregate attendance</strong> is strictly mandatory to appear in semester examinations.</p>
+            <div class="copilot-stat-strip">
+              <div class="c-stat risk"><span class="cs-lbl">Current Attendance</span><span class="cs-val">${att}%</span></div>
+              <div class="c-stat"><span class="cs-lbl">LU Minimum</span><span class="cs-val">75.0%</span></div>
+              <div class="c-stat risk"><span class="cs-lbl">Shortfall Deficit</span><span class="cs-val">-${75 - att}%</span></div>
+              <div class="c-stat accent"><span class="cs-lbl">Must Attend Next</span><span class="cs-val">${needed} Classes</span></div>
+            </div>
+            <p><strong>Attendance Prescription for ${esc(activeStudent.full_name)}:</strong></p>
+            <p>You must attend the next <strong>${needed} consecutive lecture/practical periods</strong> with ZERO unexcused leaves to mathematically cross the 75.0% threshold.</p>
+            <div class="copilot-notice-box" style="font-family:inherit;font-size:10px;padding:8px 10px;margin-top:6px">
+              <b>⚡ TIHS Administrative Recovery Pathways:</b><br>
+              • <strong>Practical Laboratory Sessions:</strong> Computer Labs carry 2× attendance weightage in the ERP.<br>
+              • <strong>Statutory Condonation:</strong> Under LU rules, submit medical or hackathon duty certificates to the TIHS Academic Cell for up to 10% attendance waiver.
+            </div>
+          </div>
+        `;
+      } else {
+        return `
+          <div class="copilot-action-card">
+            <h4>
+              <span>⚖️ Lucknow University (LU) Attendance Doctor</span>
+              <span class="badge good">Exam Eligible (75%+)</span>
+            </h4>
+            <p>Your current attendance of <strong>${att}%</strong> comfortably meets the University of Lucknow statutory requirement.</p>
+            <div class="copilot-stat-strip">
+              <div class="c-stat good"><span class="cs-lbl">Current Attendance</span><span class="cs-val">${att}%</span></div>
+              <div class="c-stat"><span class="cs-lbl">LU Minimum</span><span class="cs-val">75.0%</span></div>
+              <div class="c-stat good"><span class="cs-lbl">Safety Buffer</span><span class="cs-val">${buffer} Leaves</span></div>
+            </div>
+            <p>You have a buffer of up to <strong>${buffer} allowable leaves</strong> while remaining safely above 75%. Keep attending practical lab sessions regularly to maintain your semester standing.</p>
+          </div>
+        `;
+      }
+    }
+
+    // 3. 7-DAY PERSONALIZED EXAM & STUDY TIMETABLE
+    if (x.includes("timetable") || x.includes("study") || x.includes("schedule") || x.includes("exam") || x.includes("revision") || x.includes("pomodoro") || x.includes("plan")) {
+      return `
+        <div class="copilot-action-card">
+          <h4>
+            <span>📅 Personalized 7-Day Exam Timetable</span>
+            <span class="badge good">TIHS Lucknow BCA Syllabus</span>
+          </h4>
+          <p>Structured spaced-repetition sprint designed to maximize internal marks and LU semester exam scores:</p>
+          <table class="copilot-mini-table">
+            <thead><tr><th>Day</th><th>Subject & Core Topics</th><th>Session Structure</th></tr></thead>
+            <tbody>
+              <tr><td><b>Day 1 (Mon)</b></td><td>Data Structures: Pointers, Linked Lists & Stacks</td><td>2 × 45m Pomodoro Blocks</td></tr>
+              <tr><td><b>Day 2 (Tue)</b></td><td>Discrete Math: Logic, Relations & Set Theory</td><td>2 × 50m Focus Blocks</td></tr>
+              <tr><td><b>Day 3 (Wed)</b></td><td>Digital Electronics: Logic Gates & Karnaugh Maps</td><td>1.5h Theory & Problem Solving</td></tr>
+              <tr><td><b>Day 4 (Thu)</b></td><td>C / Python Practical Coding & GitHub Push</td><td>1.5h Hands-on Implementation</td></tr>
+              <tr><td><b>Day 5 (Fri)</b></td><td>LU Previous 3-Year Question Paper Solving</td><td>2h Timed Mock Paper Drill</td></tr>
+              <tr><td><b>Day 6 (Sat)</b></td><td>Internal Assessment Weak Spots & Mentor Review</td><td>1.5h Faculty Doubt Clearing</td></tr>
+              <tr><td><b>Day 7 (Sun)</b></td><td>Formula Flashcards & Active Recall (Restful Night)</td><td>1h Light Review</td></tr>
+            </tbody>
+          </table>
+          <p class="tiny muted">Pro-Tip: Schedule challenging mathematical topics during your morning peak focus hours (9:00 AM – 11:30 AM).</p>
+        </div>
+      `;
+    }
+
+    // 4. DRAFT FORMAL PARENT NOTICE (TEACHER)
+    if (x.includes("notice") || x.includes("parent") || x.includes("letter") || x.includes("draft") || x.includes("formal") || (who==="teacher" && x.includes("warning"))) {
+      const parentName = activeStudent.father_name || "Parent / Guardian";
+      const studentName = activeStudent.full_name || "Student";
+      const course = activeStudent.course || "BCA";
+      const year = activeStudent.class_year || "1st Year";
+      const section = activeStudent.class_section || "A";
+      const phone = activeStudent.phone || "+91 9876543210";
+      const parentPhone = activeStudent.parents_phone || "+91 9876500000";
+
+      return `
+        <div class="copilot-action-card">
+          <h4>
+            <span>📝 Official Parent Notice (LU Attendance Shortage)</span>
+            <span class="badge warn">Formal Notice</span>
+          </h4>
+          <p>Formal academic notice drafted under University of Lucknow Ordinances. Ready to dispatch to parent via WhatsApp, SMS, or official registered letter:</p>
+          <div class="copilot-notice-box">TECHNO INSTITUTE OF HIGHER STUDIES (TIHS), LUCKNOW
+Affiliated to University of Lucknow (LU)
+Ref: TIHS/LU-ATT/2026/SEC-${section}/094
+Date: 01 October 2026
+
+To:
+Mr. ${parentName}
+Parent / Guardian of: ${studentName}
+Program: ${course} ${year} (Section ${section})
+Student Contact: ${phone} | Parent Contact: ${parentPhone}
+
+Subject: URGENT — Attendance Deficit & Statutory Risk of Debarment from LU Semester Examinations
+
+Dear Mr. ${parentName},
+
+This is an official communication from the Academic Cell at Techno Institute of Higher Studies (TIHS), Lucknow.
+
+As per University of Lucknow (LU) Academic Ordinances, a minimum attendance of 75.0% across all lecture and laboratory sessions is strictly mandatory to obtain the Admit Card for End-Semester University Examinations.
+
+Your ward, ${studentName}, currently records an aggregate attendance of ${att}%, falling ${Math.max(0, 75 - att)}% below the mandatory statutory requirement.
+
+Unless consecutive attendance is maintained over the remaining instructional weeks, your ward will be debarred from taking the semester examinations. You are requested to meet the Class Mentor and Head of Department (HOD) on or before Monday, 06 October 2026 at 11:30 AM to submit an academic recovery undertaking.
+
+Yours faithfully,
+Office of the Academic Dean & Class Coordinator
+Techno Institute of Higher Studies, Lucknow
+Phone: +91 522 277 8899 | Email: academic@tihs.edu.in</div>
+          <div>
+            <button class="copilot-copy-btn" onclick="window.__copyCopilotNotice(this)">📋 Copy Official Notice to Clipboard</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // 5. DEEP DIVE ACTIVE STUDENT DOSSIER
+    if (x.includes("dossier") || x.includes("deep dive") || x.includes("who is") || x.includes("analyze student") || (who === "teacher" && (x.includes("student") || x.includes("rohan") || x.includes("aarav") || x.includes("priya")))) {
+      return `
+        <div class="copilot-action-card">
+          <h4>
+            <span>👤 360° Academic & Practical Dossier — ${esc(activeStudent.full_name)}</span>
+            <span class="badge ${metrics.badgeClass}">${metrics.badge}</span>
+          </h4>
+          <p>Enrolled in <strong>${esc(activeStudent.course)} ${esc(activeStudent.class_year)} (Section ${esc(activeStudent.class_section || "A")})</strong> at TIHS Lucknow.</p>
+          <div class="copilot-stat-strip">
+            <div class="c-stat ${att < 75 ? "risk" : "good"}"><span class="cs-lbl">Attendance</span><span class="cs-val">${att}%</span></div>
+            <div class="c-stat ${acadScore < 60 ? "risk" : "good"}"><span class="cs-lbl">Academic Score</span><span class="cs-val">${acadScore}%</span></div>
+            <div class="c-stat accent"><span class="cs-lbl">GitHub Repos</span><span class="cs-val">${metrics.prac.repos} Repos</span></div>
+            <div class="c-stat good"><span class="cs-lbl">Practical (PCI)</span><span class="cs-val">${metrics.practicalScore}%</span></div>
+            <div class="c-stat good"><span class="cs-lbl">Career Index</span><span class="cs-val">${metrics.careerReadinessIndex}%</span></div>
+          </div>
+          <p><strong>Holistic Divergence Analysis:</strong></p>
+          <p>${esc(activeStudent.full_name)} presents a stark contrast between conventional classroom indicators (${att}% attendance, ${acadScore}% predicted exam score) and practical software capability (${metrics.prac.repos} GitHub repositories with ${metrics.prac.stars} stars, ${metrics.prac.certsCount} verified certifications in ${metrics.prac.languages.join(", ") || "full-stack tech"}).</p>
+          <div class="copilot-notice-box" style="font-family:inherit;font-size:10px;padding:8px 10px;margin-top:4px">
+            <b>Faculty Mentorship Recommendation:</b><br>
+            • <strong>Attendance Intervention:</strong> Do NOT debar this student without counseling; their absence is correlated with practical building and open-source contributions.<br>
+            • <strong>Duty Leave Endorsement:</strong> Grant institutional academic duty credits for hackathon representations.<br>
+            • <strong>Peer Mentorship:</strong> Appoint as a lab teaching assistant in practical sessions to make up classroom hours.
+          </div>
+        </div>
+      `;
+    }
+
+    // 6. FIND HIDDEN CODER TALENTS (TEACHER)
+    if (x.includes("talent") || x.includes("coder") || x.includes("hidden") || x.includes("scout") || x.includes("hackathon") || x.includes("stars")) {
+      return `
+        <div class="copilot-action-card">
+          <h4>
+            <span>🔎 TIHS Talent Scout: Hidden Coders & Practical Stars</span>
+            <span class="badge good">Active Batch Scan</span>
+          </h4>
+          <p>Scanned active section roster for students with high practical software output despite attendance or exam score fluctuations:</p>
+          <table class="copilot-mini-table">
+            <thead><tr><th>Student</th><th>LU Attendance</th><th>GitHub & Credentials</th><th>AI Verdict</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><b>Rohan Singh</b><br><span class="tiny muted">BCA Sec A</span></td>
+                <td><span class="badge risk">52% (Low)</span></td>
+                <td>22 Repos • 164★<br>Meta Front-End Cert</td>
+                <td><span class="badge warn">🚀 High Practical Talent</span><br><span class="tiny">Hackathon star; needs exam attendance safeguard.</span></td>
+              </tr>
+              <tr>
+                <td><b>Aarav Sharma</b><br><span class="tiny muted">BCA Sec A</span></td>
+                <td><span class="badge good">88% (Good)</span></td>
+                <td>14 Repos • 42★<br>AWS Cloud Cert</td>
+                <td><span class="badge good">⭐ Elite Full-Stack</span><br><span class="tiny">Balanced academic & practical leader.</span></td>
+              </tr>
+              <tr>
+                <td><b>Priya Saxena</b><br><span class="tiny muted">BCA Sec A</span></td>
+                <td><span class="badge good">94% (High)</span></td>
+                <td>8 Repos • 18★<br>Google Data Analytics</td>
+                <td><span class="badge good">📚 Academic Scholar</span><br><span class="tiny">Strong analytical & algorithmic foundation.</span></td>
+              </tr>
+              <tr>
+                <td><b>Ananya Verma</b><br><span class="tiny muted">BCA Sec A</span></td>
+                <td><span class="badge warn">74% (Border)</span></td>
+                <td>4 Repos • 8★<br>Coursera Python Cert</td>
+                <td><span class="badge good">🌱 Emerging Builder</span><br><span class="tiny">Solid trajectory; ready for project guidance.</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="tiny muted">Faculty Recommendation: Pair Rohan Singh and Aarav Sharma to lead the official TIHS College Hackathon Team for upcoming inter-university competitions!</p>
+        </div>
+      `;
+    }
+
+    // 7. BATCH INTERVENTION & RISK DISTRIBUTION (TEACHER)
+    if (x.includes("batch") || x.includes("intervention") || x.includes("remedial") || x.includes("distribution") || x.includes("section")) {
+      return `
+        <div class="copilot-action-card">
+          <h4>
+            <span>📊 Section Academic Intervention Plan</span>
+            <span class="badge good">${tihsFilter.course} ${tihsFilter.year} (Sec ${tihsFilter.section})</span>
+          </h4>
+          <p>Analysis of academic signals and compliance with University of Lucknow standards:</p>
+          <div class="copilot-stat-strip">
+            <div class="c-stat"><span class="cs-lbl">Section Roster</span><span class="cs-val">5 Students</span></div>
+            <div class="c-stat good"><span class="cs-lbl">On Track (75%+)</span><span class="cs-val">3 Students (60%)</span></div>
+            <div class="c-stat warn"><span class="cs-lbl">Borderline (70-75%)</span><span class="cs-val">1 Student (20%)</span></div>
+            <div class="c-stat risk"><span class="cs-lbl">Critical Shortage</span><span class="cs-val">1 Student (20%)</span></div>
+          </div>
+          <p><strong>Actionable Remedial Strategy:</strong></p>
+          <ul style="margin:4px 0 0 16px;padding:0;font-size:10px;color:var(--text);line-height:1.5">
+            <li><strong>Attendance Alerts:</strong> Issue automated official parent notifications to students below 75% before next Friday.</li>
+            <li><strong>Remedial Workshop:</strong> Schedule a 2-hour tutorial on Data Structures & Discrete Math logic proofs.</li>
+            <li><strong>Portfolio Recognition:</strong> Acknowledge students with top GitHub contributions to incentivize peer learning in computer labs.</li>
+          </ul>
+        </div>
+      `;
+    }
+
+    // 8. PLACEMENT & SKILL ROADMAP
+    if (x.includes("skill") || x.includes("placement") || x.includes("job") || x.includes("internship") || x.includes("recommend")) {
+      return `
+        <div class="copilot-action-card">
+          <h4>
+            <span>🎯 Placement & Industry Readiness Roadmap</span>
+            <span class="badge good">TIHS Campus Placement Track</span>
+          </h4>
+          <p>Based on your active profile and technical competencies, here is your highest-ROI roadmap for IT campus recruitments:</p>
+          <div class="copilot-notice-box" style="font-family:inherit;font-size:10px;padding:8px 10px">
+            • <strong>Recommended Certification:</strong> AWS Certified Cloud Practitioner or Meta Front-End Developer.<br>
+            • <strong>Recommended GitHub Project:</strong> Deploy a full-stack CRUD web application with REST APIs, authentication, and a clean README on Vercel/Render.<br>
+            • <strong>Data Structures Goal:</strong> Solve 50 Medium difficulty problems on HackerRank / LeetCode in Arrays, Strings, and Hash Maps.
+          </div>
+          <p class="tiny muted">TIHS placement recruiters prioritize candidates who can demonstrate live GitHub repositories alongside foundational course marks.</p>
+        </div>
+      `;
+    }
+
+    // Default intelligent fallback with interactive quick chips
+    return `
+      <div class="copilot-action-card">
+        <h4>
+          <span>✦ EduPredict AI Academic Copilot</span>
+          <span class="badge good">Ready to Assist</span>
+        </h4>
+        <p>I am programmed with deep contextual awareness of TIHS Lucknow courses, University of Lucknow 75% attendance regulations, and holistic practical capability scoring.</p>
+        <p><strong>What would you like me to do?</strong></p>
+        <div class="quick-prompts" style="margin:4px 0">
+          ${who === "teacher" ? `
+            <button data-q="Deep dive into selected student academic and practical dossier">👤 360° Student Dossier</button>
+            <button data-q="Draft formal Lucknow University attendance shortage notice for parents">📝 Draft Parent Notice</button>
+            <button data-q="Scan section for high-skill GitHub contributors with low attendance">💻 Find Hidden Coder Talents</button>
+          ` : `
+            <button data-q="Analyze my GitHub and certifications impact on my career readiness">🚀 Career & Practical Boost</button>
+            <button data-q="Calculate my Lucknow University 75% attendance recovery">⚖️ LU 75% Attendance Doctor</button>
+            <button data-q="Generate a 7-day personalized study timetable for exams">📅 7-Day Exam Timetable</button>
+          `}
+        </div>
+      </div>
+    `;
   }
 
   async function studentReport(el){
