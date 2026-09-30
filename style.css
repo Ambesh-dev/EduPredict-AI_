@@ -1285,6 +1285,34 @@ button, a, input, select{-webkit-tap-highlight-color:transparent}
   100% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); transform: scale(1.1); }
 }
 
+/* WhatsApp Dispatch Button */
+.copilot-wa-btn {
+  background: #25d366;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
+}
+
+.copilot-wa-btn:hover {
+  background: #20ba59;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+}
+
+.copilot-wa-btn.slim {
+  padding: 4px 8px;
+  font-size: 9.5px;
+}
+
 @media(prefers-reduced-motion:reduce){
   *{scroll-behavior:auto!important;transition:none!important}
 }

@@ -2559,7 +2559,25 @@
     const render=()=>{
       const q=document.getElementById("studentSearch").value.toLowerCase(), c=document.getElementById("courseFilter").value, y=document.getElementById("classFilter").value;
       const rows=list.filter(s=>(!q||`${s.profile?.full_name||s.full_name} ${s.profile?.phone||s.phone}`.toLowerCase().includes(q))&&(!c||s.course===c)&&(!y||s.class_year===y));
-      document.getElementById("studentRows").innerHTML=rows.map(s=>`<tr><td><div class="student-line"><img class="avatar" src="${avatarData(s.profile?.full_name||s.full_name)}"><div><b>${esc(s.profile?.full_name||s.full_name||"Unnamed")}</b><div class="muted small">${esc(s.gmail||s.profile?.email||s.email||"")}</div></div></div></td><td>${esc(s.profile?.phone||s.phone||"")}</td><td>${esc(s.course||"")}</td><td>${esc(s.class_year||"")} · Sec ${esc(s.class_section||"A")}</td><td><button class="secondary editStudent" data-id="${s.id}">Academic data</button></td></tr>`).join("")||'<tr><td colspan="5" class="empty">No students match the current section filter.</td></tr>';
+      document.getElementById("studentRows").innerHTML=rows.map(s=>{
+        const att = s.academic?.attendance ?? 75;
+        const phone = s.profile?.phone || s.phone || "";
+        const name = s.profile?.full_name || s.full_name || "Unnamed";
+        return `<tr>
+          <td><div class="student-line"><img class="avatar" src="${avatarData(name)}"><div><b>${esc(name)}</b><div class="muted small">${esc(s.gmail||s.profile?.email||s.email||"")}</div></div></div></td>
+          <td>${esc(phone)}</td>
+          <td>${esc(s.course||"")}</td>
+          <td>${esc(s.class_year||"")} · Sec ${esc(s.class_section||"A")}</td>
+          <td>
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+              <button class="secondary editStudent" data-id="${s.id}">Academic data</button>
+              ${att < 75 ? `
+                <button type="button" class="copilot-wa-btn slim" onclick="window.__sendCopilotWhatsApp(this, '${encodeURIComponent(phone)}')" data-name="${esc(name)}" data-att="${att}" title="Send LU Attendance Shortage Alert to Parent via WhatsApp">💬 WhatsApp Parent</button>
+              ` : ''}
+            </div>
+          </td>
+        </tr>`;
+      }).join("")||'<tr><td colspan="5" class="empty">No students match the current section filter.</td></tr>';
       document.querySelectorAll(".editStudent").forEach(b=>b.onclick=()=>academicEditor(b.dataset.id));
     };
     ["studentSearch","courseFilter","classFilter"].forEach(id=>document.getElementById(id).oninput=render); render();
@@ -2611,6 +2629,16 @@
             ${renderGitHubHeatmapSVG(portfolio.github?.username, portfolio.github?.contributions, 14)}
           </div>
         </div>
+
+        ${(values.attendance ?? 75) < 75 ? `
+          <div class="notice risk" style="margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+            <div>
+              <h4 style="margin:0">⚠️ LU 75% Attendance Debarment Alert (${values.attendance ?? 52}% recorded)</h4>
+              <p style="margin:2px 0 0;font-size:10px">Statutory parent notification is mandated under University of Lucknow Ordinances.</p>
+            </div>
+            <button type="button" class="copilot-wa-btn" onclick="window.__sendCopilotWhatsApp(this, '${encodeURIComponent(s?.profile?.phone || s?.phone || "")}')" data-name="${esc(s?.profile?.full_name || s?.full_name || "Student")}" data-att="${values.attendance ?? 52}">💬 Dispatch Parent Alert via WhatsApp</button>
+          </div>
+        ` : ''}
 
         <form id="academicForm">
           <div class="form-grid">
@@ -2834,6 +2862,27 @@
     }
   };
 
+  window.__sendCopilotWhatsApp = function(btn, defaultPhone = "") {
+    const card = btn.closest(".copilot-action-card") || btn.closest(".card") || document;
+    const noticeEl = card?.querySelector(".copilot-notice-box");
+    let text = noticeEl ? noticeEl.innerText.trim() : "";
+    const studentName = btn.dataset.name || "Student";
+    const att = btn.dataset.att || "52";
+    if (!text) {
+      text = `*OFFICIAL NOTICE: ATTENDANCE SHORTAGE*\nTechno Institute of Higher Studies (TIHS), Lucknow\nAffiliated to University of Lucknow\n\nDear Parent/Guardian,\nYour ward, *${studentName}*, currently records an aggregate attendance of *${att}%*, which is below the statutory 75.0% threshold mandated by Lucknow University Ordinances for Semester Exam eligibility.\n\nPlease ensure attendance recovery or submit medical/duty documentation to the Academic Cell immediately to avoid exam debarment.\n\nOffice of the Academic Coordinator, TIHS Lucknow`;
+    }
+    const cleanPhone = (defaultPhone || btn.dataset.phone || "").replace(/[^0-9]/g, "");
+    let waUrl = "";
+    if (cleanPhone) {
+      const formatted = cleanPhone.length === 10 ? "91" + cleanPhone : cleanPhone;
+      waUrl = `https://wa.me/${formatted}?text=${encodeURIComponent(text)}`;
+    } else {
+      waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+    }
+    window.open(waUrl, "_blank");
+    toast("Opening WhatsApp dispatch window…", "success");
+  };
+
   async function copilot(el, who){
     el.innerHTML = copilotWidget(who, "");
     bindCopilot(who);
@@ -3025,8 +3074,9 @@ Yours faithfully,
 Office of the Academic Dean & Class Coordinator
 Techno Institute of Higher Studies, Lucknow
 Phone: +91 522 277 8899 | Email: academic@tihs.edu.in</div>
-          <div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
             <button class="copilot-copy-btn" onclick="window.__copyCopilotNotice(this)">📋 Copy Official Notice to Clipboard</button>
+            <button class="copilot-wa-btn" onclick="window.__sendCopilotWhatsApp(this, '${encodeURIComponent(activeStudent.phone || "")}')" data-name="${esc(activeStudent.full_name)}" data-att="${att}">💬 Dispatch via WhatsApp</button>
           </div>
         </div>
       `;
