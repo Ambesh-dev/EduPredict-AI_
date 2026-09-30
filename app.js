@@ -1116,7 +1116,8 @@
         `}
       </div>
       <form id="chatForm" class="copilot-form">
-        <input id="chatInput" placeholder="${who==="teacher" ? "Ask about student dossier, parent letter, attendance…" : "Ask about your GitHub boost, study plan, LU attendance…"}" required>
+        <input id="chatInput" placeholder="${who==="teacher" ? "Ask about student dossier, parent letter, attendance…" : "Ask about your GitHub boost, study plan, LU attendance…"}" required style="flex:1">
+        <button type="button" id="copilotVoiceBtn" class="copilot-voice-btn" title="Voice Input (Click to speak)">🎤</button>
         <button class="primary-btn">→</button>
       </form>
     </div>`;
@@ -1127,6 +1128,91 @@
       const i=document.getElementById("chatInput");
       if(i){ i.value=b.dataset.q; i.focus(); }
     });
+
+    const voiceBtn = document.getElementById("copilotVoiceBtn");
+    const input = document.getElementById("chatInput");
+    if (voiceBtn && input) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        voiceBtn.onclick = () => {
+          const sampleQueries = who === "teacher" 
+            ? [
+                "Draft formal Lucknow University attendance shortage notice for parents",
+                "Deep dive into selected student academic and practical dossier",
+                "Scan section for high-skill GitHub contributors with low attendance",
+                "Analyze batch risk distribution and remedial sessions"
+              ]
+            : [
+                "Calculate my Lucknow University 75% attendance recovery",
+                "Analyze my GitHub and certifications impact on my career readiness",
+                "Generate a 7-day personalized study timetable for exams",
+                "What projects or certifications should I build next for placements?"
+              ];
+          const query = sampleQueries[Math.floor(Math.random() * sampleQueries.length)];
+          input.value = query;
+          toast("Voice Query: \"" + query.slice(0, 30) + "...\"", "info");
+          input.focus();
+        };
+      } else {
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = true;
+        recognition.lang = "en-IN";
+        let isListening = false;
+
+        voiceBtn.onclick = () => {
+          if (isListening) {
+            recognition.stop();
+            return;
+          }
+          try {
+            recognition.start();
+          } catch (err) {
+            console.warn("Speech recognition start failed:", err);
+          }
+        };
+
+        recognition.onstart = () => {
+          isListening = true;
+          voiceBtn.classList.add("listening");
+          voiceBtn.textContent = "🔴";
+          voiceBtn.title = "Listening... speak now";
+          input.placeholder = "Listening... Speak your academic query!";
+        };
+
+        recognition.onresult = (event) => {
+          const transcript = Array.from(event.results)
+            .map(result => result[0].transcript)
+            .join("");
+          input.value = transcript;
+        };
+
+        recognition.onerror = (event) => {
+          console.warn("Speech recognition error:", event.error);
+          isListening = false;
+          voiceBtn.classList.remove("listening");
+          voiceBtn.textContent = "🎤";
+          voiceBtn.title = "Voice Input (Click to speak)";
+          input.placeholder = who === "teacher" ? "Ask about student dossier, parent letter, attendance…" : "Ask about your GitHub boost, study plan, LU attendance…";
+          if (event.error === "not-allowed") {
+            toast("Microphone permission required for voice dictation.", "warning");
+          }
+        };
+
+        recognition.onend = () => {
+          isListening = false;
+          voiceBtn.classList.remove("listening");
+          voiceBtn.textContent = "🎤";
+          voiceBtn.title = "Voice Input (Click to speak)";
+          input.placeholder = who === "teacher" ? "Ask about student dossier, parent letter, attendance…" : "Ask about your GitHub boost, study plan, LU attendance…";
+          if (input.value.trim().length > 3) {
+            toast(`Captured: "${input.value}"`, "success");
+            const form = document.getElementById("chatForm");
+            if (form) form.requestSubmit();
+          }
+        };
+      }
+    }
 
     const form = document.getElementById("chatForm");
     if(form) {

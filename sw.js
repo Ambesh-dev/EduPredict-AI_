@@ -1,6 +1,6 @@
 // Cache version bumps every deploy so old cached files (like an outdated
 // config.js or style.css) never get stuck being served after you push an update.
-const CACHE = 'edupredict-v7-' + '2026-10-01-r1';
+const CACHE = 'edupredict-v8-' + '2026-10-01-r1';
 const ASSETS = ['./', './index.html', './style.css', './app.js', './config.js', './manifest.webmanifest', './icon.svg'];
 
 // Files that change on every deploy: always try the network first so an
